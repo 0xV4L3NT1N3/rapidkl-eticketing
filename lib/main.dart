@@ -1,20 +1,36 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MaterialApp(
+    home: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Stonks',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text("Stonks"),
       ),
-      home: Scaffold(),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                'images/i12fc.jpg',
+                height: 400.0,
+                width: 400.0,
+              )
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
