@@ -1,36 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'file:///C:/Users/timot/Documents/GitHub/rapidklmobileapp/lib/Services/User.dart';
+import 'package:rapidkl/Services/services.dart';
+import 'package:rapidkl/Services/wrapper.dart';
+import 'package:rapidkl/Pages/signin.dart';
+import 'package:rapidkl/Pages/register.dart';
 
-void main() {
-  runApp(MaterialApp(
-    home: MyApp(),
-  ));
+
+void main(){
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text("Stonks"),
-      ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
-                'images/i12fc.jpg',
-                height: 400.0,
-                width: 400.0,
-              )
-            ],
-          ),
-        ],
+    return StreamProvider<User>.value(
+      value: AuthService().user,
+      child: MaterialApp(
+        initialRoute: '/',
+        routes:  {
+          '/': (context) => Wrapper(),
+          '/signin': (context) => SignIn(),
+          '/register': (context) => Register(),
+        },
       ),
     );
   }
 }
+
+

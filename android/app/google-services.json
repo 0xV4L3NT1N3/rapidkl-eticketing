@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "937144420481",
+    "project_id": "rapidkl-app",
+    "storage_bucket": "rapidkl-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:937144420481:android:f7194b39bf79253ddf6580",
+        "android_client_info": {
+          "package_name": "com.example.rapidkl"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "937144420481-kluverujaa4rg3dmjj9knj07hjom3rb2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYaTdCRbpQCkvmXk9uv_D71t_ebxDxRTY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "937144420481-kluverujaa4rg3dmjj9knj07hjom3rb2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
