@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'file:///C:/Users/timot/Documents/GitHub/rapidklmobileapp/lib/Services/User.dart';
-import 'package:rapidkl/Services/userdetails.dart';
+import 'package:rapidkl/Services/User.dart';
 
 class DatabaseService {
 

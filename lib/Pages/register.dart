@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'file:///C:/Users/timot/Documents/GitHub/rapidklmobileapp/lib/Services/Loading.dart';
-import 'file:///C:/Users/timot/Documents/GitHub/rapidklmobileapp/lib/Services/textdecoration.dart';
+import 'package:rapidkl/Services/Loading.dart';
+import 'package:rapidkl/Services/textdecoration.dart';
 import 'package:rapidkl/Services/services.dart';
 
 class Register extends StatefulWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'file:///C:/Users/timot/Documents/GitHub/rapidklmobileapp/lib/Services/Loading.dart';
+import 'package:rapidkl/Services/Loading.dart';
 import 'package:rapidkl/Services/services.dart';
-import 'file:///C:/Users/timot/Documents/GitHub/rapidklmobileapp/lib/Services/textdecoration.dart';
+import 'package:rapidkl/Services/textdecoration.dart';
 
 
 class SignIn extends StatefulWidget {

@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'file:///C:/Users/timot/Documents/GitHub/rapidklmobileapp/lib/Services/User.dart';
+import 'package:rapidkl/Services/User.dart';
 import 'package:rapidkl/Services/database.dart';
 
 

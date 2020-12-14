@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'file:///C:/Users/timot/Documents/GitHub/rapidklmobileapp/lib/Services/User.dart';
 import 'package:rapidkl/Services/services.dart';
 import 'package:rapidkl/Services/wrapper.dart';
+import 'package:rapidkl/Services/User.dart';
 import 'package:rapidkl/Pages/signin.dart';
 import 'package:rapidkl/Pages/register.dart';
 

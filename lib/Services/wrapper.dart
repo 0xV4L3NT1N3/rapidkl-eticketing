@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rapidkl/Pages/Home.dart';
 import 'package:rapidkl/Services/Authenticate.dart';
 import 'package:provider/provider.dart';
-import 'file:///C:/Users/timot/Documents/GitHub/rapidklmobileapp/lib/Services/User.dart';
+import 'package:rapidkl/Services/User.dart';
 
 class  Wrapper extends StatelessWidget {
   @override
