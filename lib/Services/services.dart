@@ -51,7 +51,7 @@ class AuthService {
       FirebaseUser user = result.user;
 
 
-      await DatabaseService( uid: user.uid).UpdateUserData('Name', 01234567899, 0);
+      await DatabaseService( uid: user.uid).UpdateUserData('Name', '01234567899', 0);
       return _userfrFirebaseUser(user);
 
     }

@@ -8,7 +8,7 @@ class User {
 class UserData{
   final String uid;
   final String name;
-  final int phonenumber;
+  final String phonenumber;
   final int age;
 
   UserData({this.uid, this.name, this.age, this.phonenumber});
@@ -16,7 +16,7 @@ class UserData{
 
 class Details {
   final String name;
-  final int phonenumber;
+  final String phonenumber;
   final int age;
 
   Details({this.name,this.phonenumber,this.age});
