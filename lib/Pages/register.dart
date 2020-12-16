@@ -67,6 +67,10 @@ class _registerState extends State<Register> {
                         onPressed: (
                             ) async {
                           if (_formkey.currentState.validate()){
+                            setState(() {
+                              loading = true;
+                            }
+                            );
                             dynamic result = await _auth.signinemp(email, password);
                             if(result == null){
                               setState(() {
@@ -74,10 +78,6 @@ class _registerState extends State<Register> {
                               });
                             }
                             else {
-                              setState(() {
-                                loading = true;
-                              }
-                              );
                               Navigator.pop(context);
                             }
                           }

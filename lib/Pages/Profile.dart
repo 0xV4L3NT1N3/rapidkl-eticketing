@@ -1,9 +1,14 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:rapidkl/Services/User.dart';
 import 'package:rapidkl/Services/services.dart';
 import 'package:rapidkl/Services/database.dart';
 import 'package:provider/provider.dart';
-
+import 'package:rapidkl/Services/Loading.dart';
+import 'package:rapidkl/Services/textdecoration.dart';
+import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 
 class Profile extends StatefulWidget {
   @override
@@ -11,26 +16,96 @@ class Profile extends StatefulWidget {
 }
 
 class _NewsState extends State<Profile> {
-  @override
+  File _image;
 
+  //pick image from camera
+  _imgFromCamera() async {
+    File image = await ImagePicker.pickImage(
+        source: ImageSource.camera, imageQuality: 50);
+
+    setState(() {
+      _image = image;
+    });
+  }
+
+  //pick image from gallery
+  _imgFromGallery() async {
+    File image = await ImagePicker.pickImage(
+        source: ImageSource.gallery, imageQuality: 50);
+
+    setState(() {
+      _image = image;
+    });
+  }
+
+  //options for camera and gallery
+  void _showPicker(context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext bc) {
+          return Container(
+              height: 200.0,
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Column(children: [
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(30.0, 50.0, 50.0, 15.0),
+                          child: IconButton(
+                              icon: Icon(
+                                Icons.camera_alt,
+                                size: 60.0,
+                              ),
+                              tooltip: 'Take Picture',
+                              onPressed: () {
+                                _imgFromCamera();
+                              }),
+                        ),
+                        Text('Take Picture'),
+                      ]),
+                      Column(children: [
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(50.0, 50.0, 50.0, 15.0),
+                          child: IconButton(
+                              icon: Icon(
+                                Icons.photo,
+                                size: 60.0,
+                              ),
+                              onPressed: () {
+                                _imgFromGallery();
+                              }),
+                        ),
+                        Padding(
+                            padding: EdgeInsets.only(left: 25.0),
+                            child: Text('Pick Image from Gallery')),
+                      ]),
+                    ],
+                  ),
+                ],
+              ));
+        });
+  }
+
+  @override
   final AuthService _auth = AuthService();
   final _formkey = GlobalKey<FormState>();
 
-
   //variables for user details
+  String _errortext = '';
   String _currentname;
   int _phonenumber;
   int _age;
 
   Widget build(BuildContext context) {
-
     final user = Provider.of<User>(context);
 
     return Scaffold(
       appBar: AppBar(
         title: Text('Profile'),
       ),
-      body : Column(
+      body: Column(
         children: [
           Align(
             alignment: Alignment.topRight,
@@ -44,32 +119,343 @@ class _NewsState extends State<Profile> {
               ),
             ),
           ),
-          SizedBox(
-            height: 20.0,
+          GestureDetector(
+            onTap: () {
+              _showPicker(context);
+            },
+            child: CircleAvatar(
+                backgroundColor: Colors.grey,
+                radius: 80,
+                child: _image != null
+                    ? Image.file(
+                        _image,
+                      )
+                    : CircleAvatar(
+                        radius: 80,
+                        backgroundImage: AssetImage(
+                            'images/blank-profile-picture-973460_640.png'),
+                      )),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CircleAvatar(
-                radius: 90.0,
-                backgroundColor: Colors.grey[400],
-                foregroundColor: Colors.grey[400],
-              )
-            ],
-          ),
-          Text('Profile Picture',style: TextStyle(fontSize: 20.0),),
-          SizedBox(height : 50.0),
-          StreamBuilder <UserData>(
+          StreamBuilder<UserData>(
               stream: DatabaseService(uid: user.uid).userData,
-              builder: (context , snapshot) {
-                if (snapshot.hasData) {}
+              // ignore: missing_return
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  UserData userData = snapshot.data;
+                  return Column(
+                    children: [
+                      //Profile picture
 
-                else {}
-              }
-          ),
+                      //Preferences
+                      Column(
+                        children: [
+                          SingleChildScrollView(
+                            child: Column(children: [
+                              //name tile
+                              ListTile(
+                                leading: Icon(Icons.person),
+                                title: Text(
+                                  userData.name,
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                                subtitle: Text('Name'),
+                                trailing: IconButton(
+                                  icon: Icon(Icons.edit),
+                                  onPressed: () {
+                                    setState(() {
+                                      showModalBottomSheet<void>(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return Form(
+                                            key: _formkey,
+                                            child: Column(children: [
+                                              SizedBox(
+                                                height: 20.0,
+                                              ),
+                                              Text(
+                                                'Update Name',
+                                                style: TextStyle(
+                                                  fontSize: 20.0,
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: 20.0,
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsets.fromLTRB(
+                                                    20.0, 0, 20.0, 0.0),
+                                                child: TextFormField(
+                                                  initialValue: userData.name,
+                                                  decoration:
+                                                      textinput.copyWith(
+                                                    hintText: 'Name',
+                                                    hintStyle: TextStyle(
+                                                        color: Colors.black),
+                                                  ),
+                                                  validator: (val) => val
+                                                              .length ==
+                                                          0
+                                                      ? "Please enter a name"
+                                                      : null,
+                                                  onChanged: (val) {
+                                                    setState(() {
+                                                      _currentname = val;
+                                                    });
+                                                  },
+                                                ),
+                                              ),
+                                              Text(_errortext),
+                                              SizedBox(
+                                                height: 10.0,
+                                              ),
+                                              FlatButton(
+                                                  color: Colors.pinkAccent,
+                                                  child: Text('Update'),
+                                                  onPressed: () async {
+                                                    if (_formkey.currentState
+                                                        .validate()) {
+                                                      await DatabaseService(
+                                                              uid: user.uid)
+                                                          .UpdateUserData(
+                                                              _currentname ??
+                                                                  userData.name,
+                                                              _phonenumber ??
+                                                                  userData
+                                                                      .phonenumber,
+                                                              _age ??
+                                                                  userData.age);
+                                                      setState(() {
+                                                        Navigator.pop(context);
+                                                      });
+                                                    }
+                                                  }),
+                                            ]),
+                                          );
+                                        },
+                                      );
+                                    });
+                                  },
+                                ),
+                              ),
+                              Divider(
+                                indent: 70,
+                                height: 5,
+                              ),
 
+                              //Age Tile
+                              ListTile(
+                                leading: Icon(Icons.info_outline),
+                                title: Text(
+                                  '${userData.age}',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                                subtitle:
+                                    Text('What may your age be traveller?'),
+                                trailing: IconButton(
+                                  icon: Icon(Icons.edit),
+                                  onPressed: () {
+                                    setState(() {
+                                      showModalBottomSheet<void>(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return Form(
+                                            key: _formkey,
+                                            child: Column(children: [
+                                              SizedBox(
+                                                height: 20.0,
+                                              ),
+                                              Text(
+                                                'Update Age',
+                                                style: TextStyle(
+                                                  fontSize: 20.0,
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: 20.0,
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsets.fromLTRB(
+                                                    20.0, 0, 20.0, 0.0),
+                                                child: TextFormField(
+                                                  inputFormatters: [
+                                                    FilteringTextInputFormatter
+                                                        .digitsOnly
+                                                  ],
+                                                  keyboardType:
+                                                      TextInputType.number,
+                                                  initialValue:
+                                                      userData.age.toString(),
+                                                  decoration:
+                                                      textinput.copyWith(
+                                                    hintText: 'Age',
+                                                    hintStyle: TextStyle(
+                                                        color: Colors.black),
+                                                  ),
+                                                  validator: (val) => val
+                                                                  .length ==
+                                                              0 ||
+                                                          val.length > 3
+                                                      ? 'Please enter an age between  0 - 130'
+                                                      : null,
+                                                  onChanged: (val) {
+                                                    setState(() {
+                                                      _age = int.parse(val);
+                                                    });
+                                                  },
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: 10.0,
+                                              ),
+                                              FlatButton(
+                                                  color: Colors.pinkAccent,
+                                                  child: Text('Update'),
+                                                  onPressed: () async {
+                                                    if (_formkey.currentState
+                                                        .validate()) {
+                                                      await DatabaseService(
+                                                              uid: user.uid)
+                                                          .UpdateUserData(
+                                                              _currentname ??
+                                                                  userData.name,
+                                                              _phonenumber ??
+                                                                  userData
+                                                                      .phonenumber,
+                                                              _age ??
+                                                                  userData.age);
+                                                      setState(() {
+                                                        Navigator.pop(context);
+                                                      });
+                                                    }
+                                                  }),
+                                            ]),
+                                          );
+                                        },
+                                      );
+                                    });
+                                  },
+                                ),
+                              ),
+                              Divider(
+                                indent: 70,
+                                height: 5,
+                              ),
+
+                              //tile for phone number
+                              ListTile(
+                                leading: Icon(Icons.call),
+                                title: Text(
+                                  '${_phonenumber}',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                                subtitle: Text('Phone Number'),
+                                trailing: IconButton(
+                                    icon: Icon(Icons.edit),
+                                    onPressed: () {
+                                      setState(() {
+                                        showModalBottomSheet<void>(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return Form(
+                                              key: _formkey,
+                                              child: Column(children: [
+                                                SizedBox(
+                                                  height: 20.0,
+                                                ),
+                                                Text(
+                                                  'Update Phone Number',
+                                                  style: TextStyle(
+                                                    fontSize: 20.0,
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: 20.0,
+                                                ),
+                                                Padding(
+                                                  padding: EdgeInsets.fromLTRB(
+                                                      20.0, 0, 20.0, 0.0),
+                                                  child: TextFormField(
+                                                    inputFormatters: [
+                                                      FilteringTextInputFormatter
+                                                          .digitsOnly
+                                                    ],
+                                                    keyboardType:
+                                                        TextInputType.number,
+                                                    initialValue: userData
+                                                        .phonenumber
+                                                        .toString(),
+                                                    decoration:
+                                                        textinput.copyWith(
+                                                      hintText: 'Phone No.',
+                                                      hintStyle: TextStyle(
+                                                          color: Colors.black),
+                                                    ),
+                                                    validator: (val) => val
+                                                                    .length ==
+                                                                0 ||
+                                                            val.length > 10
+                                                        ? 'Please enter a valid phone number'
+                                                        : null,
+                                                    onChanged: (val) {
+                                                      setState(() {
+                                                        _phonenumber =
+                                                            int.parse(val);
+                                                      });
+                                                    },
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: 10.0,
+                                                ),
+                                                FlatButton(
+                                                    color: Colors.pinkAccent,
+                                                    child: Text('Update'),
+                                                    onPressed: () async {
+                                                      if (_formkey.currentState
+                                                          .validate()) {
+                                                        await DatabaseService(
+                                                                uid: user.uid)
+                                                            .UpdateUserData(
+                                                          _currentname ??
+                                                              userData.name,
+                                                          _age ?? userData.age,
+                                                          _age ??
+                                                              userData
+                                                                  .phonenumber,
+                                                        );
+                                                        setState(() {
+                                                          Navigator.pop(
+                                                              context);
+                                                        });
+                                                      }
+                                                    }),
+                                              ]),
+                                            );
+                                          },
+                                        );
+                                      });
+                                    }),
+                              ),
+                              Divider(
+                                indent: 70,
+                                height: 5,
+                              ),
+                              SizedBox(height: 20.0),
+                            ]),
+                          )
+                        ],
+                      ),
+                    ],
+                  );
+                } else {
+                  return Container(
+                    height: 0,
+                    width: 0,
+                  );
+                }
+              }),
         ],
-      )
+      ),
     );
   }
 }
