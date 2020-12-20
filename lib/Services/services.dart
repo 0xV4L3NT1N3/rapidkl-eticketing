@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:rapidkl/Services/User.dart';
 import 'package:rapidkl/Services/database.dart';
+import 'dart:io';
 
 
 class AuthService {
@@ -51,7 +52,7 @@ class AuthService {
       FirebaseUser user = result.user;
 
 
-      await DatabaseService( uid: user.uid).UpdateUserData('Name', '01234567899', 0);
+      await DatabaseService( uid: user.uid).UpdateUserData('Name', '01234567899', 0 , 'https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png');
       return _userfrFirebaseUser(user);
 
     }
