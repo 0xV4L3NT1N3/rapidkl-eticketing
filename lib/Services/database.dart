@@ -11,9 +11,14 @@ class DatabaseService {
   //collection reference
 
   final CollectionReference userCollection = Firestore.instance.collection('users');
+  final CollectionReference profileCollection = Firestore.instance.collection('profilepics');
 
-  Future UpdateUserData(String name, String phonenumber, int age, String profilepic) async {
-    return await userCollection.document(uid).setData({'name': name, 'phonenumber': phonenumber, 'age': age , 'profilepic' : profilepic});
+  Future UpdateUserData(String name, String phonenumber, int age) async {
+    return await userCollection.document(uid).setData({'name': name, 'phonenumber': phonenumber, 'age': age , });
+  }
+
+  Future UpdateProfilePic(String profilepic) async {
+    return await profileCollection.document(uid).setData({'profilepic' : profilepic});
   }
 
 
@@ -40,7 +45,6 @@ class DatabaseService {
       name: snapshot.data['name'],
       age: snapshot.data['age'],
       phonenumber: snapshot.data['phonenumber'],
-      profilepic : snapshot.data['profilepic'] ?? 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.business2community.com%2Fsocial-media%2Fimportance-profile-picture-career-01899604&psig=AOvVaw3LRqkJhA7EKlfayr5sKbLp&ust=1608544132732000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCNiT5P-j3O0CFQAAAAAdAAAAABAD',
     );
   }
 
@@ -51,4 +55,18 @@ class DatabaseService {
   Stream<UserData> get userData{
     return userCollection.document(uid).snapshots().map(_userdatafrSnapshot);
   }
+
+
+  //profile pic
+  UserProfilePic _userprofilepic(DocumentSnapshot snapshot) {
+    return UserProfilePic(
+      profilepic: snapshot.data['profilepic'],
+    );
+  }
+
+  Stream<UserProfilePic> get userProfilePic{
+    return profileCollection.document(uid).snapshots().map(_userprofilepic);
+  }
+
+
 }

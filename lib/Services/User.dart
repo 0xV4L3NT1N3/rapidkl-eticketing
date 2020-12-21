@@ -12,9 +12,8 @@ class UserData{
   final String name;
   final String phonenumber;
   final int age;
-  final String profilepic;
 
-  UserData({this.uid, this.name, this.age, this.phonenumber, this.profilepic});
+  UserData({this.uid, this.name, this.age, this.phonenumber});
 }
 
 class Details {
@@ -24,4 +23,10 @@ class Details {
 
   Details({this.name,this.phonenumber,this.age});
 
+}
+
+class UserProfilePic{
+  String profilepic;
+
+  UserProfilePic({this.profilepic});
 }
