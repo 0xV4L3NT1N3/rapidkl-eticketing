@@ -6,12 +6,7 @@ import 'package:rapidkl/Services/User.dart';
 import 'package:rapidkl/Pages/signin.dart';
 import 'package:rapidkl/Pages/register.dart';
 
-<<<<<<< Updated upstream
-
-void main(){
-=======
 void main() {
->>>>>>> Stashed changes
   runApp(MyApp());
 }
 
