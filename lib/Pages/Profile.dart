@@ -64,19 +64,6 @@ class _NewsState extends State<Profile> {
     });
   }
 
-  //newprof pic
-  _UserPic() {
-    return CircleAvatar(
-        backgroundColor: Colors.grey,
-        radius: 80,
-        child: ClipOval(
-            child: Image.network(
-          profilepic,
-          height: 1000,
-          width: 1000,
-          fit: BoxFit.fill,
-        )));
-  }
 
   @override
   final AuthService _auth = AuthService();
@@ -97,11 +84,18 @@ class _NewsState extends State<Profile> {
         height: 700,
         width: 1000,
         child: Scaffold(
-          appBar: AppBar(
-            title: Text('Profile'),
-          ),
           body: Column(
             children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 30.0),
+                child: Text(
+                  'Profile Page',
+                  style: TextStyle(
+                      fontSize: 40,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blueGrey[800]),
+                ),
+              ),
               Align(
                 alignment: Alignment.topRight,
                 child: Container(
@@ -124,8 +118,7 @@ class _NewsState extends State<Profile> {
                         children: [
                           //Profile picture
                           StreamBuilder<UserProfilePic>(
-                              stream:
-                                  DatabaseService(uid: user.uid).userProfilePic,
+                              stream: DatabaseService(uid: user.uid).userProfilePic,
                               // ignore: missing_return
                               builder: (context, snapshot) {
                                 if (snapshot.hasData) {

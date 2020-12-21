@@ -13,6 +13,7 @@ class DatabaseService {
   final CollectionReference userCollection = Firestore.instance.collection('users');
   final CollectionReference profileCollection = Firestore.instance.collection('profilepics');
 
+
   Future UpdateUserData(String name, String phonenumber, int age) async {
     return await userCollection.document(uid).setData({'name': name, 'phonenumber': phonenumber, 'age': age , });
   }
@@ -68,5 +69,29 @@ class DatabaseService {
     return profileCollection.document(uid).snapshots().map(_userprofilepic);
   }
 
+  //news
+
+
+
+}
+
+class UserNews {
+
+
+  final String docname;
+
+  UserNews({this.docname});
+
+  final CollectionReference newsCollection = Firestore.instance.collection('news');
+
+  NewsFunc _news(DocumentSnapshot snapshot) {
+    return NewsFunc(
+      news : snapshot.data['lmao'],
+    );
+  }
+
+  Stream<NewsFunc> get newsstuff{
+    return newsCollection.document(docname).snapshots().map(_news);
+  }
 
 }

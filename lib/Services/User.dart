@@ -30,3 +30,9 @@ class UserProfilePic{
 
   UserProfilePic({this.profilepic});
 }
+
+class NewsFunc{
+  var news;
+
+  NewsFunc({this.news});
+}
