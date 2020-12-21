@@ -1,14 +1,15 @@
+import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:rapidkl/Services/User.dart';
 import 'package:rapidkl/Services/services.dart';
 import 'package:rapidkl/Services/database.dart';
 import 'package:provider/provider.dart';
-import 'package:rapidkl/Services/Loading.dart';
 import 'package:rapidkl/Services/textdecoration.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -18,7 +19,32 @@ class Profile extends StatefulWidget {
 class _NewsState extends State<Profile> {
   File _image;
 
-  //pick image from camera
+  String imageurl;
+
+  int filename = 0;
+
+  String profilepic;
+
+  //Firebase storage instance
+  final _storage = FirebaseStorage.instance;
+
+  //Upload File
+  UploadFile() async {
+    var file = File(_image.path);
+    var snapshot = await _storage
+        .ref()
+        .child(filename.toString())
+        .putFile(file)
+        .onComplete;
+    var downloadurl = await snapshot.ref.getDownloadURL();
+
+    setState(() {
+      imageurl = downloadurl;
+      filename = filename + 1;
+    });
+  }
+
+//pick image from camera
   _imgFromCamera() async {
     File image = await ImagePicker.pickImage(
         source: ImageSource.camera, imageQuality: 50);
@@ -38,55 +64,18 @@ class _NewsState extends State<Profile> {
     });
   }
 
-  //options for camera and gallery
-  void _showPicker(context) {
-    showModalBottomSheet(
-        context: context,
-        builder: (BuildContext bc) {
-          return Container(
-              height: 200.0,
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Column(children: [
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(20.0, 50.0, 30.0, 15.0),
-                          child: IconButton(
-                              icon: Icon(
-                                  Icons.camera_alt,
-                                  size: 60.0,
-                                ),
-                              onPressed: () {
-                                _imgFromCamera();
-                              }),
-                        ),
-                        Padding(
-                            padding: EdgeInsets.only(left: 13.0),
-                            child: Text('Take Picture')),
-                      ]),
-                      Column(children: [
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(30.0, 50.0, 20.0, 15.0),
-                          child: IconButton(
-                              icon: Icon(
-                                Icons.photo,
-                                size: 60.0,
-                              ),
-                              onPressed: () {
-                                _imgFromGallery();
-                              }),
-                        ),
-                        Padding(
-                            padding: EdgeInsets.only(left: 40.0),
-                            child: Text('Pick Image from Gallery')),
-                      ]),
-                    ],
-                  ),
-                ],
-              ));
-        });
+  //newprof pic
+  _UserPic() {
+    return CircleAvatar(
+        backgroundColor: Colors.grey,
+        radius: 80,
+        child: ClipOval(
+            child: Image.network(
+          profilepic,
+          height: 1000,
+          width: 1000,
+          fit: BoxFit.fill,
+        )));
   }
 
   @override
@@ -98,6 +87,7 @@ class _NewsState extends State<Profile> {
   String _currentname;
   String _phonenumber;
   int _age;
+  Image myimage;
 
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
@@ -124,26 +114,6 @@ class _NewsState extends State<Profile> {
                   ),
                 ),
               ),
-              GestureDetector(
-                onTap: () {
-                  _showPicker(context);
-                },
-                child: CircleAvatar(
-                    backgroundColor: Colors.grey,
-                    radius: 80,
-                    child: _image != null
-                        ? ClipOval(
-                        child: Image.file(_image,
-                        width: 1000,
-                        height: 1000,
-                        fit: BoxFit.cover,),
-                    )
-                        : CircleAvatar(
-                            radius: 80,
-                            backgroundImage: AssetImage(
-                                'images/blank-profile-picture-973460_640.png'),
-                          )),
-              ),
               StreamBuilder<UserData>(
                   stream: DatabaseService(uid: user.uid).userData,
                   // ignore: missing_return
@@ -153,20 +123,161 @@ class _NewsState extends State<Profile> {
                       return Column(
                         children: [
                           //Profile picture
+                          StreamBuilder<UserProfilePic>(
+                              stream:
+                                  DatabaseService(uid: user.uid).userProfilePic,
+                              // ignore: missing_return
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData) {
+                                  UserProfilePic userprofilepic = snapshot.data;
+                                  return GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          showModalBottomSheet(
+                                              context: context,
+                                              builder: (BuildContext bc) {
+                                                return AnimatedContainer(
+                                                    duration:
+                                                        Duration(seconds: 10),
+                                                    height: 200.0,
+                                                    child: Column(
+                                                      children: [
+                                                        Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            Column(children: [
+                                                              Padding(
+                                                                padding: EdgeInsets
+                                                                    .fromLTRB(
+                                                                        20.0,
+                                                                        30.0,
+                                                                        30.0,
+                                                                        15.0),
+                                                                child:
+                                                                    IconButton(
+                                                                        icon:
+                                                                            Icon(
+                                                                          Icons
+                                                                              .camera_alt,
+                                                                          size:
+                                                                              60.0,
+                                                                        ),
+                                                                        onPressed:
+                                                                            () {
+                                                                          _imgFromCamera();
+                                                                        }),
+                                                              ),
+                                                              Padding(
+                                                                  padding: EdgeInsets
+                                                                      .only(
+                                                                          left:
+                                                                              13.0),
+                                                                  child: Text(
+                                                                      'Take Picture')),
+                                                            ]),
+                                                            Column(children: [
+                                                              Padding(
+                                                                padding: EdgeInsets
+                                                                    .fromLTRB(
+                                                                        30.0,
+                                                                        30.0,
+                                                                        20.0,
+                                                                        15.0),
+                                                                child:
+                                                                    IconButton(
+                                                                        icon:
+                                                                            Icon(
+                                                                          Icons
+                                                                              .photo,
+                                                                          size:
+                                                                              60.0,
+                                                                        ),
+                                                                        onPressed:
+                                                                            () {
+                                                                          _imgFromGallery();
+                                                                        }),
+                                                              ),
+                                                              Padding(
+                                                                  padding: EdgeInsets
+                                                                      .only(
+                                                                          left:
+                                                                              40.0),
+                                                                  child: Text(
+                                                                      'Pick Image from Gallery')),
+                                                            ]),
+                                                          ],
+                                                        ),
+                                                        SizedBox(
+                                                          height: 30.0,
+                                                        ),
+                                                        RaisedButton(
+                                                            child: Text(
+                                                                'Update Profile Picture'),
+                                                            onPressed:
+                                                                () async {
+                                                              UploadFile();
+                                                              await DatabaseService(
+                                                                      uid: user
+                                                                          .uid)
+                                                                  .UpdateProfilePic(
+                                                                      imageurl ??
+                                                                          userprofilepic
+                                                                              .profilepic);
+                                                            setState(() {
+                                                              imageCache.clear();
+                                                            });
+                                                            })
+                                                      ],
+                                                    ));
+                                              });
+                                        });
+                                      },
+                                      child: FutureBuilder(
+                                        future:  DatabaseService(
+                                            uid: user
+                                                .uid)
+                                            .UpdateProfilePic(
+                                            imageurl ??
+                                                userprofilepic
+                                                    .profilepic), 
+                                        builder: (context , snapshot){
+                                          return CircleAvatar(
+                                              backgroundColor: Colors.grey,
+                                              radius: 80,
+                                              child: ClipOval(
+                                                  child: Image.network(
+                                                    userprofilepic.profilepic,
+                                                    height: 1000,
+                                                    width: 1000,
+                                                    fit: BoxFit.fill,
+                                                  )
+                                              )
+                                          );
+                                        },
+                                      ),
+                                  );
+                                } else {
+                                  return Container(
+                                    width: 0.0,
+                                    height: 0.0,
+                                  );
+                                }
+                              }),
 
                           //Preferences
                           Column(
                             children: [
                               SingleChildScrollView(
                                 child: Column(children: [
-
-
                                   //name tile
                                   ListTile(
                                     leading: Icon(Icons.person),
                                     title: Text(
                                       userData.name,
-                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
                                     ),
                                     subtitle: Text('Name'),
                                     trailing: IconButton(
@@ -192,15 +303,18 @@ class _NewsState extends State<Profile> {
                                                     height: 20.0,
                                                   ),
                                                   Padding(
-                                                    padding: EdgeInsets.fromLTRB(
-                                                        20.0, 0, 20.0, 0.0),
+                                                    padding:
+                                                        EdgeInsets.fromLTRB(
+                                                            20.0, 0, 20.0, 0.0),
                                                     child: TextFormField(
-                                                      initialValue: userData.name,
+                                                      initialValue:
+                                                          userData.name,
                                                       decoration:
                                                           textinput.copyWith(
                                                         hintText: 'Name',
                                                         hintStyle: TextStyle(
-                                                            color: Colors.black),
+                                                            color:
+                                                                Colors.black),
                                                       ),
                                                       validator: (val) => val
                                                                   .length ==
@@ -221,20 +335,24 @@ class _NewsState extends State<Profile> {
                                                       color: Colors.pinkAccent,
                                                       child: Text('Update'),
                                                       onPressed: () async {
-                                                        if (_formkey.currentState
+                                                        if (_formkey
+                                                            .currentState
                                                             .validate()) {
                                                           await DatabaseService(
                                                                   uid: user.uid)
                                                               .UpdateUserData(
                                                                   _currentname ??
-                                                                      userData.name,
+                                                                      userData
+                                                                          .name,
                                                                   _phonenumber ??
                                                                       userData
                                                                           .phonenumber,
                                                                   _age ??
-                                                                      userData.age);
+                                                                      userData
+                                                                          .age);
                                                           setState(() {
-                                                            Navigator.pop(context);
+                                                            Navigator.pop(
+                                                                context);
                                                           });
                                                         }
                                                       }),
@@ -256,7 +374,8 @@ class _NewsState extends State<Profile> {
                                     leading: Icon(Icons.info_outline),
                                     title: Text(
                                       '${userData.age}',
-                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
                                     ),
                                     subtitle:
                                         Text('What may your age be traveller?'),
@@ -283,8 +402,9 @@ class _NewsState extends State<Profile> {
                                                     height: 20.0,
                                                   ),
                                                   Padding(
-                                                    padding: EdgeInsets.fromLTRB(
-                                                        20.0, 0, 20.0, 0.0),
+                                                    padding:
+                                                        EdgeInsets.fromLTRB(
+                                                            20.0, 0, 20.0, 0.0),
                                                     child: TextFormField(
                                                       inputFormatters: [
                                                         FilteringTextInputFormatter
@@ -292,13 +412,14 @@ class _NewsState extends State<Profile> {
                                                       ],
                                                       keyboardType:
                                                           TextInputType.number,
-                                                      initialValue:
-                                                          userData.age.toString(),
+                                                      initialValue: userData.age
+                                                          .toString(),
                                                       decoration:
                                                           textinput.copyWith(
                                                         hintText: 'Age',
                                                         hintStyle: TextStyle(
-                                                            color: Colors.black),
+                                                            color:
+                                                                Colors.black),
                                                       ),
                                                       validator: (val) => val
                                                                       .length ==
@@ -320,20 +441,24 @@ class _NewsState extends State<Profile> {
                                                       color: Colors.pinkAccent,
                                                       child: Text('Update'),
                                                       onPressed: () async {
-                                                        if (_formkey.currentState
+                                                        if (_formkey
+                                                            .currentState
                                                             .validate()) {
                                                           await DatabaseService(
                                                                   uid: user.uid)
                                                               .UpdateUserData(
                                                                   _currentname ??
-                                                                      userData.name,
+                                                                      userData
+                                                                          .name,
                                                                   _phonenumber ??
                                                                       userData
                                                                           .phonenumber,
                                                                   _age ??
-                                                                      userData.age);
+                                                                      userData
+                                                                          .age);
                                                           setState(() {
-                                                            Navigator.pop(context);
+                                                            Navigator.pop(
+                                                                context);
                                                           });
                                                         }
                                                       }),
@@ -353,8 +478,10 @@ class _NewsState extends State<Profile> {
                                   //tile for phone number
                                   ListTile(
                                     leading: Icon(Icons.call),
-                                    title: Text( userData.phonenumber,
-                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                    title: Text(
+                                      userData.phonenumber,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
                                     ),
                                     subtitle: Text('Phone Number'),
                                     trailing: IconButton(
@@ -380,15 +507,20 @@ class _NewsState extends State<Profile> {
                                                       height: 20.0,
                                                     ),
                                                     Padding(
-                                                      padding: EdgeInsets.fromLTRB(
-                                                          20.0, 0, 20.0, 0.0),
+                                                      padding:
+                                                          EdgeInsets.fromLTRB(
+                                                              20.0,
+                                                              0,
+                                                              20.0,
+                                                              0.0),
                                                       child: TextFormField(
                                                         inputFormatters: [
                                                           FilteringTextInputFormatter
                                                               .digitsOnly
                                                         ],
                                                         keyboardType:
-                                                            TextInputType.number,
+                                                            TextInputType
+                                                                .number,
                                                         initialValue: userData
                                                             .phonenumber
                                                             .toString(),
@@ -396,9 +528,12 @@ class _NewsState extends State<Profile> {
                                                             textinput.copyWith(
                                                           hintText: 'Phone No.',
                                                           hintStyle: TextStyle(
-                                                              color: Colors.black),
+                                                              color:
+                                                                  Colors.black),
                                                         ),
-                                                        validator: (val) => val.length > 11
+                                                        validator: (val) => val
+                                                                    .length >
+                                                                11
                                                             ? 'Please enter a valid phone number'
                                                             : null,
                                                         onChanged: (val) {
@@ -412,21 +547,26 @@ class _NewsState extends State<Profile> {
                                                       height: 10.0,
                                                     ),
                                                     FlatButton(
-                                                        color: Colors.pinkAccent,
+                                                        color:
+                                                            Colors.pinkAccent,
                                                         child: Text('Update'),
                                                         onPressed: () async {
-                                                          if (_formkey.currentState
+                                                          if (_formkey
+                                                              .currentState
                                                               .validate()) {
                                                             await DatabaseService(
-                                                                    uid: user.uid)
+                                                                    uid: user
+                                                                        .uid)
                                                                 .UpdateUserData(
-                                                              _currentname ??
-                                                                  userData.name,
-                                                              _phonenumber ?? userData.phonenumber,
-                                                              _age ??
-                                                                  userData
-                                                                      .age,
-                                                            );
+                                                                    _currentname ??
+                                                                        userData
+                                                                            .name,
+                                                                    _phonenumber ??
+                                                                        userData
+                                                                            .phonenumber,
+                                                                    _age ??
+                                                                        userData
+                                                                            .age);
                                                             setState(() {
                                                               Navigator.pop(
                                                                   context);

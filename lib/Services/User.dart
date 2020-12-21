@@ -1,3 +1,5 @@
+import 'dart:io';
+
 class User {
 
   User({this.uid});
@@ -21,4 +23,10 @@ class Details {
 
   Details({this.name,this.phonenumber,this.age});
 
+}
+
+class UserProfilePic{
+  String profilepic;
+
+  UserProfilePic({this.profilepic});
 }

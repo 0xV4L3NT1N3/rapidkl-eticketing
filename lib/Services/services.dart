@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:rapidkl/Services/User.dart';
 import 'package:rapidkl/Services/database.dart';
+import 'dart:io';
 
 
 class AuthService {
@@ -51,8 +52,11 @@ class AuthService {
       FirebaseUser user = result.user;
 
 
-      await DatabaseService( uid: user.uid).UpdateUserData('Name', '01234567899', 0);
+      await DatabaseService( uid: user.uid).UpdateUserData('Name', '01234567899', 0 , );
+      await DatabaseService( uid: user.uid).UpdateProfilePic('https://www.nailseatowncouncil.gov.uk/wp-content/uploads/blank-profile-picture-973460_1280.jpg');
       return _userfrFirebaseUser(user);
+
+
 
     }
     catch(e){

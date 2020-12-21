@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:rapidkl/Services/User.dart';
 
@@ -10,10 +11,17 @@ class DatabaseService {
   //collection reference
 
   final CollectionReference userCollection = Firestore.instance.collection('users');
+  final CollectionReference profileCollection = Firestore.instance.collection('profilepics');
 
-  Future UpdateUserData(String name, String phonenumber, int age, ) async {
-    return await userCollection.document(uid).setData({'name': name, 'phonenumber': phonenumber, 'age': age});
+  Future UpdateUserData(String name, String phonenumber, int age) async {
+    return await userCollection.document(uid).setData({'name': name, 'phonenumber': phonenumber, 'age': age , });
   }
+
+  Future UpdateProfilePic(String profilepic) async {
+    return await profileCollection.document(uid).setData({'profilepic' : profilepic});
+  }
+
+
 
 
 
@@ -25,6 +33,7 @@ class DatabaseService {
         name: doc.data['name'] ?? '',
         phonenumber: doc.data['phonenumber'] ?? '01234567899',
         age: doc.data['age'] ?? 0,
+
       );
     }).toList();
   }
@@ -46,4 +55,18 @@ class DatabaseService {
   Stream<UserData> get userData{
     return userCollection.document(uid).snapshots().map(_userdatafrSnapshot);
   }
+
+
+  //profile pic
+  UserProfilePic _userprofilepic(DocumentSnapshot snapshot) {
+    return UserProfilePic(
+      profilepic: snapshot.data['profilepic'],
+    );
+  }
+
+  Stream<UserProfilePic> get userProfilePic{
+    return profileCollection.document(uid).snapshots().map(_userprofilepic);
+  }
+
+
 }
