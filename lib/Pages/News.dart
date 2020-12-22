@@ -89,8 +89,10 @@ class _NewsState extends State<News> {
                           ],
                         ),
                         ),
+
                         );
-                      }));
+                      })
+              );
             }
             else{
               return Container(
@@ -101,7 +103,8 @@ class _NewsState extends State<News> {
             }
           },
         ),
-      ]),
+      ]
+      ),
     );
   }
 }

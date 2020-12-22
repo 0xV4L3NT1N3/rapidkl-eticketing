@@ -133,96 +133,82 @@ class _NewsState extends State<Profile> {
                                                     duration:
                                                         Duration(seconds: 10),
                                                     height: 200.0,
-                                                    child: Column(
-                                                      children: [
-                                                        Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            Column(children: [
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .fromLTRB(
-                                                                        20.0,
-                                                                        30.0,
-                                                                        30.0,
-                                                                        15.0),
-                                                                child:
-                                                                    IconButton(
-                                                                        icon:
-                                                                            Icon(
-                                                                          Icons
-                                                                              .camera_alt,
-                                                                          size:
-                                                                              60.0,
-                                                                        ),
-                                                                        onPressed:
-                                                                            () {
-                                                                          _imgFromCamera();
-                                                                        }),
-                                                              ),
-                                                              Padding(
-                                                                  padding: EdgeInsets
-                                                                      .only(
-                                                                          left:
-                                                                              13.0),
-                                                                  child: Text(
-                                                                      'Take Picture')),
-                                                            ]),
-                                                            Column(children: [
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .fromLTRB(
-                                                                        30.0,
-                                                                        30.0,
-                                                                        20.0,
-                                                                        15.0),
-                                                                child:
-                                                                    IconButton(
-                                                                        icon:
-                                                                            Icon(
-                                                                          Icons
-                                                                              .photo,
-                                                                          size:
-                                                                              60.0,
-                                                                        ),
-                                                                        onPressed:
-                                                                            () {
-                                                                          _imgFromGallery();
-                                                                        }),
-                                                              ),
-                                                              Padding(
-                                                                  padding: EdgeInsets
-                                                                      .only(
-                                                                          left:
-                                                                              40.0),
-                                                                  child: Text(
-                                                                      'Pick Image from Gallery')),
-                                                            ]),
-                                                          ],
-                                                        ),
-                                                        SizedBox(
-                                                          height: 30.0,
-                                                        ),
-                                                        RaisedButton(
-                                                            child: Text(
-                                                                'Update Profile Picture'),
-                                                            onPressed:
-                                                                () async {
-                                                              UploadFile();
-                                                              await DatabaseService(
-                                                                      uid: user
-                                                                          .uid)
-                                                                  .UpdateProfilePic(
-                                                                      imageurl ??
-                                                                          userprofilepic
-                                                                              .profilepic);
-                                                            setState(() {
-                                                              imageCache.clear();
-                                                            });
-                                                            })
-                                                      ],
+                                                    child: Padding(
+                                                      padding: EdgeInsets.only(top: 20.0),
+                                                      child: Column(
+                                                        children: [
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Column(children: [
+                                                                IconButton(
+                                                                    icon:
+                                                                    Icon(
+                                                                      Icons
+                                                                          .camera_alt,
+                                                                      size:
+                                                                      60.0,
+
+                                                                    ),
+                                                                    splashRadius: 400.0,
+                                                                    onPressed:
+                                                                        () {
+                                                                      _imgFromCamera();
+                                                                    }),
+                                                                Padding(
+                                                                    padding: EdgeInsets
+                                                                        .only(
+                                                                            left: 23.0, top: 20.0),
+                                                                    child: Text(
+                                                                        'Take Picture')),
+                                                              ]),
+                                                              Column(children: [
+                                                                IconButton(
+                                                                    icon:
+                                                                    Icon(
+                                                                      Icons
+                                                                          .photo,
+                                                                      size:
+                                                                      60.0,
+                                                                    ),
+                                                                    splashRadius: 400.0,
+                                                                    onPressed:
+                                                                        () {
+                                                                      _imgFromGallery();
+                                                                    }),
+                                                                Padding(
+                                                                    padding: EdgeInsets
+                                                                        .only(left: 40.0 , top: 20.0),
+                                                                    child: Text(
+                                                                        'Pick Image from Gallery')),
+                                                              ]),
+                                                            ],
+                                                          ),
+                                                          SizedBox(
+                                                            height: 30.0,
+                                                          ),
+                                                          RaisedButton(
+                                                              child: Text(
+                                                                  'Update Profile Picture'),
+                                                              onPressed:
+                                                                  () async {
+                                                                Navigator.pop(context);
+                                                                UploadFile();
+                                                                await DatabaseService(
+                                                                        uid: user
+                                                                            .uid)
+                                                                    .UpdateProfilePic(
+                                                                        imageurl ??
+                                                                            userprofilepic
+                                                                                .profilepic);
+                                                              setState(() {
+                                                                imageCache.clear();
+                                                              });
+                                                              })
+                                                        ],
+                                                      ),
                                                     ));
                                               });
                                         });
@@ -242,8 +228,8 @@ class _NewsState extends State<Profile> {
                                               child: ClipOval(
                                                   child: Image.network(
                                                     userprofilepic.profilepic,
-                                                    height: 1000,
-                                                    width: 1000,
+                                                    height: 2000,
+                                                    width: 2500,
                                                     fit: BoxFit.fill,
                                                   )
                                               )
@@ -331,6 +317,7 @@ class _NewsState extends State<Profile> {
                                                         if (_formkey
                                                             .currentState
                                                             .validate()) {
+                                                          Navigator.pop(context);
                                                           await DatabaseService(
                                                                   uid: user.uid)
                                                               .UpdateUserData(
@@ -437,6 +424,7 @@ class _NewsState extends State<Profile> {
                                                         if (_formkey
                                                             .currentState
                                                             .validate()) {
+                                                          Navigator.pop(context);
                                                           await DatabaseService(
                                                                   uid: user.uid)
                                                               .UpdateUserData(
@@ -547,6 +535,7 @@ class _NewsState extends State<Profile> {
                                                           if (_formkey
                                                               .currentState
                                                               .validate()) {
+                                                            Navigator.pop(context);
                                                             await DatabaseService(
                                                                     uid: user
                                                                         .uid)
