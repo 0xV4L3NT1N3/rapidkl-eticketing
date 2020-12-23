@@ -74,6 +74,7 @@ class _registerState extends State<Register> {
                             dynamic result = await _auth.signinemp(email, password);
                             if(result == null){
                               setState(() {
+                                loading = false;
                                 error = 'The email or password is invalid';
                               });
                             }
