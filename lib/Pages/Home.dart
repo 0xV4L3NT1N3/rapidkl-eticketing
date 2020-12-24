@@ -3,6 +3,7 @@ import 'package:rapidkl/Pages/News.dart';
 import 'package:rapidkl/Pages/Profile.dart';
 import 'package:rapidkl/Pages/Confirmation Page.dart';
 import 'package:rapidkl/Services/Price counter.dart';
+import 'package:rapidkl/Pages/Tickets.dart';
 
 class MyApp extends StatefulWidget {
   @override
@@ -27,9 +28,12 @@ class _MyAppState extends State<MyApp> {
           items: [
             BottomNavigationBarItem(icon: Icon(Icons.house), label: 'Home'),
             BottomNavigationBarItem(
+                icon: Icon(Icons.toll), label: 'Tickets'),
+            BottomNavigationBarItem(
                 icon: Icon(Icons.article_outlined), label: 'News'),
             BottomNavigationBarItem(
                 icon: Icon(Icons.person_rounded), label: 'Profile'),
+
           ]),
       body: PageView(
         controller: _pageController,
@@ -40,8 +44,10 @@ class _MyAppState extends State<MyApp> {
         },
         children: [
           Home(),
+          Tickets(),
           News(),
           Profile(),
+
         ],
       ),
     );
@@ -65,8 +71,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[50],
-      body: SingleChildScrollView(
-        child: Column(
+      body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Page title
@@ -114,7 +119,6 @@ class _HomeState extends State<Home> {
                           Divider(),
                           TextField(
                             controller: _controller1,
-                            autofocus: true,
                             decoration: InputDecoration(
                               prefixIcon: Icon(
                                 Icons.location_on_rounded,
@@ -174,46 +178,49 @@ class _HomeState extends State<Home> {
             ),
 
             // Confirmation button
-            Center(
-              child: ButtonTheme(
-                height: 50,
-                minWidth: 250.0,
-                child: RaisedButton(
-                  elevation: 20,
-                  color: Colors.blueGrey[800],
-                  child: Text(
-                    'Confirm Booking ',
-                    style: TextStyle(color: Colors.white, fontSize: 16),
-                  ),
-                  onPressed: () {
-                    if (location != null &&
-                        destination != null &&
-                        location != '' &&
-                        destination != '') {
-                      setState(() {
-                        errortext = '';
-                        price = PriceChecker().PriceConfirm(destination);
-                        _controller.clear();
-                        _controller1.clear();
-                        Navigator.of(context)
-                            .push(MaterialPageRoute(
-                                builder: (context) => Confirmation(
-                                    location: location,
-                                    destination: destination,
-                                    price: price)))
-                            .whenComplete(() {
-                          setState(() {
-                            location = null;
-                            destination = null;
+            Expanded(
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: ButtonTheme(
+                  height: 50,
+                  minWidth: 250.0,
+                  child: RaisedButton(
+                    elevation: 20,
+                    color: Colors.blueGrey[800],
+                    child: Text(
+                      'Confirm Booking ',
+                      style: TextStyle(color: Colors.white, fontSize: 16),
+                    ),
+                    onPressed: () {
+                      if (location != null &&
+                          destination != null &&
+                          location != '' &&
+                          destination != '') {
+                        setState(() {
+                          errortext = '';
+                          price = PriceChecker().PriceConfirm(destination);
+                          _controller.clear();
+                          _controller1.clear();
+                          Navigator.of(context)
+                              .push(MaterialPageRoute(
+                                  builder: (context) => Confirmation(
+                                      location: location,
+                                      destination: destination,
+                                      price: price)))
+                              .whenComplete(() {
+                            setState(() {
+                              location = null;
+                              destination = null;
+                            });
                           });
                         });
-                      });
-                    } else {
-                      setState(() {
-                        errortext = 'Please Select a Location and Destination';
-                      });
-                    }
-                  },
+                      } else {
+                        setState(() {
+                          errortext = 'Please Select a Location and Destination';
+                        });
+                      }
+                    },
+                  ),
                 ),
               ),
             ),
@@ -229,7 +236,6 @@ class _HomeState extends State<Home> {
             ),
           ],
         ),
-      ),
     );
   }
 }

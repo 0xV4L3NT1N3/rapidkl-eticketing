@@ -12,7 +12,9 @@ class _PaymentState extends State<Payment> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
+      body: Container(
+        height: double.maxFinite,
+        width: double.maxFinite,
         child: Column(
           children: [
             Align(
@@ -35,48 +37,54 @@ class _PaymentState extends State<Payment> {
             ),
             SizedBox(height: 20.0,),
             Text('You Will Be Redirected To Your Payment Option ', style: TextStyle(fontSize: 14.0),),
-            SizedBox(height: 400.0,),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Row(
-                children: [
-                     Padding(
-                      padding: EdgeInsets.only(top: 50.0, left: 25.0),
-                      child: SizedBox(
-                        width: 120.0,
-                        height: 40.0,
-                        child: RaisedButton(
-                          child: Row(
-                            children: [
-                              Text('Pay NOW'),
-                              Icon(Icons.check_circle_outline),
-                            ],
+            AspectRatio(
+              aspectRatio: 2/2.5,
+              child: Container(
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                          SizedBox(
+                            width: 120.0,
+                            height: 40.0,
+                            child: ButtonTheme(
+                              child: RaisedButton(
+                                child: Row(
+                                  children: [
+                                    Text('Pay NOW'),
+                                    Icon(Icons.check_circle_outline),
+                                  ],
+                                ),
+                                onPressed: (){
+                                  Navigator.popAndPushNamed(context, '/qrticket');
+                                },
+                              ),
+                            ),
                           ),
-                          onPressed: (){
-                            Navigator.popAndPushNamed(context, '/qrticket');
-                          },
+                      Padding(
+                        padding: EdgeInsets.only( left: 70.0),
+                        child: SizedBox(
+                          width: 120.0,
+                          height: 40.0,
+                          child: ButtonTheme(
+                            child: RaisedButton(
+                              child: Row(
+                                children: [
+                                  Text('Cancel'),
+                                  Icon(Icons.cancel_outlined),
+                                ],
+                              ),
+                              onPressed: (){
+                                Navigator.pop(context);
+                              },
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 50.0 , left: 70.0),
-                    child: SizedBox(
-                      width: 120.0,
-                      height: 40.0,
-                      child: RaisedButton(
-                        child: Row(
-                          children: [
-                            Text('Cancel'),
-                            Icon(Icons.cancel_outlined),
-                          ],
-                        ),
-                        onPressed: (){
-                          Navigator.pop(context);
-                        },
-                      ),
-                    ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ),
           ],

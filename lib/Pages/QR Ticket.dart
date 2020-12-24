@@ -32,25 +32,27 @@ class _QRTicketState extends State<QRTicket> {
           SizedBox(height: 100.0,),
           Text('QRTICKET GOES HERE', style: TextStyle(fontSize: 20.0),),
           SizedBox(height: 300.0,),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: EdgeInsets.only(top: 50.0),
+          AspectRatio(
+            aspectRatio: 3/1,
+            child: Align(
+              alignment: Alignment.bottomCenter,
               child: SizedBox(
                 width: 170.0,
                 height: 40.0,
-                child: RaisedButton(
-                  child: Row(
-                    children: [
-                      Text('Return To Home'),
-                      Icon(Icons.home_outlined),
-                    ],
+                child: ButtonTheme(
+                  child: RaisedButton(
+                    child: Row(
+                      children: [
+                        Text('Return To Home'),
+                        Icon(Icons.home_outlined),
+                      ],
+                    ),
+                    onPressed: (){
+                      Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(builder: (c) => MyApp()),
+                              (route) => false);
+                    },
                   ),
-                  onPressed: (){
-                    Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(builder: (c) => MyApp()),
-                            (route) => false);
-                  },
                 ),
               ),
             ),

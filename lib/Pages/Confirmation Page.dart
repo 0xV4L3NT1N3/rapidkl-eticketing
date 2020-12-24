@@ -46,7 +46,7 @@ class _ConfirmationState extends State<Confirmation> {
                 ),
                 SizedBox(height: 30.0,),
                 SizedBox(
-                  height: 400.0,
+                  height: 300.0,
                   width: 300.0,
                   child: Card(
                     elevation: 5.0,
@@ -114,20 +114,22 @@ class _ConfirmationState extends State<Confirmation> {
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Padding(
-                    padding: EdgeInsets.only(top: 50.0),
+                    padding: EdgeInsets.only(top: 30.0),
                     child: SizedBox(
                       width: 190.0,
                       height: 40.0,
-                      child: RaisedButton(
-                        child: Row(
-                          children: [
-                            Text('Proceed To Checkout'),
-                            Icon(Icons.monetization_on_rounded),
-                          ],
+                      child: ButtonTheme(
+                        child: RaisedButton(
+                          child: Row(
+                            children: [
+                              Text('Proceed To Checkout'),
+                              Icon(Icons.monetization_on_rounded),
+                            ],
+                          ),
+                          onPressed: (){
+                            Navigator.pushNamed(context, '/payment');
+                          },
                         ),
-                        onPressed: (){
-                          Navigator.pushNamed(context, '/payment');
-                        },
                       ),
                     ),
                   ),

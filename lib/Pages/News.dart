@@ -31,13 +31,13 @@ class _NewsState extends State<News> {
             child: Text(
               'News',
               style: TextStyle(
-                  fontSize: 40,
+                  fontSize: 26,
                   fontWeight: FontWeight.bold,
                   color: Colors.blueGrey[800]),
             ),
           ),
         ),
-        SizedBox(height: 20.0),
+        SizedBox(height: 10.0),
         StreamBuilder<NewsFunc>(
           stream:  UserNews(docname: 'newstuff').newsstuff,
           // ignore: missing_return
@@ -50,8 +50,8 @@ class _NewsState extends State<News> {
                       itemCount: arr.length,
                       itemBuilder: (context, index) {
                         return Container(
-                          height: 300.0,
-                          width: 200.0,
+                          height: 500.0,
+                          width: 20.0,
                           child: Card(
                             margin: EdgeInsets.only(
                                 top: 5, left: 10, right: 10, bottom: 5),
@@ -75,15 +75,23 @@ class _NewsState extends State<News> {
                           ),
                           Container(
                             height: 3.0,
-                            width: 1000.0,
+                            width: double.maxFinite,
                             color: Colors.grey[500],
+                          ),
+                          Container(
+                            height: 300.0,
+                            width: 1000,
+                            child: Image.asset(
+                              'images/i12fc.jpg',
+                            ),
                           ),
 
                           Expanded(
                             child: Container(
                               height: 2.0,
-                              width: 1000.0,
+                              width: double.maxFinite,
                               color: Colors.blueAccent,
+                              child: Text('Caption Goes Here'),
                             ),
                           )
                           ],
