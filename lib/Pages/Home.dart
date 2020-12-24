@@ -4,47 +4,36 @@ import 'package:rapidkl/Pages/Profile.dart';
 import 'package:rapidkl/Pages/Confirmation Page.dart';
 import 'package:rapidkl/Services/Price counter.dart';
 
-
-
 class MyApp extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-
   @override
-
   int currentIndex = 0;
   PageController _pageController = PageController();
-
-
 
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
-          selectedItemColor: Colors.red,
-          unselectedItemColor: Colors.blue,
+          selectedItemColor: Colors.red[600],
+          unselectedItemColor: Colors.blueGrey[800],
           currentIndex: currentIndex,
           onTap: (value) {
             currentIndex = value;
             _pageController.jumpToPage(value);
           },
           items: [
+            BottomNavigationBarItem(icon: Icon(Icons.house), label: 'Home'),
             BottomNavigationBarItem(
-                icon:Icon(Icons.house),
-                label : 'Home'),
+                icon: Icon(Icons.article_outlined), label: 'News'),
             BottomNavigationBarItem(
-                icon:Icon(Icons.article_outlined),
-                label : 'News'),
-            BottomNavigationBarItem(
-                icon:Icon(Icons.person_rounded),
-                label : 'Profile'),
+                icon: Icon(Icons.person_rounded), label: 'Profile'),
           ]),
-
       body: PageView(
         controller: _pageController,
-        onPageChanged: (value){
+        onPageChanged: (value) {
           setState(() {
             currentIndex = value;
           });
@@ -65,15 +54,12 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
   String location;
   String destination;
-  String errortext ='';
+  String errortext = '';
   double price;
   var _controller = TextEditingController();
   var _controller1 = TextEditingController();
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +71,7 @@ class _HomeState extends State<Home> {
           children: [
             // Page title
             Padding(
-              padding: const EdgeInsets.only(top: 30.0, left: 15.0),
+              padding: const EdgeInsets.only(top: 50.0, left: 15.0),
               child: Text(
                 'Book a Ticket',
                 style: TextStyle(
@@ -94,7 +80,8 @@ class _HomeState extends State<Home> {
                     color: Colors.blueGrey[800]),
               ),
             ),
-            // Location/destination card
+
+            // Location & destination card
             SizedBox(
               height: 20,
             ),
@@ -109,15 +96,18 @@ class _HomeState extends State<Home> {
                           TextField(
                             controller: _controller,
                             decoration: InputDecoration(
-                                prefixIcon: Icon(Icons.assistant_photo),
-                                border: InputBorder.none,
-                                hintText: 'Your location',
-                                suffixIcon: IconButton(
+                              prefixIcon: Icon(
+                                Icons.assistant_photo,
+                                color: Colors.lightBlue[700],
+                              ),
+                              border: InputBorder.none,
+                              hintText: 'Your location',
+                              suffixIcon: IconButton(
                                 onPressed: () => _controller.clear(),
                                 icon: Icon(Icons.clear),
                               ),
                             ),
-                            onChanged: (text){
+                            onChanged: (text) {
                               location = text;
                             },
                           ),
@@ -126,16 +116,18 @@ class _HomeState extends State<Home> {
                             controller: _controller1,
                             autofocus: true,
                             decoration: InputDecoration(
-                                prefixIcon: Icon(Icons.location_on_rounded),
-                                border: InputBorder.none,
-                                hintText: 'Destination station',
-                                suffixIcon: IconButton(
+                              prefixIcon: Icon(
+                                Icons.location_on_rounded,
+                                color: Colors.red,
+                              ),
+                              border: InputBorder.none,
+                              hintText: 'Destination station',
+                              suffixIcon: IconButton(
                                 onPressed: () => _controller1.clear(),
                                 icon: Icon(Icons.clear),
                               ),
                             ),
-
-                            onChanged: (text){
+                            onChanged: (text) {
                               destination = text;
                             },
                           ),
@@ -146,55 +138,98 @@ class _HomeState extends State<Home> {
                 ),
               ),
             ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                  padding: EdgeInsets.only(top: 410.0),
-                  child: SizedBox(
-                    width: 107.0,
-                    height: 40.0,
-                      child: RaisedButton(
-                        child: Row(
-                          children: [
-                            Text('Confirm'),
-                            Icon(Icons.add_shopping_cart),
-                          ],
-                        ),
-                        onPressed: (){
-                          if( location != null && destination != null && location != '' && destination != '' ){
-                            setState(() {
-                              errortext = '';
-                              price = PriceChecker().PriceConfirm(destination);
-                              _controller.clear();
-                              _controller1.clear();
-                              Navigator.of(context).push(MaterialPageRoute(builder: (context) => Confirmation( location : location , destination: destination , price : price))).whenComplete(() {
-                                setState(() {
-                                  location = null;
-                                  destination = null;
-                                });
-                              });
-                            });
-                          }
-                          else{
-                            setState(() {
-                              errortext = 'Please Select a Location and Destination';
-                            });
-                          }
-                        },
-                      ),
-                  ),
-                  ),
+
+            // Favourites text
+            Padding(
+              padding: const EdgeInsets.only(top: 20.0, left: 15.0),
+              child: Text(
+                'Favourites',
+                style: TextStyle(
+                    fontSize: 26,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.blueGrey[800]),
+              ),
             ),
-            SizedBox(height: 10.0,),
+
+            Container(
+              height: 60,
+              width: 180,
+              child: Card(
+                child: ListTile(
+                  leading: Icon(
+                    Icons.home,
+                    color: Colors.blueGrey[800],
+                  ),
+                  title: Text('Home'),
+                  subtitle: Padding(
+                    padding: const EdgeInsets.only(bottom: 13.0),
+                    child: Text('MRT Surian'),
+                  ),
+                ),
+              ),
+            ),
+
+            SizedBox(
+              height: 50,
+            ),
+
+            // Confirmation button
+            Center(
+              child: ButtonTheme(
+                height: 50,
+                minWidth: 250.0,
+                child: RaisedButton(
+                  elevation: 20,
+                  color: Colors.blueGrey[800],
+                  child: Text(
+                    'Confirm Booking ',
+                    style: TextStyle(color: Colors.white, fontSize: 16),
+                  ),
+                  onPressed: () {
+                    if (location != null &&
+                        destination != null &&
+                        location != '' &&
+                        destination != '') {
+                      setState(() {
+                        errortext = '';
+                        price = PriceChecker().PriceConfirm(destination);
+                        _controller.clear();
+                        _controller1.clear();
+                        Navigator.of(context)
+                            .push(MaterialPageRoute(
+                                builder: (context) => Confirmation(
+                                    location: location,
+                                    destination: destination,
+                                    price: price)))
+                            .whenComplete(() {
+                          setState(() {
+                            location = null;
+                            destination = null;
+                          });
+                        });
+                      });
+                    } else {
+                      setState(() {
+                        errortext = 'Please Select a Location and Destination';
+                      });
+                    }
+                  },
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 10.0,
+            ),
             Align(
               alignment: Alignment.bottomCenter,
-              child: Text( errortext, style: TextStyle(fontSize: 11, color: Colors.red),),
-            )
+              child: Text(
+                errortext,
+                style: TextStyle(fontSize: 11, color: Colors.red),
+              ),
+            ),
           ],
         ),
       ),
     );
   }
 }
-
-

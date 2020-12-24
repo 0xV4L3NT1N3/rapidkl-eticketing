@@ -10,8 +10,7 @@ import 'package:rapidkl/Pages/Confirmation Page.dart';
 import 'package:rapidkl/Pages/Payment Page.dart';
 import 'package:rapidkl/Pages/QR Ticket.dart';
 
-
-void main(){
+void main() {
   runApp(MyApp());
 }
 
@@ -23,18 +22,18 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         initialRoute: '/',
-        routes:  {
+        theme: ThemeData(
+            primarySwatch: Colors.blueGrey, primaryColor: Colors.blueGrey[800]),
+        routes: {
           '/': (context) => Wrapper(),
           '/home': (context) => Home(),
           '/signin': (context) => SignIn(),
           '/register': (context) => Register(),
           '/confirmation': (context) => Confirmation(),
           '/payment': (context) => Payment(),
-          '/qrticket' : (context) => QRTicket(),
+          '/qrticket': (context) => QRTicket(),
         },
       ),
     );
   }
 }
-
-

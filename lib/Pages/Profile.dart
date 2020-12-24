@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:rapidkl/Services/User.dart';
@@ -64,7 +63,6 @@ class _NewsState extends State<Profile> {
     });
   }
 
-
   @override
   final AuthService _auth = AuthService();
   final _formkey = GlobalKey<FormState>();
@@ -85,29 +83,36 @@ class _NewsState extends State<Profile> {
         width: 1000,
         child: Scaffold(
           body: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 30.0),
-                child: Text(
-                  'Profile Page',
-                  style: TextStyle(
-                      fontSize: 40,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.blueGrey[800]),
-                ),
-              ),
-              Align(
-                alignment: Alignment.topRight,
-                child: Container(
-                  child: FlatButton(
-                    color: Colors.white,
-                    child: Text('Sign Out'),
-                    onPressed: () async {
-                      await _auth.signOut();
-                    },
+              // Title text
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 40.0, left: 15.0),
+                    child: Text(
+                      'Profile',
+                      style: TextStyle(
+                          fontSize: 26,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blueGrey[800]),
+                    ),
                   ),
-                ),
+
+                  // Sign out icon
+                  Padding(
+                    padding: const EdgeInsets.only(top: 40.0, left: 200.0),
+                    child: Container(
+                        child: IconButton(
+                      icon: Icon(Icons.login, color: Colors.blueGrey[800]),
+                      onPressed: () async {
+                        await _auth.signOut();
+                      },
+                    )),
+                  ),
+                ],
               ),
+
               StreamBuilder<UserData>(
                   stream: DatabaseService(uid: user.uid).userData,
                   // ignore: missing_return
@@ -118,124 +123,126 @@ class _NewsState extends State<Profile> {
                         children: [
                           //Profile picture
                           StreamBuilder<UserProfilePic>(
-                              stream: DatabaseService(uid: user.uid).userProfilePic,
+                              stream:
+                                  DatabaseService(uid: user.uid).userProfilePic,
                               // ignore: missing_return
                               builder: (context, snapshot) {
                                 if (snapshot.hasData) {
                                   UserProfilePic userprofilepic = snapshot.data;
                                   return GestureDetector(
-                                      onTap: () {
-                                        setState(() {
-                                          showModalBottomSheet(
-                                              context: context,
-                                              builder: (BuildContext bc) {
-                                                return AnimatedContainer(
-                                                    duration:
-                                                        Duration(seconds: 10),
-                                                    height: 200.0,
-                                                    child: Padding(
-                                                      padding: EdgeInsets.only(top: 20.0),
-                                                      child: Column(
-                                                        children: [
-                                                          Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            children: [
-                                                              Column(children: [
-                                                                IconButton(
-                                                                    icon:
-                                                                    Icon(
-                                                                      Icons
-                                                                          .camera_alt,
-                                                                      size:
-                                                                      60.0,
-
-                                                                    ),
-                                                                    splashRadius: 400.0,
-                                                                    onPressed:
-                                                                        () {
-                                                                      _imgFromCamera();
-                                                                    }),
-                                                                Padding(
-                                                                    padding: EdgeInsets
-                                                                        .only(
-                                                                            left: 23.0, top: 20.0),
-                                                                    child: Text(
-                                                                        'Take Picture')),
-                                                              ]),
-                                                              Column(children: [
-                                                                IconButton(
-                                                                    icon:
-                                                                    Icon(
-                                                                      Icons
-                                                                          .photo,
-                                                                      size:
-                                                                      60.0,
-                                                                    ),
-                                                                    splashRadius: 400.0,
-                                                                    onPressed:
-                                                                        () {
-                                                                      _imgFromGallery();
-                                                                    }),
-                                                                Padding(
-                                                                    padding: EdgeInsets
-                                                                        .only(left: 40.0 , top: 20.0),
-                                                                    child: Text(
-                                                                        'Pick Image from Gallery')),
-                                                              ]),
-                                                            ],
-                                                          ),
-                                                          SizedBox(
-                                                            height: 30.0,
-                                                          ),
-                                                          RaisedButton(
-                                                              child: Text(
-                                                                  'Update Profile Picture'),
-                                                              onPressed:
-                                                                  () async {
-                                                                Navigator.pop(context);
-                                                                UploadFile();
-                                                                await DatabaseService(
-                                                                        uid: user
-                                                                            .uid)
-                                                                    .UpdateProfilePic(
-                                                                        imageurl ??
-                                                                            userprofilepic
-                                                                                .profilepic);
+                                    onTap: () {
+                                      setState(() {
+                                        showModalBottomSheet(
+                                            context: context,
+                                            builder: (BuildContext bc) {
+                                              return AnimatedContainer(
+                                                  duration:
+                                                      Duration(seconds: 10),
+                                                  height: 200.0,
+                                                  child: Padding(
+                                                    padding: EdgeInsets.only(
+                                                        top: 20.0),
+                                                    child: Column(
+                                                      children: [
+                                                        Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            Column(children: [
+                                                              IconButton(
+                                                                  icon: Icon(
+                                                                    Icons
+                                                                        .camera_alt,
+                                                                    size: 60.0,
+                                                                  ),
+                                                                  splashRadius:
+                                                                      400.0,
+                                                                  onPressed:
+                                                                      () {
+                                                                    _imgFromCamera();
+                                                                  }),
+                                                              Padding(
+                                                                  padding: EdgeInsets.only(
+                                                                      left:
+                                                                          23.0,
+                                                                      top:
+                                                                          20.0),
+                                                                  child: Text(
+                                                                      'Take Picture')),
+                                                            ]),
+                                                            Column(children: [
+                                                              IconButton(
+                                                                  icon: Icon(
+                                                                    Icons.photo,
+                                                                    size: 60.0,
+                                                                  ),
+                                                                  splashRadius:
+                                                                      400.0,
+                                                                  onPressed:
+                                                                      () {
+                                                                    _imgFromGallery();
+                                                                  }),
+                                                              Padding(
+                                                                  padding: EdgeInsets.only(
+                                                                      left:
+                                                                          40.0,
+                                                                      top:
+                                                                          20.0),
+                                                                  child: Text(
+                                                                      'Pick Image from Gallery')),
+                                                            ]),
+                                                          ],
+                                                        ),
+                                                        SizedBox(
+                                                          height: 30.0,
+                                                        ),
+                                                        RaisedButton(
+                                                            child: Text(
+                                                                'Update Profile Picture'),
+                                                            onPressed:
+                                                                () async {
+                                                              Navigator.pop(
+                                                                  context);
+                                                              UploadFile();
+                                                              await DatabaseService(
+                                                                      uid: user
+                                                                          .uid)
+                                                                  .UpdateProfilePic(
+                                                                      imageurl ??
+                                                                          userprofilepic
+                                                                              .profilepic);
                                                               setState(() {
-                                                                imageCache.clear();
+                                                                imageCache
+                                                                    .clear();
                                                               });
-                                                              })
-                                                        ],
-                                                      ),
-                                                    ));
-                                              });
-                                        });
-                                      },
-                                      child: FutureBuilder(
-                                        future:  DatabaseService(
-                                            uid: user
-                                                .uid)
-                                            .UpdateProfilePic(
-                                            imageurl ??
-                                                userprofilepic
-                                                    .profilepic), 
-                                        builder: (context , snapshot){
-                                          return CircleAvatar(
+                                                            })
+                                                      ],
+                                                    ),
+                                                  ));
+                                            });
+                                      });
+                                    },
+                                    child: FutureBuilder(
+                                      future: DatabaseService(uid: user.uid)
+                                          .UpdateProfilePic(imageurl ??
+                                              userprofilepic.profilepic),
+                                      builder: (context, snapshot) {
+                                        return Padding(
+                                          padding: const EdgeInsets.all(20.0),
+                                          child: CircleAvatar(
                                               backgroundColor: Colors.grey,
                                               radius: 80,
                                               child: ClipOval(
                                                   child: Image.network(
-                                                    userprofilepic.profilepic,
-                                                    height: 2000,
-                                                    width: 2500,
-                                                    fit: BoxFit.fill,
-                                                  )
-                                              )
-                                          );
-                                        },
-                                      ),
+                                                userprofilepic.profilepic,
+                                                height: 2000,
+                                                width: 2500,
+                                                fit: BoxFit.fill,
+                                              ))),
+                                        );
+                                      },
+                                    ),
                                   );
                                 } else {
                                   return Container(
@@ -317,7 +324,8 @@ class _NewsState extends State<Profile> {
                                                         if (_formkey
                                                             .currentState
                                                             .validate()) {
-                                                          Navigator.pop(context);
+                                                          Navigator.pop(
+                                                              context);
                                                           await DatabaseService(
                                                                   uid: user.uid)
                                                               .UpdateUserData(
@@ -424,7 +432,8 @@ class _NewsState extends State<Profile> {
                                                         if (_formkey
                                                             .currentState
                                                             .validate()) {
-                                                          Navigator.pop(context);
+                                                          Navigator.pop(
+                                                              context);
                                                           await DatabaseService(
                                                                   uid: user.uid)
                                                               .UpdateUserData(
@@ -535,7 +544,8 @@ class _NewsState extends State<Profile> {
                                                           if (_formkey
                                                               .currentState
                                                               .validate()) {
-                                                            Navigator.pop(context);
+                                                            Navigator.pop(
+                                                                context);
                                                             await DatabaseService(
                                                                     uid: user
                                                                         .uid)
