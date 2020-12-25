@@ -59,6 +59,8 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   String location;
   String destination;
+  String ticketstatus;
+  int count = 1;
   String errortext = '';
   double price;
   var _controller = TextEditingController();
@@ -162,16 +164,39 @@ class _HomeState extends State<Home> {
                                       fontSize: 14, color: Colors.grey[600]),
                                 ),
                                 SizedBox(height: 5),
-                                Text(
-                                  '2',
-                                  style: TextStyle(
-                                      fontSize: 28,
-                                      color: Colors.blueGrey[800],
-                                      fontWeight: FontWeight.bold),
-                                ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      count.toString(),
+                                      style: TextStyle(
+                                          fontSize: 28,
+                                          color: Colors.blueGrey[800],
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    IconButton(
+                                        icon: Icon(Icons.expand_less),
+                                        splashRadius: 20.0,
+                                        onPressed: () {
+                                          setState(() {
+                                            count = count + 1;
+                                          });
+                                        }),
+                                    IconButton(
+                                        icon: Icon(Icons.expand_more),
+                                        splashRadius: 20.0,
+                                        onPressed: () {
+                                          setState(() {
+                                            if (count == 1) {
+                                              count = 1;
+                                            } else {
+                                              count = count - 1;
+                                            }
+                                          });
+                                        })
+                                  ],
+                                )
                               ],
                             ),
-                            SizedBox(width: 50),
                             Checkbox(value: false, onChanged: null),
                             Text(
                               'Round Trip',
@@ -258,9 +283,11 @@ class _HomeState extends State<Home> {
                           Navigator.of(context)
                               .push(MaterialPageRoute(
                                   builder: (context) => Confirmation(
-                                      location: location,
-                                      destination: destination,
-                                      price: price)))
+                                        location: location,
+                                        destination: destination,
+                                        price: price,
+                                        count: count,
+                                      )))
                               .whenComplete(() {
                             setState(() {
                               location = null;

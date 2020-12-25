@@ -6,20 +6,22 @@ class Confirmation extends StatefulWidget {
   String location;
   String destination;
   double price;
+  int count = 0;
 
-  Confirmation({this.location, this.destination, this.price});
+  Confirmation({this.location, this.destination, this.price, this.count});
 
   @override
   _ConfirmationState createState() =>
-      _ConfirmationState(location, destination, price);
+      _ConfirmationState(location, destination, price, count);
 }
 
 class _ConfirmationState extends State<Confirmation> {
   String location;
   String destination;
-  int count = 1;
   double price;
-  _ConfirmationState(this.location, this.destination, this.price);
+  int count;
+
+  _ConfirmationState(this.location, this.destination, this.price, this.count);
 
   @override
   Widget build(BuildContext context) {
@@ -53,92 +55,151 @@ class _ConfirmationState extends State<Confirmation> {
               ),
             ),
 
-            SizedBox(
-              height: 30.0,
-            ),
-            SizedBox(
-              height: 300.0,
-              width: 300.0,
-              child: Card(
-                elevation: 5.0,
-                color: Colors.white70,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20.0),
-                ),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 20.0,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 20.0),
-                      child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            'Location : ${location}',
-                            style: TextStyle(fontSize: 14.0),
-                          )),
-                    ),
-                    SizedBox(
-                      height: 20.0,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 20.0),
-                      child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text('Destination : ${destination}',
-                              style: TextStyle(fontSize: 14.0))),
-                    ),
-                    SizedBox(
-                      height: 8.0,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 20.0),
-                      child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Row(
+            SizedBox(height: 20),
+
+            // Ticket details card
+            Padding(
+              padding: const EdgeInsets.only(left: 12.0, right: 12.0),
+              child: Container(
+                  child: Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          // Start location
+                          Column(
                             children: [
-                              Text('Number of Tickets : ${count}',
-                                  style: TextStyle(fontSize: 14.0)),
-                              SizedBox(width: 30.0),
-                              IconButton(
-                                  icon: Icon(Icons.expand_less),
-                                  splashRadius: 20.0,
-                                  onPressed: () {
-                                    setState(() {
-                                      count = count + 1;
-                                    });
-                                  }),
-                              IconButton(
-                                  icon: Icon(Icons.expand_more),
-                                  splashRadius: 20.0,
-                                  onPressed: () {
-                                    setState(() {
-                                      if (count == 0) {
-                                        count = 0;
-                                      } else {
-                                        count = count - 1;
-                                      }
-                                    });
-                                  })
+                              Text('MRT',
+                                  style: TextStyle(
+                                      fontSize: 16, color: Colors.grey[600])),
+                              Container(
+                                width: 120,
+                                child: Text(
+                                  location,
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 24,
+                                      color: Colors.blueGrey[800],
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
                             ],
-                          )),
-                    ),
-                    SizedBox(
-                      height: 8.0,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 20.0),
-                      child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                              'Total Price : RM${(price * count).toStringAsFixed(2)}',
-                              style: TextStyle(fontSize: 14.0))),
-                    ),
-                  ],
+                          ),
+                          // Arrow icon
+                          Icon(
+                            Icons.arrow_forward,
+                            color: Colors.blueGrey[800],
+                            size: 30,
+                          ),
+                          // End destination
+                          Column(
+                            children: [
+                              Text('MRT',
+                                  style: TextStyle(
+                                      fontSize: 16, color: Colors.grey[600])),
+                              Container(
+                                width: 120,
+                                child: Text(
+                                  destination,
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 24,
+                                      color: Colors.blueGrey[800],
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                      SizedBox(height: 25),
+                      // Quantity details
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Column(
+                            children: [
+                              Text(
+                                'Quantity',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.grey[600],
+                                ),
+                              ),
+                              Text(
+                                '${count}',
+                                style: TextStyle(
+                                    fontSize: 22,
+                                    color: Colors.blueGrey[800],
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                          // Ticket type details
+                          Column(
+                            children: [
+                              Text(
+                                'Ticket Type',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.grey[600],
+                                ),
+                              ),
+                              Text(
+                                ' Round Trip',
+                                style: TextStyle(
+                                    fontSize: 22,
+                                    color: Colors.blueGrey[800],
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              ),
+              )),
             ),
+
+            // Total card
+            Padding(
+              padding: const EdgeInsets.only(left: 12.0, right: 12.0),
+              child: Container(
+                  child: Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Total',
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.grey[800],
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        'RM${(price * count).toStringAsFixed(2)}',
+                        style: TextStyle(
+                            fontSize: 28,
+                            color: Colors.red,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                ),
+              )),
+            ),
+
+            // Checkout button
             Align(
               alignment: Alignment.bottomCenter,
               child: Padding(

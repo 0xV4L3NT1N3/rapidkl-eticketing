@@ -1,16 +1,11 @@
-
-
 class PriceChecker {
-
-  PriceConfirm( String place){
+  PriceConfirm(String place) {
     double price;
-    if( place == 'Merdeka'){
+    if (place == 'Merdeka') {
       price = 1.20;
-    }
-    else{
+    } else {
       price = 0;
     }
     return price;
   }
-
 }
