@@ -166,13 +166,6 @@ class _HomeState extends State<Home> {
                                 SizedBox(height: 5),
                                 Row(
                                   children: [
-                                    Text(
-                                      count.toString(),
-                                      style: TextStyle(
-                                          fontSize: 28,
-                                          color: Colors.blueGrey[800],
-                                          fontWeight: FontWeight.bold),
-                                    ),
                                     IconButton(
                                         icon: Icon(Icons.expand_less),
                                         splashRadius: 20.0,
@@ -181,6 +174,13 @@ class _HomeState extends State<Home> {
                                             count = count + 1;
                                           });
                                         }),
+                                    Text(
+                                      count.toString(),
+                                      style: TextStyle(
+                                          fontSize: 28,
+                                          color: Colors.blueGrey[800],
+                                          fontWeight: FontWeight.bold),
+                                    ),
                                     IconButton(
                                         icon: Icon(Icons.expand_more),
                                         splashRadius: 20.0,
@@ -197,6 +197,10 @@ class _HomeState extends State<Home> {
                                 )
                               ],
                             ),
+
+                            SizedBox(width: 30),
+
+                            // Round trip option
                             Checkbox(value: false, onChanged: null),
                             Text(
                               'Round Trip',
