@@ -76,7 +76,7 @@ class _HomeState extends State<Home> {
             children: [
               // Page title
               Padding(
-                padding: const EdgeInsets.only(top: 50.0, left: 15.0),
+                padding: const EdgeInsets.only(top: 50.0, left: 20.0),
                 child: Text(
                   'Book a Ticket',
                   style: TextStyle(
