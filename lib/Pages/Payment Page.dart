@@ -37,9 +37,9 @@ class _PaymentState extends State<Payment> {
             ),
             SizedBox(height: 20.0,),
             Text('You Will Be Redirected To Your Payment Option ', style: TextStyle(fontSize: 14.0),),
-            AspectRatio(
-              aspectRatio: 2/2.5,
+            SingleChildScrollView(
               child: Container(
+                height: 300.0,
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: Row(
