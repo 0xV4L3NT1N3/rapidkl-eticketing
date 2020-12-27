@@ -247,11 +247,11 @@ class _HomeState extends State<Home> {
                     if (snapshot.hasData) {
                       print(snapshot);
                       return StreamBuilder<Favfunc>(
-                          stream :  DatabaseService(uid: user.uid).favourites,
+                          stream: DatabaseService(uid: user.uid).favourites,
                           // ignore: missing_return
-                          builder: (context , snapshot){
+                          builder: (context, snapshot) {
                             Favfunc favs = snapshot.data;
-                            if(snapshot.hasData){
+                            if (snapshot.hasData) {
                               List key = favs.keyarr;
                               List val = favs.valarr;
 
@@ -263,9 +263,8 @@ class _HomeState extends State<Home> {
                                     shrinkWrap: true,
                                     itemCount: key.length,
                                     // ignore: missing_return
-                                    itemBuilder: (context , index){
-
-                                      if(index == 0){
+                                    itemBuilder: (context, index) {
+                                      if (index == 0) {
                                         return Row(
                                           children: [
                                             Container(
@@ -279,24 +278,31 @@ class _HomeState extends State<Home> {
                                                     color: Colors.blueGrey[800],
                                                   ),
                                                   title: Padding(
-                                                    padding: const EdgeInsets.only(top: 8.0),
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            top: 5.0),
                                                     child: Text(key[index]),
                                                   ),
                                                   subtitle: Padding(
-                                                    padding: const EdgeInsets.only(bottom: 13.0),
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            bottom: 13.0),
                                                     child: Text(val[index]),
                                                   ),
                                                   trailing: Transform.translate(
-                                                      offset: Offset(-20, 0),
-                                                      child: IconButton(splashRadius : 20.0,iconSize : 20.0, icon: Icon(Icons.edit), onPressed: (){})),
+                                                      offset: Offset(-20, -3),
+                                                      child: IconButton(
+                                                          splashRadius: 20.0,
+                                                          iconSize: 20.0,
+                                                          icon:
+                                                              Icon(Icons.edit),
+                                                          onPressed: () {})),
                                                 ),
                                               ),
                                             ),
-
                                           ],
                                         );
-                                      }
-                                      else if(index == 1){
+                                      } else if (index == 1) {
                                         return Row(
                                           children: [
                                             Container(
@@ -310,24 +316,31 @@ class _HomeState extends State<Home> {
                                                     color: Colors.blueGrey[800],
                                                   ),
                                                   title: Padding(
-                                                    padding: const EdgeInsets.only(top: 8.0),
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            top: 5.0),
                                                     child: Text(key[index]),
                                                   ),
                                                   subtitle: Padding(
-                                                    padding: const EdgeInsets.only(bottom: 13.0),
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            bottom: 13.0),
                                                     child: Text(val[index]),
                                                   ),
                                                   trailing: Transform.translate(
-                                                      offset: Offset(-20, 0),
-                                                      child: IconButton(splashRadius : 20.0,iconSize : 20.0, icon: Icon(Icons.edit), onPressed: (){})),
+                                                      offset: Offset(-20, -3),
+                                                      child: IconButton(
+                                                          splashRadius: 20.0,
+                                                          iconSize: 20.0,
+                                                          icon:
+                                                              Icon(Icons.edit),
+                                                          onPressed: () {})),
                                                 ),
                                               ),
                                             ),
-
                                           ],
                                         );
-                                      }
-                                      else if(index == 2){
+                                      } else if (index == 2) {
                                         return Row(
                                           children: [
                                             Container(
@@ -341,25 +354,31 @@ class _HomeState extends State<Home> {
                                                     color: Colors.blueGrey[800],
                                                   ),
                                                   title: Padding(
-                                                    padding: const EdgeInsets.only(top: 8.0),
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            top: 5.0),
                                                     child: Text(key[index]),
                                                   ),
                                                   subtitle: Padding(
-                                                    padding: const EdgeInsets.only(bottom: 13.0),
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            bottom: 13.0),
                                                     child: Text(val[index]),
                                                   ),
                                                   trailing: Transform.translate(
-                                                      offset: Offset(-20, 0),
-                                                      child: IconButton(splashRadius : 20.0,iconSize : 20.0, icon: Icon(Icons.edit), onPressed: (){})),
+                                                      offset: Offset(-20, -3),
+                                                      child: IconButton(
+                                                          splashRadius: 20.0,
+                                                          iconSize: 20.0,
+                                                          icon:
+                                                              Icon(Icons.edit),
+                                                          onPressed: () {})),
                                                 ),
                                               ),
                                             ),
-
                                           ],
                                         );
-                                      }
-
-                                      else if (index == key.length-1) {
+                                      } else if (index == key.length - 1) {
                                         return Row(
                                           children: [
                                             Container(
@@ -373,25 +392,38 @@ class _HomeState extends State<Home> {
                                                     color: Colors.blueGrey[800],
                                                   ),
                                                   title: Padding(
-                                                    padding: const EdgeInsets.only(top: 8.0),
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            top: 5.0),
                                                     child: Text(key[index]),
                                                   ),
                                                   subtitle: Padding(
-                                                    padding: const EdgeInsets.only(bottom: 13.0),
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            bottom: 13.0),
                                                     child: Text(val[index]),
                                                   ),
                                                   trailing: Transform.translate(
-                                                      offset: Offset(-20, 0),
-                                                      child: IconButton(splashRadius : 20.0,iconSize : 20.0, icon: Icon(Icons.edit), onPressed: (){})),
+                                                      offset: Offset(-20, -3),
+                                                      child: IconButton(
+                                                          splashRadius: 20.0,
+                                                          iconSize: 20.0,
+                                                          icon:
+                                                              Icon(Icons.edit),
+                                                          onPressed: () {})),
                                                 ),
                                               ),
                                             ),
-                                            IconButton(icon: Icon(Icons.add_circle) , onPressed: () {}),
+                                            IconButton(
+                                                splashRadius: 10,
+                                                icon: Icon(
+                                                  Icons.add_circle,
+                                                  color: Colors.blueGrey[800],
+                                                ),
+                                                onPressed: () {}),
                                           ],
                                         );
-                                      }
-
-                                      else if(index > 2) {
+                                      } else if (index > 2) {
                                         return Row(
                                           children: [
                                             Container(
@@ -405,39 +437,41 @@ class _HomeState extends State<Home> {
                                                     color: Colors.blueGrey[800],
                                                   ),
                                                   title: Padding(
-                                                    padding: const EdgeInsets.only(top: 8.0),
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            top: 5.0),
                                                     child: Text(key[index]),
                                                   ),
                                                   subtitle: Padding(
-                                                    padding: const EdgeInsets.only(bottom: 13.0),
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            bottom: 13.0),
                                                     child: Text(val[index]),
                                                   ),
                                                   trailing: Transform.translate(
-                                                      offset: Offset(-20, 0),
-                                                      child: IconButton(splashRadius : 20.0,iconSize : 20.0, icon: Icon(Icons.edit), onPressed: (){})),
+                                                      offset: Offset(-20, -3),
+                                                      child: IconButton(
+                                                          splashRadius: 20.0,
+                                                          iconSize: 20.0,
+                                                          icon:
+                                                              Icon(Icons.edit),
+                                                          onPressed: () {})),
                                                 ),
                                               ),
                                             ),
-
                                           ],
                                         );
                                       }
-
-
-
-                                    }
-                                ),
+                                    }),
                               );
-                            }
-                            else{
+                            } else {
                               return Container(
                                 width: 0,
                                 height: 0,
                               );
                             }
                           });
-                    }
-                    else{
+                    } else {
                       return Container(
                         width: 0,
                         height: 0,
@@ -446,13 +480,7 @@ class _HomeState extends State<Home> {
                   }),
 
               SizedBox(
-                height: 10,
-              ),
-
-              // Favourites card
-
-              SizedBox(
-                height: 50,
+                height: 30,
               ),
 
               // Confirmation button
@@ -495,15 +523,14 @@ class _HomeState extends State<Home> {
                         });
                       } else {
                         setState(() {
-
                           //snackbar
                           final snackBar = SnackBar(
                             content: Padding(
-                              padding: EdgeInsets.only(left: 10.0),
-                                child: Text('Please Select A  Valid Location And Destination')),
+                                padding: EdgeInsets.only(left: 10.0),
+                                child: Text(
+                                    'Please Select A  Valid Location And Destination')),
                           );
                           Scaffold.of(context).showSnackBar(snackBar);
-
                         });
                       }
                     },
