@@ -11,7 +11,9 @@ import 'package:rapidkl/Pages/Payment Page.dart';
 import 'package:rapidkl/Pages/QR Ticket.dart';
 
 void main() {
+  ErrorWidget.builder = (FlutterErrorDetails details) => Container();
   runApp(MyApp());
+
 }
 
 class MyApp extends StatelessWidget {
@@ -32,6 +34,7 @@ class MyApp extends StatelessWidget {
           '/confirmation': (context) => Confirmation(),
           '/payment': (context) => Payment(),
           '/qrticket': (context) => QRTicket(),
+          '/myapp': (context) => MyApp(),
         },
       ),
     );

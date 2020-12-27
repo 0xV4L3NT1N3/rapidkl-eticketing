@@ -3,13 +3,43 @@ import 'package:rapidkl/Pages/Home.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class QRTicket extends StatefulWidget {
+
+  String location;
+  String destination;
+  double price;
+  int count = 0;
+  bool checkBoxValue;
+
+  QRTicket({this.location, this.destination, this.price, this.count , this.checkBoxValue});
+
+
   @override
-  _QRTicketState createState() => _QRTicketState();
+  _QRTicketState createState() => _QRTicketState(location, destination, count , checkBoxValue);
 }
 
+
 class _QRTicketState extends State<QRTicket> {
+
+  String location;
+  String destination;
+  double price;
+  int count = 0;
+  bool checkBoxValue;
+  String trip;
+
+  _QRTicketState(this.location, this.destination, this.count , this.checkBoxValue);
+
+
   @override
   Widget build(BuildContext context) {
+
+    if (checkBoxValue == true){
+      trip = 'Round Trip';
+    }
+    else {
+      trip = 'One Way';
+    };
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -18,7 +48,8 @@ class _QRTicketState extends State<QRTicket> {
           icon: Icon(Icons.arrow_back_rounded),
           color: Colors.blueGrey[800],
           onPressed: () {
-            Navigator.pop(context, Home());
+            Navigator.of(context)
+                .pushNamedAndRemoveUntil('/myapp', ModalRoute.withName('/myapp'));
           },
         ),
         elevation: 0,
@@ -64,7 +95,7 @@ class _QRTicketState extends State<QRTicket> {
                           Container(
                             width: 120,
                             child: Text(
-                              'Semantan',
+                              location,
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.center,
                               style: TextStyle(
@@ -90,7 +121,7 @@ class _QRTicketState extends State<QRTicket> {
                           Container(
                             width: 120,
                             child: Text(
-                              'Maluri',
+                              destination,
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.center,
                               style: TextStyle(
@@ -132,14 +163,14 @@ class _QRTicketState extends State<QRTicket> {
                       Column(
                         children: [
                           Text(
-                            'Ticket Type',
+                           'Ticket Type',
                             style: TextStyle(
                               fontSize: 16,
                               color: Colors.grey[600],
                             ),
                           ),
                           Text(
-                            ' Round Trip',
+                            trip,
                             style: TextStyle(
                                 fontSize: 22,
                                 color: Colors.blueGrey[800],

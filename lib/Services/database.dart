@@ -24,9 +24,9 @@ class DatabaseService {
     return await profileCollection.document(uid).setData({'profilepic' : profilepic});
   }
 
-  Future UpdateFavourites(String key , String value ) async {
-    var keyarr= ['Home' , 'Work' , 'School', 'Misc' , 'Misc'];
-    var valarr= ['Home' , 'Work' , 'School', 'Misc' , 'Misc'];
+  Future UpdateFavourites(var key1 , var value1) async {
+    var keyarr=  key1;
+    var valarr= value1;
     await favouriteCollection.document(uid).setData({'keyarr' : keyarr} );
     await favouriteCollection.document(uid).updateData({'valarr' : valarr} );
 

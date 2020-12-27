@@ -42,7 +42,7 @@ dev_dependencies:
   firebase_storage: ^3.0.3
   delayed_display: ^1.1.0
   flutter_icons: ^1.1.0
-  qr_flutter: ^3.1.0
+  qr_flutter: ^3.2.0
 
 
 # For information on the generic Dart part of this file, see the
@@ -58,6 +58,8 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+
+    - images/blank-profile-picture-973460_640.png
     - images/
 
 

@@ -54,7 +54,7 @@ class AuthService {
 
       await DatabaseService( uid: user.uid).UpdateUserData('Name', '01234567899', 0 , );
       await DatabaseService( uid: user.uid).UpdateProfilePic('https://www.nailseatowncouncil.gov.uk/wp-content/uploads/blank-profile-picture-973460_1280.jpg');
-      await DatabaseService( uid: user.uid).UpdateFavourites('Home' ,'Home');
+      await DatabaseService( uid: user.uid).UpdateFavourites(['Home' , 'Work' , 'School', 'Misc' , 'Misc'] ,['Home' , 'Work' , 'School', 'Misc' , 'Misc']);
       return _userfrFirebaseUser(user);
 
 
