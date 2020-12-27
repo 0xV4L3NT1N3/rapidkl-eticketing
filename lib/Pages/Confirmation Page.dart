@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:rapidkl/Pages/QR%20Ticket.dart';
 import 'package:rapidkl/Services/Price counter.dart';
 
 class Confirmation extends StatefulWidget {
@@ -7,12 +8,13 @@ class Confirmation extends StatefulWidget {
   String destination;
   double price;
   int count = 0;
+  bool checkBoxValue;
 
-  Confirmation({this.location, this.destination, this.price, this.count});
+  Confirmation({this.location, this.destination, this.price, this.count , this.checkBoxValue});
 
   @override
   _ConfirmationState createState() =>
-      _ConfirmationState(location, destination, price, count);
+      _ConfirmationState(location, destination, price, count , checkBoxValue);
 }
 
 class _ConfirmationState extends State<Confirmation> {
@@ -20,11 +22,20 @@ class _ConfirmationState extends State<Confirmation> {
   String destination;
   double price;
   int count;
+  bool checkBoxValue;
+  String trip;
 
-  _ConfirmationState(this.location, this.destination, this.price, this.count);
+  _ConfirmationState(this.location, this.destination, this.price, this.count , this.checkBoxValue);
 
   @override
   Widget build(BuildContext context) {
+    if (checkBoxValue == true){
+      trip = 'Round Trip';
+    }
+    else {
+      trip = 'One Way';
+    };
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.grey[50],
@@ -152,8 +163,7 @@ class _ConfirmationState extends State<Confirmation> {
                                   color: Colors.grey[600],
                                 ),
                               ),
-                              Text(
-                                ' Round Trip',
+                              Text(trip,
                                 style: TextStyle(
                                     fontSize: 22,
                                     color: Colors.blueGrey[800],
@@ -215,7 +225,15 @@ class _ConfirmationState extends State<Confirmation> {
                       style: TextStyle(color: Colors.white, fontSize: 16),
                     ),
                     onPressed: () {
-                      Navigator.pushNamed(context, '/payment');
+                      Navigator.of(context)
+                          .push(MaterialPageRoute(
+                          builder: (context) => QRTicket(
+                            location: location,
+                            destination: destination,
+                            price: price,
+                            count: count,
+                            checkBoxValue: checkBoxValue,
+                          )));
                     },
                   ),
                 ),

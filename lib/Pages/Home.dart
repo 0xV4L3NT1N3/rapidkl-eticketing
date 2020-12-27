@@ -7,6 +7,7 @@ import 'package:rapidkl/Pages/Tickets.dart';
 import 'package:rapidkl/Services/database.dart';
 import 'package:rapidkl/Services/User.dart';
 import 'package:provider/provider.dart';
+import 'package:rapidkl/Services/textdecoration.dart';
 
 class MyApp extends StatefulWidget {
   @override
@@ -60,23 +61,27 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
+
   String location;
   String destination;
   String ticketstatus;
   int count = 1;
   String errortext = '';
   double price;
+  bool checkBoxValue =  false;
   var _controller = TextEditingController();
   var _controller1 = TextEditingController();
+  final _formkey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
     return Scaffold(
       backgroundColor: Colors.grey[50],
-      body: SingleChildScrollView(
-        child: Container(
-          height: 700.0,
+      body: Container(
+        height: 700.0,
+        child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -205,7 +210,15 @@ class _HomeState extends State<Home> {
                             SizedBox(width: 30),
 
                             // Round trip option
-                            Checkbox(value: false, onChanged: null),
+                            Checkbox(value: checkBoxValue,
+                                activeColor: Colors.green,
+                                onChanged:(bool newValue){
+                                  setState(() {
+                                    checkBoxValue = newValue;
+                                    print(checkBoxValue);
+                                  });
+                                  Text('Remember me');
+                                }),
                             Text(
                               'Round Trip',
                               style: TextStyle(
@@ -265,9 +278,14 @@ class _HomeState extends State<Home> {
                                     // ignore: missing_return
                                     itemBuilder: (context, index) {
                                       if (index == 0) {
-                                        return Row(
-                                          children: [
-                                            Container(
+                                        return GestureDetector(
+                                            onTap: () {
+                                            setState(() {
+                                              destination = val[index];
+                                             _controller1.text = val[index];
+                                            });
+                                            },
+                                            child: Container(
                                               height: 60,
                                               width: 220,
                                               child: Card(
@@ -275,191 +293,791 @@ class _HomeState extends State<Home> {
                                                   leading: Icon(
                                                     Icons.home,
                                                     size: 25,
-                                                    color: Colors.blueGrey[800],
+                                                    color: Colors
+                                                        .blueGrey[800],
                                                   ),
                                                   title: Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            top: 5.0),
-                                                    child: Text(key[index]),
+                                                    padding: const EdgeInsets
+                                                        .only(top: 8.0),
+                                                    child: Text(
+                                                        key[index]),
                                                   ),
                                                   subtitle: Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            bottom: 13.0),
-                                                    child: Text(val[index]),
+                                                    padding: const EdgeInsets
+                                                        .only(
+                                                        bottom: 13.0),
+                                                    child: Text(
+                                                        val[index]),
                                                   ),
-                                                  trailing: Transform.translate(
-                                                      offset: Offset(-20, -3),
+                                                  trailing: Transform
+                                                      .translate(
+                                                      offset: Offset(
+                                                          -20, 0),
                                                       child: IconButton(
                                                           splashRadius: 20.0,
                                                           iconSize: 20.0,
-                                                          icon:
-                                                              Icon(Icons.edit),
-                                                          onPressed: () {})),
+                                                          icon: Icon(
+                                                              Icons
+                                                                  .edit),
+                                                          onPressed: () {
+                                                            setState(() {
+                                                              showModalBottomSheet<
+                                                                  void>(
+                                                                context: context,
+                                                                builder: (
+                                                                    BuildContext context) {
+                                                                  return Container(
+                                                                    height: 700.0,
+                                                                    child: Form(
+                                                                      key: _formkey,
+                                                                      child: Column(
+                                                                          children: [
+                                                                            SizedBox(
+                                                                              height: 20.0,
+                                                                            ),
+                                                                            Text(
+                                                                              'Update Home',
+                                                                              style: TextStyle(
+                                                                                fontSize: 20.0,
+                                                                              ),
+                                                                            ),
+                                                                            SizedBox(
+                                                                              height: 20.0,
+                                                                            ),
+                                                                            Padding(
+                                                                              padding:
+                                                                              EdgeInsets
+                                                                                  .fromLTRB(
+                                                                                  20.0,
+                                                                                  0,
+                                                                                  20.0,
+                                                                                  0.0),
+                                                                              child: TextFormField(
+                                                                                initialValue: val[index],
+                                                                                decoration:
+                                                                                textinput
+                                                                                    .copyWith(
+                                                                                  hintText: 'Home',
+                                                                                  hintStyle: TextStyle(
+                                                                                      color:
+                                                                                      Colors
+                                                                                          .black),
+                                                                                ),
+                                                                                validator: (
+                                                                                    value) =>
+                                                                                value.length == 0 ? "Please enter a Valid Destination"
+                                                                                    : null,
+                                                                                onChanged: (
+                                                                                    value) {
+                                                                                  setState(() {
+                                                                                    val[index] = value;
+                                                                                  });
+                                                                                },
+                                                                              ),
+                                                                            ),
+                                                                            SizedBox(
+                                                                              height: 10.0,
+                                                                            ),
+                                                                            FlatButton(
+                                                                                color: Colors
+                                                                                    .pinkAccent,
+                                                                                child: Text(
+                                                                                    'Update'),
+                                                                                onPressed: () async {
+                                                                                  if (_formkey
+                                                                                      .currentState
+                                                                                      .validate()) {
+                                                                                    Navigator.pop(context);
+                                                                                    await DatabaseService(uid: user.uid).UpdateFavourites(key , val);
+                                                                                  }
+                                                                                }),
+                                                                          ]),
+                                                                    ),
+                                                                  );
+                                                                },
+                                                              );
+                                                            });
+                                                          })),
                                                 ),
                                               ),
                                             ),
-                                          ],
-                                        );
+                                          );
+
                                       } else if (index == 1) {
-                                        return Row(
-                                          children: [
-                                            Container(
-                                              height: 60,
-                                              width: 220,
-                                              child: Card(
-                                                child: ListTile(
-                                                  leading: Icon(
-                                                    Icons.work,
-                                                    size: 25,
-                                                    color: Colors.blueGrey[800],
-                                                  ),
-                                                  title: Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            top: 5.0),
-                                                    child: Text(key[index]),
-                                                  ),
-                                                  subtitle: Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            bottom: 13.0),
-                                                    child: Text(val[index]),
-                                                  ),
-                                                  trailing: Transform.translate(
-                                                      offset: Offset(-20, -3),
-                                                      child: IconButton(
-                                                          splashRadius: 20.0,
-                                                          iconSize: 20.0,
-                                                          icon:
-                                                              Icon(Icons.edit),
-                                                          onPressed: () {})),
+                                        return GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              destination = val[index];
+                                              _controller1.text = val[index];
+                                            });
+                                          },
+                                          child: Container(
+                                            height: 60,
+                                            width: 220,
+                                            child: Card(
+                                              child: ListTile(
+                                                leading: Icon(
+                                                  Icons.work,
+                                                  size: 25,
+                                                  color: Colors
+                                                      .blueGrey[800],
                                                 ),
+                                                title: Padding(
+                                                  padding: const EdgeInsets
+                                                      .only(top: 8.0),
+                                                  child: Text(
+                                                      key[index]),
+                                                ),
+                                                subtitle: Padding(
+                                                  padding: const EdgeInsets
+                                                      .only(
+                                                      bottom: 13.0),
+                                                  child: Text(
+                                                      val[index]),
+                                                ),
+                                                trailing: Transform
+                                                    .translate(
+                                                    offset: Offset(
+                                                        -20, 0),
+                                                    child: IconButton(
+                                                        splashRadius: 20.0,
+                                                        iconSize: 20.0,
+                                                        icon: Icon(
+                                                            Icons
+                                                                .edit),
+                                                        onPressed: () {
+                                                          setState(() {
+                                                            showModalBottomSheet<
+                                                                void>(
+                                                              context: context,
+                                                              builder: (
+                                                                  BuildContext context) {
+                                                                return Container(
+                                                                  height: 700.0,
+                                                                  child: Form(
+                                                                    key: _formkey,
+                                                                    child: Column(
+                                                                        children: [
+                                                                          SizedBox(
+                                                                            height: 20.0,
+                                                                          ),
+                                                                          Text(
+                                                                            'Update Work',
+                                                                            style: TextStyle(
+                                                                              fontSize: 20.0,
+                                                                            ),
+                                                                          ),
+                                                                          SizedBox(
+                                                                            height: 20.0,
+                                                                          ),
+                                                                          Padding(
+                                                                            padding:
+                                                                            EdgeInsets
+                                                                                .fromLTRB(
+                                                                                20.0,
+                                                                                0,
+                                                                                20.0,
+                                                                                0.0),
+                                                                            child: TextFormField(
+                                                                              initialValue: val[index],
+                                                                              decoration:
+                                                                              textinput
+                                                                                  .copyWith(
+                                                                                hintText: 'Work',
+                                                                                hintStyle: TextStyle(
+                                                                                    color:
+                                                                                    Colors
+                                                                                        .black),
+                                                                              ),
+                                                                              validator: (
+                                                                                  value) =>
+                                                                              value.length == 0 ? "Please enter a Valid Destination"
+                                                                                  : null,
+                                                                              onChanged: (
+                                                                                  value) {
+                                                                                setState(() {
+                                                                                  val[index] = value;
+                                                                                });
+                                                                              },
+                                                                            ),
+                                                                          ),
+                                                                          SizedBox(
+                                                                            height: 10.0,
+                                                                          ),
+                                                                          FlatButton(
+                                                                              color: Colors
+                                                                                  .pinkAccent,
+                                                                              child: Text(
+                                                                                  'Update'),
+                                                                              onPressed: () async {
+                                                                                if (_formkey
+                                                                                    .currentState
+                                                                                    .validate()) {
+                                                                                  Navigator.pop(context);
+                                                                                  await DatabaseService(uid: user.uid).UpdateFavourites(key , val);
+                                                                                }
+                                                                              }),
+                                                                        ]),
+                                                                  ),
+                                                                );
+                                                              },
+                                                            );
+                                                          });
+                                                        })),
                                               ),
                                             ),
-                                          ],
+                                          ),
                                         );
-                                      } else if (index == 2) {
-                                        return Row(
-                                          children: [
-                                            Container(
-                                              height: 60,
-                                              width: 220,
-                                              child: Card(
-                                                child: ListTile(
-                                                  leading: Icon(
-                                                    Icons.school_outlined,
-                                                    size: 25,
-                                                    color: Colors.blueGrey[800],
-                                                  ),
-                                                  title: Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            top: 5.0),
-                                                    child: Text(key[index]),
-                                                  ),
-                                                  subtitle: Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            bottom: 13.0),
-                                                    child: Text(val[index]),
-                                                  ),
-                                                  trailing: Transform.translate(
-                                                      offset: Offset(-20, -3),
-                                                      child: IconButton(
-                                                          splashRadius: 20.0,
-                                                          iconSize: 20.0,
-                                                          icon:
-                                                              Icon(Icons.edit),
-                                                          onPressed: () {})),
+                                      }
+
+                                      else if (index == 2) {
+                                        return GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              destination = val[index];
+                                              _controller1.text = val[index];
+                                            });
+                                          },
+                                          child: Container(
+                                            height: 60,
+                                            width: 220,
+                                            child: Card(
+                                              child: ListTile(
+                                                leading: Icon(
+                                                  Icons.school,
+                                                  size: 25,
+                                                  color: Colors
+                                                      .blueGrey[800],
                                                 ),
+                                                title: Padding(
+                                                  padding: const EdgeInsets
+                                                      .only(top: 8.0),
+                                                  child: Text(
+                                                      key[index]),
+                                                ),
+                                                subtitle: Padding(
+                                                  padding: const EdgeInsets
+                                                      .only(
+                                                      bottom: 13.0),
+                                                  child: Text(
+                                                      val[index]),
+                                                ),
+                                                trailing: Transform
+                                                    .translate(
+                                                    offset: Offset(
+                                                        -20, 0),
+                                                    child: IconButton(
+                                                        splashRadius: 20.0,
+                                                        iconSize: 20.0,
+                                                        icon: Icon(
+                                                            Icons.edit),
+                                                        onPressed: () {
+                                                          setState(() {
+                                                            showModalBottomSheet<
+                                                                void>(
+                                                              context: context,
+                                                              builder: (
+                                                                  BuildContext context) {
+                                                                return Container(
+                                                                  height: 700.0,
+                                                                  child: Form(
+                                                                    key: _formkey,
+                                                                    child: Column(
+                                                                        children: [
+                                                                          SizedBox(
+                                                                            height: 20.0,
+                                                                          ),
+                                                                          Text(
+                                                                            'Update School',
+                                                                            style: TextStyle(
+                                                                              fontSize: 20.0,
+                                                                            ),
+                                                                          ),
+                                                                          SizedBox(
+                                                                            height: 20.0,
+                                                                          ),
+                                                                          Padding(
+                                                                            padding:
+                                                                            EdgeInsets
+                                                                                .fromLTRB(
+                                                                                20.0,
+                                                                                0,
+                                                                                20.0,
+                                                                                0.0),
+                                                                            child: TextFormField(
+                                                                              initialValue: val[index],
+                                                                              decoration:
+                                                                              textinput
+                                                                                  .copyWith(
+                                                                                hintText: 'Work',
+                                                                                hintStyle: TextStyle(
+                                                                                    color:
+                                                                                    Colors
+                                                                                        .black),
+                                                                              ),
+                                                                              validator: (
+                                                                                  value) =>
+                                                                              value.length == 0 ? "Please enter a Valid Destination"
+                                                                                  : null,
+                                                                              onChanged: (
+                                                                                  value) {
+                                                                                setState(() {
+                                                                                  val[index] = value;
+                                                                                });
+                                                                              },
+                                                                            ),
+                                                                          ),
+                                                                          SizedBox(
+                                                                            height: 10.0,
+                                                                          ),
+                                                                          FlatButton(
+                                                                              color: Colors
+                                                                                  .pinkAccent,
+                                                                              child: Text(
+                                                                                  'Update School'),
+                                                                              onPressed: () async {
+                                                                                if (_formkey
+                                                                                    .currentState
+                                                                                    .validate()) {
+                                                                                  Navigator.pop(context);
+                                                                                  await DatabaseService(uid: user.uid).UpdateFavourites(key , val);
+                                                                                }
+                                                                              }),
+                                                                        ]),
+                                                                  ),
+                                                                );
+                                                              },
+                                                            );
+                                                          });
+                                                        })),
                                               ),
                                             ),
-                                          ],
+                                          ),
                                         );
-                                      } else if (index == key.length - 1) {
-                                        return Row(
-                                          children: [
-                                            Container(
-                                              height: 60,
-                                              width: 220,
-                                              child: Card(
-                                                child: ListTile(
-                                                  leading: Icon(
-                                                    Icons.location_on,
-                                                    size: 25,
-                                                    color: Colors.blueGrey[800],
+                                      }
+
+                                      else if (index == key.length - 1) {
+                                        return GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              destination = val[index];
+                                              _controller1.text = val[index];
+                                            });
+                                          },
+                                          child: Row(
+                                            children: [
+                                              Container(
+                                                height: 60,
+                                                width: 220,
+                                                child: Card(
+                                                  child: ListTile(
+                                                    leading: Icon(
+                                                      Icons.location_on,
+                                                      size: 25,
+                                                      color: Colors
+                                                          .blueGrey[800],
+                                                    ),
+                                                    title: Padding(
+                                                      padding: const EdgeInsets
+                                                          .only(top: 8.0),
+                                                      child: Text(
+                                                          key[index]),
+                                                    ),
+                                                    subtitle: Padding(
+                                                      padding: const EdgeInsets
+                                                          .only(
+                                                          bottom: 13.0),
+                                                      child: Text(
+                                                          val[index]),
+                                                    ),
+                                                    trailing: Transform
+                                                        .translate(
+                                                        offset: Offset(
+                                                            -20, 0),
+                                                        child: IconButton(
+                                                            splashRadius: 20.0,
+                                                            iconSize: 20.0,
+                                                            icon: Icon(
+                                                                Icons.edit),
+                                                            onPressed: () {
+                                                              setState(() {
+                                                                showModalBottomSheet<
+                                                                    void>(
+                                                                  context: context,
+                                                                  builder: (
+                                                                      BuildContext context) {
+                                                                    return Container(
+                                                                      height: 700.0,
+                                                                      child: Form(
+                                                                        key: _formkey,
+                                                                        child: Column(
+                                                                            children: [
+                                                                              SizedBox(
+                                                                                height: 20.0,
+                                                                              ),
+                                                                              Text(
+                                                                                'Update Location/Destination',
+                                                                                style: TextStyle(
+                                                                                  fontSize: 20.0,
+                                                                                ),
+                                                                              ),
+                                                                              SizedBox(
+                                                                                height: 20.0,
+                                                                              ),
+                                                                              Padding(
+                                                                                padding:
+                                                                                EdgeInsets
+                                                                                    .fromLTRB(
+                                                                                    20.0,
+                                                                                    0,
+                                                                                    20.0,
+                                                                                    0.0),
+                                                                                child: TextFormField(
+                                                                                  initialValue: val[index],
+                                                                                  decoration:
+                                                                                  textinput
+                                                                                      .copyWith(
+                                                                                    hintText: 'Work',
+                                                                                    hintStyle: TextStyle(
+                                                                                        color:
+                                                                                        Colors
+                                                                                            .black),
+                                                                                  ),
+                                                                                  validator: (
+                                                                                      value) =>
+                                                                                  value.length == 0 ? "Please enter a Valid Destination"
+                                                                                      : null,
+                                                                                  onChanged: (
+                                                                                      value) {
+                                                                                    setState(() {
+                                                                                      key[index] = value;
+                                                                                    });
+                                                                                  },
+                                                                                ),
+                                                                              ),
+                                                                              Padding(
+                                                                                padding:
+                                                                                EdgeInsets
+                                                                                    .fromLTRB(
+                                                                                    20.0,
+                                                                                    0,
+                                                                                    20.0,
+                                                                                    0.0),
+                                                                                child: TextFormField(
+                                                                                  initialValue: val[index],
+                                                                                  decoration:
+                                                                                  textinput
+                                                                                      .copyWith(
+                                                                                    hintText: 'Work',
+                                                                                    hintStyle: TextStyle(
+                                                                                        color:
+                                                                                        Colors
+                                                                                            .black),
+                                                                                  ),
+                                                                                  validator: (value) =>
+                                                                                  value.length == 0 ? "Please enter a Valid Destination"
+                                                                                      : null,
+                                                                                  onChanged: (
+                                                                                      value) {
+                                                                                    setState(() {
+                                                                                      val[index] = value;
+                                                                                    });
+                                                                                  },
+                                                                                ),
+                                                                              ),
+                                                                              SizedBox(
+                                                                                height: 10.0,
+                                                                              ),
+                                                                              FlatButton(
+                                                                                  color: Colors
+                                                                                      .pinkAccent,
+                                                                                  child: Text(
+                                                                                      'Update Location/Destination'),
+                                                                                  onPressed: () async {
+                                                                                    if (_formkey
+                                                                                        .currentState
+                                                                                        .validate()) {
+                                                                                      Navigator.pop(context);
+                                                                                      await DatabaseService(uid: user.uid).UpdateFavourites(key , val);
+                                                                                    }
+                                                                                  }),
+                                                                            ]),
+                                                                      ),
+                                                                    );
+                                                                  },
+                                                                );
+                                                              });
+                                                            })),
                                                   ),
-                                                  title: Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            top: 5.0),
-                                                    child: Text(key[index]),
-                                                  ),
-                                                  subtitle: Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            bottom: 13.0),
-                                                    child: Text(val[index]),
-                                                  ),
-                                                  trailing: Transform.translate(
-                                                      offset: Offset(-20, -3),
-                                                      child: IconButton(
-                                                          splashRadius: 20.0,
-                                                          iconSize: 20.0,
-                                                          icon:
-                                                              Icon(Icons.edit),
-                                                          onPressed: () {})),
                                                 ),
                                               ),
-                                            ),
-                                            IconButton(
-                                                splashRadius: 10,
-                                                icon: Icon(
-                                                  Icons.add_circle,
-                                                  color: Colors.blueGrey[800],
-                                                ),
-                                                onPressed: () {}),
-                                          ],
+                                              IconButton(icon: Icon(Icons.add_circle), onPressed: () {
+                                                setState(() {
+                                                  setState(() {
+                                                    showModalBottomSheet<
+                                                        void>(
+                                                      context: context,
+                                                      builder: (
+                                                          BuildContext context) {
+                                                        return Container(
+                                                          height: 700.0,
+                                                          child: Form(
+                                                            key: _formkey,
+                                                            child: Column(
+                                                                children: [
+                                                                  SizedBox(
+                                                                    height: 20.0,
+                                                                  ),
+                                                                  Text(
+                                                                    'Create New Location',
+                                                                    style: TextStyle(
+                                                                      fontSize: 20.0,
+                                                                    ),
+                                                                  ),
+                                                                  SizedBox(
+                                                                    height: 20.0,
+                                                                  ),
+                                                                  Padding(
+                                                                    padding:
+                                                                    EdgeInsets
+                                                                        .fromLTRB(
+                                                                        20.0,
+                                                                        0,
+                                                                        20.0,
+                                                                        0.0),
+                                                                    child: TextFormField(
+                                                                      decoration:
+                                                                      textinput
+                                                                          .copyWith(
+                                                                        hintText: 'New Value',
+                                                                        hintStyle: TextStyle(
+                                                                            color:
+                                                                            Colors
+                                                                                .black),
+                                                                      ),
+                                                                      validator: (
+                                                                          value) =>
+                                                                      value.length == 0 ? "Please enter a Valid Destination"
+                                                                          : null,
+                                                                      onChanged: (
+                                                                          value) {
+                                                                        setState(() {
+                                                                          key[index] = value;
+                                                                        });
+                                                                      },
+                                                                    ),
+                                                                  ),
+                                                                  Padding(
+                                                                    padding:
+                                                                    EdgeInsets
+                                                                        .fromLTRB(
+                                                                        20.0,
+                                                                        0,
+                                                                        20.0,
+                                                                        0.0),
+                                                                    child: TextFormField(
+                                                                      decoration:
+                                                                      textinput
+                                                                          .copyWith(
+                                                                        hintText: 'New Value',
+                                                                        hintStyle: TextStyle(
+                                                                            color:
+                                                                            Colors
+                                                                                .black),
+                                                                      ),
+                                                                      validator: (
+                                                                          value) =>
+                                                                      value.length == 0 ? "Please enter a Valid Destination"
+                                                                          : null,
+                                                                      onChanged: (
+                                                                          value) {
+                                                                        setState(() {
+                                                                          val[index] = value;
+                                                                        });
+                                                                      },
+                                                                    ),
+                                                                  ),
+                                                                  SizedBox(
+                                                                    height: 10.0,
+                                                                  ),
+                                                                  FlatButton(
+                                                                      color: Colors
+                                                                          .pinkAccent,
+                                                                      child: Text(
+                                                                          'Create New Location'),
+                                                                      onPressed: () async {
+                                                                        if (_formkey
+                                                                            .currentState
+                                                                            .validate()) {
+                                                                          Navigator.pop(context);
+                                                                          await DatabaseService(uid: user.uid).UpdateFavourites(key , val);
+                                                                        }
+                                                                      }),
+                                                                ]),
+                                                          ),
+                                                        );
+                                                      },
+                                                    );
+                                                  });
+                                                });
+                                              })
+                                            ],
+                                          ),
                                         );
                                       } else if (index > 2) {
-                                        return Row(
-                                          children: [
-                                            Container(
-                                              height: 60,
-                                              width: 220,
-                                              child: Card(
-                                                child: ListTile(
-                                                  leading: Icon(
-                                                    Icons.school_outlined,
-                                                    size: 25,
-                                                    color: Colors.blueGrey[800],
+                                        return GestureDetector(
+                                          onTap: (){
+                                            setState(() {
+                                              destination = val[index];
+                                              _controller1.text = val[index];
+                                            });
+                                          },
+                                          child: Row(
+                                            children: [
+                                              Container(
+                                                height: 60,
+                                                width: 220,
+                                                child: Card(
+                                                  child: ListTile(
+                                                    leading: Icon(
+                                                      Icons.location_on,
+                                                      size: 25,
+                                                      color: Colors.blueGrey[800],
+                                                    ),
+                                                    title: Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              top: 5.0),
+                                                      child: Text(key[index]),
+                                                    ),
+                                                    subtitle: Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              bottom: 13.0),
+                                                      child: Text(val[index]),
+                                                    ),
+                                                    trailing: Transform.translate(
+                                                        offset: Offset(-20, -3),
+                                                        child: IconButton(
+                                                            splashRadius: 20.0,
+                                                            iconSize: 20.0,
+                                                            icon:
+                                                                Icon(Icons.edit),
+                                                            onPressed: () {
+                                                              setState(() {
+                                                                showModalBottomSheet<
+                                                                    void>(
+                                                                  context: context,
+                                                                  builder: (
+                                                                      BuildContext context) {
+                                                                    return Container(
+                                                                      height: 700.0,
+                                                                      child: Form(
+                                                                        key: _formkey,
+                                                                        child: Column(
+                                                                            children: [
+                                                                              SizedBox(
+                                                                                height: 20.0,
+                                                                              ),
+                                                                              Text(
+                                                                                'Update Location/Destination',
+                                                                                style: TextStyle(
+                                                                                  fontSize: 20.0,
+                                                                                ),
+                                                                              ),
+                                                                              SizedBox(
+                                                                                height: 20.0,
+                                                                              ),
+                                                                              Padding(
+                                                                                padding:
+                                                                                EdgeInsets
+                                                                                    .fromLTRB(
+                                                                                    20.0,
+                                                                                    0,
+                                                                                    20.0,
+                                                                                    0.0),
+                                                                                child: TextFormField(
+                                                                                  initialValue: val[index],
+                                                                                  decoration:
+                                                                                  textinput
+                                                                                      .copyWith(
+                                                                                    hintText: 'Work',
+                                                                                    hintStyle: TextStyle(
+                                                                                        color:
+                                                                                        Colors
+                                                                                            .black),
+                                                                                  ),
+                                                                                  validator: (
+                                                                                      value) =>
+                                                                                  value.length == 0 ? "Please enter a Valid Destination"
+                                                                                      : null,
+                                                                                  onChanged: (
+                                                                                      value) {
+                                                                                    setState(() {
+                                                                                      key[index] = value;
+                                                                                    });
+                                                                                  },
+                                                                                ),
+                                                                              ),
+                                                                              Padding(
+                                                                                padding:
+                                                                                EdgeInsets
+                                                                                    .fromLTRB(
+                                                                                    20.0,
+                                                                                    0,
+                                                                                    20.0,
+                                                                                    0.0),
+                                                                                child: TextFormField(
+                                                                                  initialValue: val[index],
+                                                                                  decoration:
+                                                                                  textinput
+                                                                                      .copyWith(
+                                                                                    hintText: 'Work',
+                                                                                    hintStyle: TextStyle(
+                                                                                        color:
+                                                                                        Colors
+                                                                                            .black),
+                                                                                  ),
+                                                                                  validator: (
+                                                                                      value) =>
+                                                                                  value.length == 0 ? "Please enter a Valid Destination"
+                                                                                      : null,
+                                                                                  onChanged: (
+                                                                                      value) {
+                                                                                    setState(() {
+                                                                                      val[index] = value;
+                                                                                    });
+                                                                                  },
+                                                                                ),
+                                                                              ),
+                                                                              SizedBox(
+                                                                                height: 10.0,
+                                                                              ),
+                                                                              FlatButton(
+                                                                                  color: Colors
+                                                                                      .pinkAccent,
+                                                                                  child: Text(
+                                                                                      'Update Location/Destination'),
+                                                                                  onPressed: () async {
+                                                                                    if (_formkey
+                                                                                        .currentState
+                                                                                        .validate()) {
+                                                                                      Navigator.pop(context);
+                                                                                      await DatabaseService(uid: user.uid).UpdateFavourites(key , val);
+                                                                                    }
+                                                                                  }),
+                                                                            ]),
+                                                                      ),
+                                                                    );
+                                                                  },
+                                                                );
+                                                              });
+                                                            })),
                                                   ),
-                                                  title: Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            top: 5.0),
-                                                    child: Text(key[index]),
-                                                  ),
-                                                  subtitle: Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            bottom: 13.0),
-                                                    child: Text(val[index]),
-                                                  ),
-                                                  trailing: Transform.translate(
-                                                      offset: Offset(-20, -3),
-                                                      child: IconButton(
-                                                          splashRadius: 20.0,
-                                                          iconSize: 20.0,
-                                                          icon:
-                                                              Icon(Icons.edit),
-                                                          onPressed: () {})),
                                                 ),
                                               ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         );
                                       }
                                     }),
@@ -513,6 +1131,7 @@ class _HomeState extends State<Home> {
                                         destination: destination,
                                         price: price,
                                         count: count,
+                                        checkBoxValue: checkBoxValue,
                                       )))
                               .whenComplete(() {
                             setState(() {
