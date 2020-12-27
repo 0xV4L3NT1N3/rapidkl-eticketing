@@ -1,13 +1,34 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:rapidkl/Pages/QR%20Ticket.dart';
 
 class Payment extends StatefulWidget {
+
+  String location;
+  String destination;
+  double price;
+  int count = 0;
+  bool checkBoxValue;
+
+  Payment({this.location, this.destination, this.price, this.count , this.checkBoxValue});
+
   @override
-  _PaymentState createState() => _PaymentState();
+  _PaymentState createState() => _PaymentState(location, destination, count , checkBoxValue);
 }
 
 class _PaymentState extends State<Payment> {
+
+  String location;
+  String destination;
+  double price;
+  int count = 0;
+  bool checkBoxValue;
+  String trip;
+
+  _PaymentState(this.location, this.destination, this.count , this.checkBoxValue);
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -101,7 +122,15 @@ class _PaymentState extends State<Payment> {
                       style: TextStyle(color: Colors.white, fontSize: 16),
                     ),
                     onPressed: () {
-                      Navigator.popAndPushNamed(context, '/qrticket');
+                      Navigator.of(context)
+                          .push(MaterialPageRoute(
+                          builder: (context) => QRTicket(
+                            location: location,
+                            destination: destination,
+                            price: price,
+                            count: count,
+                            checkBoxValue: checkBoxValue,
+                          )));
                     },
                   ),
                 ),

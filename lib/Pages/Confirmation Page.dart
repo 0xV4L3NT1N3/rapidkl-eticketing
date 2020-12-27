@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rapidkl/Pages/QR%20Ticket.dart';
 import 'package:rapidkl/Services/Price counter.dart';
+import 'package:rapidkl/Pages/Payment Page.dart';
 
 class Confirmation extends StatefulWidget {
   String location;
@@ -227,7 +228,7 @@ class _ConfirmationState extends State<Confirmation> {
                     onPressed: () {
                       Navigator.of(context)
                           .push(MaterialPageRoute(
-                          builder: (context) => QRTicket(
+                          builder: (context) => Payment(
                             location: location,
                             destination: destination,
                             price: price,

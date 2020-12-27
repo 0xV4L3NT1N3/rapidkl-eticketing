@@ -30,6 +30,8 @@ class _QRTicketState extends State<QRTicket> {
   _QRTicketState(this.location, this.destination, this.count , this.checkBoxValue);
 
 
+
+
   @override
   Widget build(BuildContext context) {
 
@@ -49,7 +51,7 @@ class _QRTicketState extends State<QRTicket> {
           color: Colors.blueGrey[800],
           onPressed: () {
             Navigator.of(context)
-                .pushNamedAndRemoveUntil('/home', ModalRoute.withName('/home'));
+                .pushNamedAndRemoveUntil('/myapp', ModalRoute.withName('/myapp'));
           },
         ),
         elevation: 0,

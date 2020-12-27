@@ -34,6 +34,7 @@ class MyApp extends StatelessWidget {
           '/confirmation': (context) => Confirmation(),
           '/payment': (context) => Payment(),
           '/qrticket': (context) => QRTicket(),
+          '/myapp': (context) => MyApp(),
         },
       ),
     );
