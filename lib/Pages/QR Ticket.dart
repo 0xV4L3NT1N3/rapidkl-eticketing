@@ -11,13 +11,14 @@ class _QRTicketState extends State<QRTicket> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Colors.grey[50],
         leading: IconButton(
           icon: Icon(Icons.arrow_back_rounded),
           color: Colors.blueGrey[800],
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.pop(context, Home());
           },
         ),
         elevation: 0,
@@ -39,12 +40,12 @@ class _QRTicketState extends State<QRTicket> {
             ),
           ),
 
-          SizedBox(height: 10),
+          SizedBox(height: 20),
 
           // Ticket details card
           Padding(
             padding: const EdgeInsets.only(left: 16.0, right: 16.0),
-            child: Container(
+            child: Card(
                 child: Padding(
               padding: const EdgeInsets.all(10.0),
               child: Column(
