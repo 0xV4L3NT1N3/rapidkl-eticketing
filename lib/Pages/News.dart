@@ -104,7 +104,6 @@ class _NewsState extends State<News> {
             }
             else{
               return Container(
-                child: Text('Nothing To Show'),
                 height: 10,
                 width: 10,
               );

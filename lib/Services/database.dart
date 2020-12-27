@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:rapidkl/Pages/Home.dart';
 import 'package:rapidkl/Services/User.dart';
 
 class DatabaseService {
@@ -12,6 +13,7 @@ class DatabaseService {
 
   final CollectionReference userCollection = Firestore.instance.collection('users');
   final CollectionReference profileCollection = Firestore.instance.collection('profilepics');
+  final CollectionReference favouriteCollection = Firestore.instance.collection('favourites');
 
 
   Future UpdateUserData(String name, String phonenumber, int age) async {
@@ -20,6 +22,15 @@ class DatabaseService {
 
   Future UpdateProfilePic(String profilepic) async {
     return await profileCollection.document(uid).setData({'profilepic' : profilepic});
+  }
+
+  Future UpdateFavourites(String key , String value ) async {
+    var keyarr= ['Home' , 'Work' , 'School', 'Misc' , 'Misc'];
+    var valarr= ['Home' , 'Work' , 'School', 'Misc' , 'Misc'];
+    await favouriteCollection.document(uid).setData({'keyarr' : keyarr} );
+    await favouriteCollection.document(uid).updateData({'valarr' : valarr} );
+
+
   }
 
 
@@ -69,7 +80,21 @@ class DatabaseService {
     return profileCollection.document(uid).snapshots().map(_userprofilepic);
   }
 
-  //news
+  //favourites
+
+
+  Favfunc _fav(DocumentSnapshot snapshot) {
+    return Favfunc(
+
+      keyarr : snapshot.data['keyarr'],
+      valarr : snapshot.data['valarr'],
+
+    );
+  }
+
+  Stream<Favfunc> get favourites{
+    return favouriteCollection.document(uid).snapshots().map(_fav);
+  }
 
 
 

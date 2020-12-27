@@ -36,3 +36,12 @@ class NewsFunc{
 
   NewsFunc({this.news});
 }
+
+class Favfunc {
+
+  var keyarr;
+  var valarr;
+
+  Favfunc({this.keyarr, this.valarr});
+
+}

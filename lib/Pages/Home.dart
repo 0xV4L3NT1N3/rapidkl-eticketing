@@ -4,6 +4,9 @@ import 'package:rapidkl/Pages/Profile.dart';
 import 'package:rapidkl/Pages/Confirmation Page.dart';
 import 'package:rapidkl/Services/Price counter.dart';
 import 'package:rapidkl/Pages/Tickets.dart';
+import 'package:rapidkl/Services/database.dart';
+import 'package:rapidkl/Services/User.dart';
+import 'package:provider/provider.dart';
 
 class MyApp extends StatefulWidget {
   @override
@@ -68,6 +71,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<User>(context);
     return Scaffold(
       backgroundColor: Colors.grey[50],
       body: SingleChildScrollView(
@@ -234,28 +238,218 @@ class _HomeState extends State<Home> {
                 ),
               ),
 
+              //Favourites block
+              StreamBuilder<UserData>(
+                  stream: DatabaseService(uid: user.uid).userData,
+                  // ignore: missing_return
+                  builder: (context, snapshot) {
+                    UserData userData = snapshot.data;
+                    if (snapshot.hasData) {
+                      print(snapshot);
+                      return StreamBuilder<Favfunc>(
+                          stream :  DatabaseService(uid: user.uid).favourites,
+                          // ignore: missing_return
+                          builder: (context , snapshot){
+                            Favfunc favs = snapshot.data;
+                            if(snapshot.hasData){
+                              List key = favs.keyarr;
+                              List val = favs.valarr;
+
+                              return Container(
+                                height: 70,
+                                width: double.maxFinite,
+                                child: ListView.builder(
+                                    scrollDirection: Axis.horizontal,
+                                    shrinkWrap: true,
+                                    itemCount: key.length,
+                                    // ignore: missing_return
+                                    itemBuilder: (context , index){
+
+                                      if(index == 0){
+                                        return Row(
+                                          children: [
+                                            Container(
+                                              height: 60,
+                                              width: 220,
+                                              child: Card(
+                                                child: ListTile(
+                                                  leading: Icon(
+                                                    Icons.home,
+                                                    size: 25,
+                                                    color: Colors.blueGrey[800],
+                                                  ),
+                                                  title: Padding(
+                                                    padding: const EdgeInsets.only(top: 8.0),
+                                                    child: Text(key[index]),
+                                                  ),
+                                                  subtitle: Padding(
+                                                    padding: const EdgeInsets.only(bottom: 13.0),
+                                                    child: Text(val[index]),
+                                                  ),
+                                                  trailing: Transform.translate(
+                                                      offset: Offset(-20, 0),
+                                                      child: IconButton(splashRadius : 20.0,iconSize : 20.0, icon: Icon(Icons.edit), onPressed: (){})),
+                                                ),
+                                              ),
+                                            ),
+
+                                          ],
+                                        );
+                                      }
+                                      else if(index == 1){
+                                        return Row(
+                                          children: [
+                                            Container(
+                                              height: 60,
+                                              width: 220,
+                                              child: Card(
+                                                child: ListTile(
+                                                  leading: Icon(
+                                                    Icons.work,
+                                                    size: 25,
+                                                    color: Colors.blueGrey[800],
+                                                  ),
+                                                  title: Padding(
+                                                    padding: const EdgeInsets.only(top: 8.0),
+                                                    child: Text(key[index]),
+                                                  ),
+                                                  subtitle: Padding(
+                                                    padding: const EdgeInsets.only(bottom: 13.0),
+                                                    child: Text(val[index]),
+                                                  ),
+                                                  trailing: Transform.translate(
+                                                      offset: Offset(-20, 0),
+                                                      child: IconButton(splashRadius : 20.0,iconSize : 20.0, icon: Icon(Icons.edit), onPressed: (){})),
+                                                ),
+                                              ),
+                                            ),
+
+                                          ],
+                                        );
+                                      }
+                                      else if(index == 2){
+                                        return Row(
+                                          children: [
+                                            Container(
+                                              height: 60,
+                                              width: 220,
+                                              child: Card(
+                                                child: ListTile(
+                                                  leading: Icon(
+                                                    Icons.school_outlined,
+                                                    size: 25,
+                                                    color: Colors.blueGrey[800],
+                                                  ),
+                                                  title: Padding(
+                                                    padding: const EdgeInsets.only(top: 8.0),
+                                                    child: Text(key[index]),
+                                                  ),
+                                                  subtitle: Padding(
+                                                    padding: const EdgeInsets.only(bottom: 13.0),
+                                                    child: Text(val[index]),
+                                                  ),
+                                                  trailing: Transform.translate(
+                                                      offset: Offset(-20, 0),
+                                                      child: IconButton(splashRadius : 20.0,iconSize : 20.0, icon: Icon(Icons.edit), onPressed: (){})),
+                                                ),
+                                              ),
+                                            ),
+
+                                          ],
+                                        );
+                                      }
+
+                                      else if (index == key.length-1) {
+                                        return Row(
+                                          children: [
+                                            Container(
+                                              height: 60,
+                                              width: 220,
+                                              child: Card(
+                                                child: ListTile(
+                                                  leading: Icon(
+                                                    Icons.location_on,
+                                                    size: 25,
+                                                    color: Colors.blueGrey[800],
+                                                  ),
+                                                  title: Padding(
+                                                    padding: const EdgeInsets.only(top: 8.0),
+                                                    child: Text(key[index]),
+                                                  ),
+                                                  subtitle: Padding(
+                                                    padding: const EdgeInsets.only(bottom: 13.0),
+                                                    child: Text(val[index]),
+                                                  ),
+                                                  trailing: Transform.translate(
+                                                      offset: Offset(-20, 0),
+                                                      child: IconButton(splashRadius : 20.0,iconSize : 20.0, icon: Icon(Icons.edit), onPressed: (){})),
+                                                ),
+                                              ),
+                                            ),
+                                            IconButton(icon: Icon(Icons.add_circle) , onPressed: () {}),
+                                          ],
+                                        );
+                                      }
+
+                                      else if(index > 2) {
+                                        return Row(
+                                          children: [
+                                            Container(
+                                              height: 60,
+                                              width: 220,
+                                              child: Card(
+                                                child: ListTile(
+                                                  leading: Icon(
+                                                    Icons.school_outlined,
+                                                    size: 25,
+                                                    color: Colors.blueGrey[800],
+                                                  ),
+                                                  title: Padding(
+                                                    padding: const EdgeInsets.only(top: 8.0),
+                                                    child: Text(key[index]),
+                                                  ),
+                                                  subtitle: Padding(
+                                                    padding: const EdgeInsets.only(bottom: 13.0),
+                                                    child: Text(val[index]),
+                                                  ),
+                                                  trailing: Transform.translate(
+                                                      offset: Offset(-20, 0),
+                                                      child: IconButton(splashRadius : 20.0,iconSize : 20.0, icon: Icon(Icons.edit), onPressed: (){})),
+                                                ),
+                                              ),
+                                            ),
+
+                                          ],
+                                        );
+                                      }
+
+
+
+                                    }
+                                ),
+                              );
+                            }
+                            else{
+                              return Container(
+                                width: 0,
+                                height: 0,
+                              );
+                            }
+                          });
+                    }
+                    else{
+                      return Container(
+                        width: 0,
+                        height: 0,
+                      );
+                    }
+                  }),
+
               SizedBox(
                 height: 10,
               ),
 
               // Favourites card
-              Container(
-                height: 60,
-                width: 180,
-                child: Card(
-                  child: ListTile(
-                    leading: Icon(
-                      Icons.home,
-                      color: Colors.blueGrey[800],
-                    ),
-                    title: Text('Home'),
-                    subtitle: Padding(
-                      padding: const EdgeInsets.only(bottom: 13.0),
-                      child: Text('MRT Surian'),
-                    ),
-                  ),
-                ),
-              ),
 
               SizedBox(
                 height: 50,
@@ -301,8 +495,15 @@ class _HomeState extends State<Home> {
                         });
                       } else {
                         setState(() {
-                          errortext =
-                              'Please Select a Location and Destination';
+
+                          //snackbar
+                          final snackBar = SnackBar(
+                            content: Padding(
+                              padding: EdgeInsets.only(left: 10.0),
+                                child: Text('Please Select A  Valid Location And Destination')),
+                          );
+                          Scaffold.of(context).showSnackBar(snackBar);
+
                         });
                       }
                     },
@@ -311,13 +512,6 @@ class _HomeState extends State<Home> {
               ),
               SizedBox(
                 height: 10.0,
-              ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Text(
-                  errortext,
-                  style: TextStyle(fontSize: 11, color: Colors.red),
-                ),
               ),
             ],
           ),
