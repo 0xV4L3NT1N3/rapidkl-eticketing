@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rapidkl/Pages/Home.dart';
-
+import 'package:qr_flutter/qr_flutter.dart';
 
 class QRTicket extends StatefulWidget {
   @override
@@ -8,53 +8,179 @@ class QRTicket extends StatefulWidget {
 }
 
 class _QRTicketState extends State<QRTicket> {
-
-  int count;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.grey[50],
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_rounded),
+          color: Colors.blueGrey[800],
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        elevation: 0,
+      ),
       body: Column(
         children: [
+          // Page title
           Align(
-            alignment: Alignment.topCenter,
+            alignment: Alignment.topLeft,
             child: Padding(
-              padding: const EdgeInsets.only(top: 30.0),
+              padding: const EdgeInsets.only(left: 15.0),
               child: Text(
-                'Here You Go!',
+                'Your Ticket',
                 style: TextStyle(
-                    fontSize: 40,
+                    fontSize: 26,
                     fontWeight: FontWeight.bold,
                     color: Colors.blueGrey[800]),
               ),
             ),
           ),
-          SizedBox(height: 100.0,),
-          Text('QRTICKET GOES HERE', style: TextStyle(fontSize: 20.0),),
-          SizedBox(height: 300.0,),
-          SingleChildScrollView(
+
+          SizedBox(height: 10),
+
+          // Ticket details card
+          Padding(
+            padding: const EdgeInsets.only(left: 16.0, right: 16.0),
             child: Container(
-              height: 100.0,
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: SizedBox(
-                  width: 170.0,
-                  height: 40.0,
-                  child: ButtonTheme(
-                    child: RaisedButton(
-                      child: Row(
+                child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      // Start location
+                      Column(
                         children: [
-                          Text('Return To Home'),
-                          Icon(Icons.home_outlined),
+                          Text('MRT',
+                              style: TextStyle(
+                                  fontSize: 16, color: Colors.grey[600])),
+                          Container(
+                            width: 120,
+                            child: Text(
+                              'Semantan',
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 24,
+                                  color: Colors.blueGrey[800],
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
                         ],
                       ),
-                      onPressed: (){
-                        Navigator.of(context).pushAndRemoveUntil(
-                            MaterialPageRoute(builder: (c) => MyApp()),
-                                (route) => false);
-                      },
-                    ),
+                      // Arrow icon
+                      Icon(
+                        Icons.arrow_forward,
+                        color: Colors.blueGrey[800],
+                        size: 30,
+                      ),
+                      // End destination
+                      Column(
+                        children: [
+                          Text('MRT',
+                              style: TextStyle(
+                                  fontSize: 16, color: Colors.grey[600])),
+                          Container(
+                            width: 120,
+                            child: Text(
+                              'Maluri',
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 24,
+                                  color: Colors.blueGrey[800],
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
                   ),
+
+                  SizedBox(height: 25),
+
+                  // Valid and ticket type
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Column(
+                        children: [
+                          Text(
+                            'Valid Until',
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.grey[600],
+                            ),
+                          ),
+                          Text(
+                            '28/12/2020',
+                            style: TextStyle(
+                                fontSize: 22,
+                                color: Colors.red,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                      // Ticket type details
+                      Column(
+                        children: [
+                          Text(
+                            'Ticket Type',
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.grey[600],
+                            ),
+                          ),
+                          Text(
+                            ' Round Trip',
+                            style: TextStyle(
+                                fontSize: 22,
+                                color: Colors.blueGrey[800],
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            )),
+          ),
+
+          SizedBox(height: 20),
+
+          // QR Ticket
+          QrImage(
+            data: "new ticket",
+            version: QrVersions.auto,
+            size: 200.0,
+          ),
+
+          // Checkout button
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: EdgeInsets.only(top: 30.0),
+              child: ButtonTheme(
+                height: 50,
+                minWidth: 250.0,
+                child: FlatButton.icon(
+                  icon: Icon(
+                    Icons.share,
+                    size: 20,
+                    color: Colors.blueGrey[800],
+                  ),
+                  label: Text(
+                    'Share',
+                    style: TextStyle(color: Colors.blueGrey[800], fontSize: 18),
+                  ),
+                  onPressed: () {},
                 ),
               ),
             ),
