@@ -74,474 +74,467 @@ class _HomeState extends State<Home> {
     final user = Provider.of<User>(context);
     return Scaffold(
       backgroundColor: Colors.grey[50],
-      body: SingleChildScrollView(
-        child: Container(
-          height: 700.0,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Page title
-              Padding(
-                padding: const EdgeInsets.only(top: 50.0, left: 20.0),
-                child: Text(
-                  'Book a Ticket',
-                  style: TextStyle(
-                      fontSize: 26,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.blueGrey[800]),
-                ),
+      body: Container(
+        height: 700.0,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Page title
+            Padding(
+              padding: const EdgeInsets.only(top: 50.0, left: 20.0),
+              child: Text(
+                'Book a Ticket',
+                style: TextStyle(
+                    fontSize: 26,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.blueGrey[800]),
               ),
+            ),
 
-              // Location & destination card
-              SizedBox(
-                height: 20,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 12.0, right: 12.0),
-                child: Container(
-                  child: Card(
-                    child: Stack(
-                      children: [
-                        Column(
-                          children: [
-                            TextField(
-                              controller: _controller,
-                              decoration: InputDecoration(
-                                prefixIcon: Icon(
-                                  Icons.assistant_photo,
-                                  color: Colors.lightBlue[700],
-                                ),
-                                border: InputBorder.none,
-                                hintText: 'Your location',
-                                suffixIcon: IconButton(
-                                  onPressed: () => _controller.clear(),
-                                  icon: Icon(Icons.clear),
-                                ),
-                              ),
-                              onChanged: (text) {
-                                location = text;
-                              },
-                            ),
-                            Divider(),
-                            TextField(
-                              controller: _controller1,
-                              decoration: InputDecoration(
-                                prefixIcon: Icon(
-                                  Icons.location_on_rounded,
-                                  color: Colors.red,
-                                ),
-                                border: InputBorder.none,
-                                hintText: 'Destination station',
-                                suffixIcon: IconButton(
-                                  onPressed: () => _controller1.clear(),
-                                  icon: Icon(Icons.clear),
-                                ),
-                              ),
-                              onChanged: (text) {
-                                destination = text;
-                              },
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-
-              // Quantity and round trip card
-              Padding(
-                padding: const EdgeInsets.only(left: 12.0, right: 12.0),
-                child: Container(
-                    child: Card(
+            // Location & destination card
+            SizedBox(
+              height: 20,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 12.0, right: 12.0),
+              child: Container(
+                child: Card(
                   child: Stack(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          children: [
-                            Column(
-                              children: [
-                                Text(
-                                  'Ticket Quantity',
-                                  style: TextStyle(
-                                      fontSize: 14, color: Colors.grey[600]),
-                                ),
-                                SizedBox(height: 5),
-                                Row(
-                                  children: [
-                                    IconButton(
-                                        icon: Icon(Icons.expand_less),
-                                        splashRadius: 20.0,
-                                        onPressed: () {
-                                          setState(() {
-                                            count = count + 1;
-                                          });
-                                        }),
-                                    Text(
-                                      count.toString(),
-                                      style: TextStyle(
-                                          fontSize: 28,
-                                          color: Colors.blueGrey[800],
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    IconButton(
-                                        icon: Icon(Icons.expand_more),
-                                        splashRadius: 20.0,
-                                        onPressed: () {
-                                          setState(() {
-                                            if (count == 1) {
-                                              count = 1;
-                                            } else {
-                                              count = count - 1;
-                                            }
-                                          });
-                                        })
-                                  ],
-                                )
-                              ],
-                            ),
-
-                            SizedBox(width: 30),
-
-                            // Round trip option
-                            Checkbox(value: false, onChanged: null),
-                            Text(
-                              'Round Trip',
-                              style: TextStyle(
-                                  fontSize: 14, color: Colors.grey[600]),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 10.0),
-                              child: Icon(
-                                Icons.info_outline_rounded,
-                                color: Colors.grey,
+                      Column(
+                        children: [
+                          TextField(
+                            controller: _controller,
+                            decoration: InputDecoration(
+                              prefixIcon: Icon(
+                                Icons.assistant_photo,
+                                color: Colors.lightBlue[700],
                               ),
-                            )
-                          ],
-                        ),
-                      )
+                              border: InputBorder.none,
+                              hintText: 'Your location',
+                              suffixIcon: IconButton(
+                                onPressed: () => _controller.clear(),
+                                icon: Icon(Icons.clear),
+                              ),
+                            ),
+                            onChanged: (text) {
+                              location = text;
+                            },
+                          ),
+                          Divider(),
+                          TextField(
+                            controller: _controller1,
+                            decoration: InputDecoration(
+                              prefixIcon: Icon(
+                                Icons.location_on_rounded,
+                                color: Colors.red,
+                              ),
+                              border: InputBorder.none,
+                              hintText: 'Destination station',
+                              suffixIcon: IconButton(
+                                onPressed: () => _controller1.clear(),
+                                icon: Icon(Icons.clear),
+                              ),
+                            ),
+                            onChanged: (text) {
+                              destination = text;
+                            },
+                          ),
+                        ],
+                      ),
                     ],
                   ),
-                )),
-              ),
-
-              // Favourites text
-              Padding(
-                padding: const EdgeInsets.only(top: 20.0, left: 15.0),
-                child: Text(
-                  'Favourites',
-                  style: TextStyle(
-                      fontSize: 26,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.blueGrey[800]),
                 ),
               ),
+            ),
 
-              //Favourites block
-              StreamBuilder<UserData>(
-                  stream: DatabaseService(uid: user.uid).userData,
-                  // ignore: missing_return
-                  builder: (context, snapshot) {
-                    UserData userData = snapshot.data;
-                    if (snapshot.hasData) {
-                      print(snapshot);
-                      return StreamBuilder<Favfunc>(
-                          stream: DatabaseService(uid: user.uid).favourites,
-                          // ignore: missing_return
-                          builder: (context, snapshot) {
-                            Favfunc favs = snapshot.data;
-                            if (snapshot.hasData) {
-                              List key = favs.keyarr;
-                              List val = favs.valarr;
+            // Quantity and round trip card
+            Padding(
+              padding: const EdgeInsets.only(left: 12.0, right: 12.0),
+              child: Container(
+                  child: Card(
+                child: Stack(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        children: [
+                          Column(
+                            children: [
+                              Text(
+                                'Ticket Quantity',
+                                style: TextStyle(
+                                    fontSize: 14, color: Colors.grey[600]),
+                              ),
+                              SizedBox(height: 5),
+                              Row(
+                                children: [
+                                  IconButton(
+                                      icon: Icon(Icons.expand_less),
+                                      splashRadius: 20.0,
+                                      onPressed: () {
+                                        setState(() {
+                                          count = count + 1;
+                                        });
+                                      }),
+                                  Text(
+                                    count.toString(),
+                                    style: TextStyle(
+                                        fontSize: 28,
+                                        color: Colors.blueGrey[800],
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  IconButton(
+                                      icon: Icon(Icons.expand_more),
+                                      splashRadius: 20.0,
+                                      onPressed: () {
+                                        setState(() {
+                                          if (count == 1) {
+                                            count = 1;
+                                          } else {
+                                            count = count - 1;
+                                          }
+                                        });
+                                      })
+                                ],
+                              )
+                            ],
+                          ),
 
-                              return Container(
-                                height: 70,
-                                width: double.maxFinite,
-                                child: ListView.builder(
-                                    scrollDirection: Axis.horizontal,
-                                    shrinkWrap: true,
-                                    itemCount: key.length,
-                                    // ignore: missing_return
-                                    itemBuilder: (context, index) {
-                                      if (index == 0) {
-                                        return Row(
-                                          children: [
-                                            Container(
-                                              height: 60,
-                                              width: 220,
-                                              child: Card(
-                                                child: ListTile(
-                                                  leading: Icon(
-                                                    Icons.home,
-                                                    size: 25,
-                                                    color: Colors.blueGrey[800],
-                                                  ),
-                                                  title: Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            top: 5.0),
-                                                    child: Text(key[index]),
-                                                  ),
-                                                  subtitle: Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            bottom: 13.0),
-                                                    child: Text(val[index]),
-                                                  ),
-                                                  trailing: Transform.translate(
-                                                      offset: Offset(-20, -3),
-                                                      child: IconButton(
-                                                          splashRadius: 20.0,
-                                                          iconSize: 20.0,
-                                                          icon:
-                                                              Icon(Icons.edit),
-                                                          onPressed: () {})),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        );
-                                      } else if (index == 1) {
-                                        return Row(
-                                          children: [
-                                            Container(
-                                              height: 60,
-                                              width: 220,
-                                              child: Card(
-                                                child: ListTile(
-                                                  leading: Icon(
-                                                    Icons.work,
-                                                    size: 25,
-                                                    color: Colors.blueGrey[800],
-                                                  ),
-                                                  title: Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            top: 5.0),
-                                                    child: Text(key[index]),
-                                                  ),
-                                                  subtitle: Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            bottom: 13.0),
-                                                    child: Text(val[index]),
-                                                  ),
-                                                  trailing: Transform.translate(
-                                                      offset: Offset(-20, -3),
-                                                      child: IconButton(
-                                                          splashRadius: 20.0,
-                                                          iconSize: 20.0,
-                                                          icon:
-                                                              Icon(Icons.edit),
-                                                          onPressed: () {})),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        );
-                                      } else if (index == 2) {
-                                        return Row(
-                                          children: [
-                                            Container(
-                                              height: 60,
-                                              width: 220,
-                                              child: Card(
-                                                child: ListTile(
-                                                  leading: Icon(
-                                                    Icons.school_outlined,
-                                                    size: 25,
-                                                    color: Colors.blueGrey[800],
-                                                  ),
-                                                  title: Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            top: 5.0),
-                                                    child: Text(key[index]),
-                                                  ),
-                                                  subtitle: Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            bottom: 13.0),
-                                                    child: Text(val[index]),
-                                                  ),
-                                                  trailing: Transform.translate(
-                                                      offset: Offset(-20, -3),
-                                                      child: IconButton(
-                                                          splashRadius: 20.0,
-                                                          iconSize: 20.0,
-                                                          icon:
-                                                              Icon(Icons.edit),
-                                                          onPressed: () {})),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        );
-                                      } else if (index == key.length - 1) {
-                                        return Row(
-                                          children: [
-                                            Container(
-                                              height: 60,
-                                              width: 220,
-                                              child: Card(
-                                                child: ListTile(
-                                                  leading: Icon(
-                                                    Icons.location_on,
-                                                    size: 25,
-                                                    color: Colors.blueGrey[800],
-                                                  ),
-                                                  title: Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            top: 5.0),
-                                                    child: Text(key[index]),
-                                                  ),
-                                                  subtitle: Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            bottom: 13.0),
-                                                    child: Text(val[index]),
-                                                  ),
-                                                  trailing: Transform.translate(
-                                                      offset: Offset(-20, -3),
-                                                      child: IconButton(
-                                                          splashRadius: 20.0,
-                                                          iconSize: 20.0,
-                                                          icon:
-                                                              Icon(Icons.edit),
-                                                          onPressed: () {})),
-                                                ),
-                                              ),
-                                            ),
-                                            IconButton(
-                                                splashRadius: 10,
-                                                icon: Icon(
-                                                  Icons.add_circle,
+                          SizedBox(width: 30),
+
+                          // Round trip option
+                          Checkbox(value: false, onChanged: null),
+                          Text(
+                            'Round Trip',
+                            style: TextStyle(
+                                fontSize: 14, color: Colors.grey[600]),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10.0),
+                            child: Icon(
+                              Icons.info_outline_rounded,
+                              color: Colors.grey,
+                            ),
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              )),
+            ),
+
+            // Favourites text
+            Padding(
+              padding: const EdgeInsets.only(top: 20.0, left: 15.0),
+              child: Text(
+                'Favourites',
+                style: TextStyle(
+                    fontSize: 26,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.blueGrey[800]),
+              ),
+            ),
+
+            //Favourites block
+            StreamBuilder<UserData>(
+                stream: DatabaseService(uid: user.uid).userData,
+                // ignore: missing_return
+                builder: (context, snapshot) {
+                  UserData userData = snapshot.data;
+                  if (snapshot.hasData) {
+                    print(snapshot);
+                    return StreamBuilder<Favfunc>(
+                        stream: DatabaseService(uid: user.uid).favourites,
+                        // ignore: missing_return
+                        builder: (context, snapshot) {
+                          Favfunc favs = snapshot.data;
+                          if (snapshot.hasData) {
+                            List key = favs.keyarr;
+                            List val = favs.valarr;
+
+                            return Container(
+                              height: 70,
+                              width: double.maxFinite,
+                              child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  shrinkWrap: true,
+                                  itemCount: key.length,
+                                  // ignore: missing_return
+                                  itemBuilder: (context, index) {
+                                    if (index == 0) {
+                                      return Row(
+                                        children: [
+                                          Container(
+                                            height: 60,
+                                            width: 220,
+                                            child: Card(
+                                              child: ListTile(
+                                                leading: Icon(
+                                                  Icons.home,
+                                                  size: 25,
                                                   color: Colors.blueGrey[800],
                                                 ),
-                                                onPressed: () {}),
-                                          ],
-                                        );
-                                      } else if (index > 2) {
-                                        return Row(
-                                          children: [
-                                            Container(
-                                              height: 60,
-                                              width: 220,
-                                              child: Card(
-                                                child: ListTile(
-                                                  leading: Icon(
-                                                    Icons.school_outlined,
-                                                    size: 25,
-                                                    color: Colors.blueGrey[800],
-                                                  ),
-                                                  title: Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            top: 5.0),
-                                                    child: Text(key[index]),
-                                                  ),
-                                                  subtitle: Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            bottom: 13.0),
-                                                    child: Text(val[index]),
-                                                  ),
-                                                  trailing: Transform.translate(
-                                                      offset: Offset(-20, -3),
-                                                      child: IconButton(
-                                                          splashRadius: 20.0,
-                                                          iconSize: 20.0,
-                                                          icon:
-                                                              Icon(Icons.edit),
-                                                          onPressed: () {})),
+                                                title: Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 5.0),
+                                                  child: Text(key[index]),
                                                 ),
+                                                subtitle: Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          bottom: 13.0),
+                                                  child: Text(val[index]),
+                                                ),
+                                                trailing: Transform.translate(
+                                                    offset: Offset(-20, -3),
+                                                    child: IconButton(
+                                                        splashRadius: 20.0,
+                                                        iconSize: 20.0,
+                                                        icon: Icon(Icons.edit),
+                                                        onPressed: () {})),
                                               ),
                                             ),
-                                          ],
-                                        );
-                                      }
-                                    }),
-                              );
-                            } else {
-                              return Container(
-                                width: 0,
-                                height: 0,
-                              );
-                            }
-                          });
-                    } else {
-                      return Container(
-                        width: 0,
-                        height: 0,
-                      );
-                    }
-                  }),
-
-              SizedBox(
-                height: 30,
-              ),
-
-              // Confirmation button
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: ButtonTheme(
-                  height: 50,
-                  minWidth: 250.0,
-                  child: RaisedButton(
-                    elevation: 20,
-                    color: Colors.blueGrey[800],
-                    child: Text(
-                      'Confirm Booking ',
-                      style: TextStyle(color: Colors.white, fontSize: 16),
-                    ),
-                    onPressed: () {
-                      if (location != null &&
-                          destination != null &&
-                          location != '' &&
-                          destination != '') {
-                        setState(() {
-                          errortext = '';
-                          price = PriceChecker().PriceConfirm(destination);
-                          _controller.clear();
-                          _controller1.clear();
-                          Navigator.of(context)
-                              .push(MaterialPageRoute(
-                                  builder: (context) => Confirmation(
-                                        location: location,
-                                        destination: destination,
-                                        price: price,
-                                        count: count,
-                                      )))
-                              .whenComplete(() {
-                            setState(() {
-                              location = null;
-                              destination = null;
-                            });
-                          });
+                                          ),
+                                        ],
+                                      );
+                                    } else if (index == 1) {
+                                      return Row(
+                                        children: [
+                                          Container(
+                                            height: 60,
+                                            width: 220,
+                                            child: Card(
+                                              child: ListTile(
+                                                leading: Icon(
+                                                  Icons.work,
+                                                  size: 25,
+                                                  color: Colors.blueGrey[800],
+                                                ),
+                                                title: Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 5.0),
+                                                  child: Text(key[index]),
+                                                ),
+                                                subtitle: Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          bottom: 13.0),
+                                                  child: Text(val[index]),
+                                                ),
+                                                trailing: Transform.translate(
+                                                    offset: Offset(-20, -3),
+                                                    child: IconButton(
+                                                        splashRadius: 20.0,
+                                                        iconSize: 20.0,
+                                                        icon: Icon(Icons.edit),
+                                                        onPressed: () {})),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      );
+                                    } else if (index == 2) {
+                                      return Row(
+                                        children: [
+                                          Container(
+                                            height: 60,
+                                            width: 220,
+                                            child: Card(
+                                              child: ListTile(
+                                                leading: Icon(
+                                                  Icons.school_outlined,
+                                                  size: 25,
+                                                  color: Colors.blueGrey[800],
+                                                ),
+                                                title: Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 5.0),
+                                                  child: Text(key[index]),
+                                                ),
+                                                subtitle: Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          bottom: 13.0),
+                                                  child: Text(val[index]),
+                                                ),
+                                                trailing: Transform.translate(
+                                                    offset: Offset(-20, -3),
+                                                    child: IconButton(
+                                                        splashRadius: 20.0,
+                                                        iconSize: 20.0,
+                                                        icon: Icon(Icons.edit),
+                                                        onPressed: () {})),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      );
+                                    } else if (index == key.length - 1) {
+                                      return Row(
+                                        children: [
+                                          Container(
+                                            height: 60,
+                                            width: 220,
+                                            child: Card(
+                                              child: ListTile(
+                                                leading: Icon(
+                                                  Icons.location_on,
+                                                  size: 25,
+                                                  color: Colors.blueGrey[800],
+                                                ),
+                                                title: Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 5.0),
+                                                  child: Text(key[index]),
+                                                ),
+                                                subtitle: Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          bottom: 13.0),
+                                                  child: Text(val[index]),
+                                                ),
+                                                trailing: Transform.translate(
+                                                    offset: Offset(-20, -3),
+                                                    child: IconButton(
+                                                        splashRadius: 20.0,
+                                                        iconSize: 20.0,
+                                                        icon: Icon(Icons.edit),
+                                                        onPressed: () {})),
+                                              ),
+                                            ),
+                                          ),
+                                          IconButton(
+                                              splashRadius: 10,
+                                              icon: Icon(
+                                                Icons.add_circle,
+                                                color: Colors.blueGrey[800],
+                                              ),
+                                              onPressed: () {}),
+                                        ],
+                                      );
+                                    } else if (index > 2) {
+                                      return Row(
+                                        children: [
+                                          Container(
+                                            height: 60,
+                                            width: 220,
+                                            child: Card(
+                                              child: ListTile(
+                                                leading: Icon(
+                                                  Icons.school_outlined,
+                                                  size: 25,
+                                                  color: Colors.blueGrey[800],
+                                                ),
+                                                title: Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 5.0),
+                                                  child: Text(key[index]),
+                                                ),
+                                                subtitle: Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          bottom: 13.0),
+                                                  child: Text(val[index]),
+                                                ),
+                                                trailing: Transform.translate(
+                                                    offset: Offset(-20, -3),
+                                                    child: IconButton(
+                                                        splashRadius: 20.0,
+                                                        iconSize: 20.0,
+                                                        icon: Icon(Icons.edit),
+                                                        onPressed: () {})),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      );
+                                    }
+                                  }),
+                            );
+                          } else {
+                            return Container(
+                              width: 0,
+                              height: 0,
+                            );
+                          }
                         });
-                      } else {
-                        setState(() {
-                          //snackbar
-                          final snackBar = SnackBar(
-                            content: Padding(
-                                padding: EdgeInsets.only(left: 10.0),
-                                child: Text(
-                                    'Please Select A  Valid Location And Destination')),
-                          );
-                          Scaffold.of(context).showSnackBar(snackBar);
-                        });
-                      }
-                    },
+                  } else {
+                    return Container(
+                      width: 0,
+                      height: 0,
+                    );
+                  }
+                }),
+
+            SizedBox(
+              height: 30,
+            ),
+
+            // Confirmation button
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: ButtonTheme(
+                height: 50,
+                minWidth: 250.0,
+                child: RaisedButton(
+                  elevation: 20,
+                  color: Colors.blueGrey[800],
+                  child: Text(
+                    'Confirm Booking ',
+                    style: TextStyle(color: Colors.white, fontSize: 16),
                   ),
+                  onPressed: () {
+                    if (location != null &&
+                        destination != null &&
+                        location != '' &&
+                        destination != '') {
+                      setState(() {
+                        errortext = '';
+                        price = PriceChecker().PriceConfirm(destination);
+                        _controller.clear();
+                        _controller1.clear();
+                        Navigator.of(context)
+                            .push(MaterialPageRoute(
+                                builder: (context) => Confirmation(
+                                      location: location,
+                                      destination: destination,
+                                      price: price,
+                                      count: count,
+                                    )))
+                            .whenComplete(() {
+                          setState(() {
+                            location = null;
+                            destination = null;
+                          });
+                        });
+                      });
+                    } else {
+                      setState(() {
+                        //snackbar
+                        final snackBar = SnackBar(
+                          content: Padding(
+                              padding: EdgeInsets.only(left: 10.0),
+                              child: Text(
+                                  'Please Select A  Valid Location And Destination')),
+                        );
+                        Scaffold.of(context).showSnackBar(snackBar);
+                      });
+                    }
+                  },
                 ),
               ),
-              SizedBox(
-                height: 10.0,
-              ),
-            ],
-          ),
+            ),
+            SizedBox(
+              height: 10.0,
+            ),
+          ],
         ),
       ),
     );
