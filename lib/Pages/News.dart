@@ -77,11 +77,11 @@ class _NewsState extends State<News> with SingleTickerProviderStateMixin {
             Align(
               alignment: Alignment.topLeft,
               child: Padding(
-                padding: const EdgeInsets.only(left: 15.0, top: 50),
+                padding: const EdgeInsets.only(left: 15.0, top: 40),
                 child: Text(
                   'News',
                   style: TextStyle(
-                      fontSize: 26,
+                      fontSize: 28,
                       fontWeight: FontWeight.bold,
                       color: Colors.blueGrey[800]),
                 ),
@@ -89,7 +89,7 @@ class _NewsState extends State<News> with SingleTickerProviderStateMixin {
             ),
             // Notification bell
             Padding(
-              padding: const EdgeInsets.only(top: 50.0, left: 210),
+              padding: const EdgeInsets.only(top: 40.0, left: 210),
               child: AnimatedBuilder(
                   animation: _animationController,
                   builder: (BuildContext context, _) {
@@ -99,6 +99,7 @@ class _NewsState extends State<News> with SingleTickerProviderStateMixin {
                         color: _colorAnimation.value,
                         size: _sizeAnimation.value,
                       ),
+                      splashRadius: 5,
                       onPressed: () {
                         if (count == 0) {
                           _animationController.forward();
