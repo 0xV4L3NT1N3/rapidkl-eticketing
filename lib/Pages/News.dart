@@ -179,7 +179,7 @@ class _NewsState extends State<News> with SingleTickerProviderStateMixin {
                                               fontSize: 15)),
                                       Padding(
                                         padding: const EdgeInsets.only(
-                                            left: 110.0, top: 10),
+                                            left: 110.0, top: 25),
                                         child: Text('2 hours ago',
                                             style:
                                                 TextStyle(color: Colors.grey)),

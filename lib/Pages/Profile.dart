@@ -259,7 +259,8 @@ class _NewsState extends State<Profile> {
                                 child: Column(children: [
                                   //name tile
                                   ListTile(
-                                    leading: Icon(Icons.person),
+                                    leading: Icon(Icons.person,
+                                        color: Colors.blueGrey[800]),
                                     title: Text(
                                       userData.name,
                                       style: TextStyle(
@@ -359,14 +360,14 @@ class _NewsState extends State<Profile> {
 
                                   //Age Tile
                                   ListTile(
-                                    leading: Icon(Icons.info_outline),
+                                    leading: Icon(Icons.info,
+                                        color: Colors.blueGrey[800]),
                                     title: Text(
                                       '${userData.age}',
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold),
                                     ),
-                                    subtitle:
-                                        Text('What may your age be traveller?'),
+                                    subtitle: Text('Age'),
                                     trailing: IconButton(
                                       icon: Icon(Icons.edit),
                                       onPressed: () {
@@ -467,7 +468,8 @@ class _NewsState extends State<Profile> {
 
                                   //tile for phone number
                                   ListTile(
-                                    leading: Icon(Icons.call),
+                                    leading: Icon(Icons.call,
+                                        color: Colors.blueGrey[800]),
                                     title: Text(
                                       userData.phonenumber,
                                       style: TextStyle(

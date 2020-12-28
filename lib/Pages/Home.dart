@@ -217,7 +217,7 @@ class _HomeState extends State<Home> {
                             // Round trip option
                             Checkbox(
                                 value: checkBoxValue,
-                                activeColor: Colors.green,
+                                activeColor: Colors.red,
                                 onChanged: (bool newValue) {
                                   setState(() {
                                     checkBoxValue = newValue;
@@ -361,7 +361,7 @@ class _HomeState extends State<Home> {
                                                                                 hintText: 'Home',
                                                                                 hintStyle: TextStyle(color: Colors.black),
                                                                               ),
-                                                                              validator: (value) => value.length == 0 ? "Please enter a Valid Destination" : null,
+                                                                              validator: (value) => value.length == 0 ? "Please enter a valid destination" : null,
                                                                               onChanged: (value) {
                                                                                 setState(() {
                                                                                   val[index] = value;
@@ -472,7 +472,7 @@ class _HomeState extends State<Home> {
                                                                                 hintText: 'Work',
                                                                                 hintStyle: TextStyle(color: Colors.black),
                                                                               ),
-                                                                              validator: (value) => value.length == 0 ? "Please enter a Valid Destination" : null,
+                                                                              validator: (value) => value.length == 0 ? "Please enter a valid destination" : null,
                                                                               onChanged: (value) {
                                                                                 setState(() {
                                                                                   val[index] = value;
@@ -583,7 +583,7 @@ class _HomeState extends State<Home> {
                                                                                 hintText: 'School',
                                                                                 hintStyle: TextStyle(color: Colors.black),
                                                                               ),
-                                                                              validator: (value) => value.length == 0 ? "Please enter a Valid Destination" : null,
+                                                                              validator: (value) => value.length == 0 ? "Please enter a valid destination" : null,
                                                                               onChanged: (value) {
                                                                                 setState(() {
                                                                                   val[index] = value;
@@ -696,7 +696,7 @@ class _HomeState extends State<Home> {
                                                                                     hintText: 'Location',
                                                                                     hintStyle: TextStyle(color: Colors.black),
                                                                                   ),
-                                                                                  validator: (value) => value.length == 0 ? "Please enter a Valid Location" : null,
+                                                                                  validator: (value) => value.length == 0 ? "Please enter a valid location" : null,
                                                                                   onChanged: (value) {
                                                                                     setState(() {
                                                                                       key[index] = value;
@@ -712,7 +712,7 @@ class _HomeState extends State<Home> {
                                                                                     hintText: 'Destination',
                                                                                     hintStyle: TextStyle(color: Colors.black),
                                                                                   ),
-                                                                                  validator: (value) => value.length == 0 ? "Please enter a Valid Destination" : null,
+                                                                                  validator: (value) => value.length == 0 ? "Please enter a valid destination" : null,
                                                                                   onChanged: (value) {
                                                                                     setState(() {
                                                                                       val[index] = value;
@@ -798,7 +798,7 @@ class _HomeState extends State<Home> {
                                                                                 TextStyle(color: Colors.black),
                                                                           ),
                                                                           validator: (value) => value.length == 0
-                                                                              ? "Please enter a Valid Location"
+                                                                              ? "Please enter a valid location"
                                                                               : null,
                                                                           onChanged:
                                                                               (value) {
@@ -825,7 +825,7 @@ class _HomeState extends State<Home> {
                                                                                 TextStyle(color: Colors.black),
                                                                           ),
                                                                           validator: (value) => value.length == 0
-                                                                              ? "Please enter a Valid Destination"
+                                                                              ? "Please enter a valid destination"
                                                                               : null,
                                                                           onChanged:
                                                                               (value) {
@@ -952,7 +952,7 @@ class _HomeState extends State<Home> {
                                                                                     hintText: 'Location',
                                                                                     hintStyle: TextStyle(color: Colors.black),
                                                                                   ),
-                                                                                  validator: (value) => value.length == 0 ? "Please enter a Valid Location" : null,
+                                                                                  validator: (value) => value.length == 0 ? "Please enter a valid location" : null,
                                                                                   onChanged: (value) {
                                                                                     setState(() {
                                                                                       key[index] = value;
@@ -968,7 +968,7 @@ class _HomeState extends State<Home> {
                                                                                     hintText: 'Destination',
                                                                                     hintStyle: TextStyle(color: Colors.black),
                                                                                   ),
-                                                                                  validator: (value) => value.length == 0 ? "Please enter a Valid Destination" : null,
+                                                                                  validator: (value) => value.length == 0 ? "Please enter a valid destination" : null,
                                                                                   onChanged: (value) {
                                                                                     setState(() {
                                                                                       val[index] = value;
@@ -1069,7 +1069,7 @@ class _HomeState extends State<Home> {
                             content: Padding(
                                 padding: EdgeInsets.only(left: 10.0),
                                 child: Text(
-                                    'Please Select A  Valid Location And Destination')),
+                                    'Please select a valid location and destination')),
                           );
                           Scaffold.of(context).showSnackBar(snackBar);
                         });
