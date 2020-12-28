@@ -112,6 +112,8 @@ class UserNews {
   NewsFunc _news(DocumentSnapshot snapshot) {
     return NewsFunc(
       news : snapshot.data['lmao'],
+      caption : snapshot.data['caption'],
+      images : snapshot.data['images'],
     );
   }
 

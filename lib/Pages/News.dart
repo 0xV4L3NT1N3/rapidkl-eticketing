@@ -137,6 +137,8 @@ class _NewsState extends State<News> with SingleTickerProviderStateMixin {
             NewsFunc newslol2 = snapshot.data;
             if (snapshot.hasData) {
               var arr = newslol2.news;
+              var arr2 = newslol2.images;
+              var arr3 = newslol2.caption;
               return  Expanded(
                         child: ListView.builder(
                             shrinkWrap: true,
@@ -164,8 +166,7 @@ class _NewsState extends State<News> with SingleTickerProviderStateMixin {
                                           decoration: BoxDecoration(
                                               borderRadius: BorderRadius.all(
                                                   Radius.circular(15))),
-                                          child: Image.network(
-                                              'https://firebasestorage.googleapis.com/v0/b/rapidkl-app.appspot.com/o/NewsPics%2Fmrt-corp_20171009170253_theedgemarkets.jpg?alt=media&token=1be05923-e830-4da6-98ea-697305ce2d54',
+                                          child: Image.network( arr2[index],
                                               fit: BoxFit.fill),
                                         ),
                                         Positioned(
@@ -184,7 +185,7 @@ class _NewsState extends State<News> with SingleTickerProviderStateMixin {
                                                     fontSize: 22),
                                               ),
                                               Text(
-                                                  'Available for a limited time \n only at selected stations',
+                                                  arr3[index],
                                                   style: TextStyle(
                                                       color: Colors.grey,
                                                       fontSize: 15)),

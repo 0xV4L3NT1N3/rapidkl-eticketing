@@ -258,7 +258,6 @@ class _HomeState extends State<Home> {
                   builder: (context, snapshot) {
                     UserData userData = snapshot.data;
                     if (snapshot.hasData) {
-                      print(snapshot);
                       return StreamBuilder<Favfunc>(
                           stream: DatabaseService(uid: user.uid).favourites,
                           // ignore: missing_return

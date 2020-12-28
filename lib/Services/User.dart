@@ -33,8 +33,10 @@ class UserProfilePic{
 
 class NewsFunc{
   var news;
+  var caption;
+  var images;
 
-  NewsFunc({this.news});
+  NewsFunc({this.news, this.caption, this.images});
 }
 
 class Favfunc {
