@@ -61,10 +61,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
   String newlocation;
   String newdestionation;
-
 
   String location;
   String destination;
@@ -72,7 +70,7 @@ class _HomeState extends State<Home> {
   int count = 1;
   String errortext = '';
   double price;
-  bool checkBoxValue =  false;
+  bool checkBoxValue = false;
   var _controller = TextEditingController();
   var _controller1 = TextEditingController();
   final _formkey = GlobalKey<FormState>();
@@ -183,7 +181,11 @@ class _HomeState extends State<Home> {
                                         splashRadius: 20.0,
                                         onPressed: () {
                                           setState(() {
-                                            count = count + 1;
+                                            if (count == 99) {
+                                              count = 99;
+                                            } else {
+                                              count = count + 1;
+                                            }
                                           });
                                         }),
                                     Text(
@@ -213,9 +215,10 @@ class _HomeState extends State<Home> {
                             SizedBox(width: 30),
 
                             // Round trip option
-                            Checkbox(value: checkBoxValue,
+                            Checkbox(
+                                value: checkBoxValue,
                                 activeColor: Colors.green,
-                                onChanged:(bool newValue){
+                                onChanged: (bool newValue) {
                                   setState(() {
                                     checkBoxValue = newValue;
                                     print(checkBoxValue);
@@ -281,130 +284,115 @@ class _HomeState extends State<Home> {
                                     itemBuilder: (context, index) {
                                       if (index == 0) {
                                         return GestureDetector(
-                                            onTap: () {
+                                          onTap: () {
                                             setState(() {
                                               destination = val[index];
-                                             _controller1.text = val[index];
+                                              _controller1.text = val[index];
                                             });
-                                            },
-                                            child: Container(
-                                              height: 60,
-                                              width: 220,
-                                              child: Card(
-                                                child: ListTile(
-                                                  leading: Icon(
-                                                    Icons.home,
-                                                    size: 25,
-                                                    color: Colors
-                                                        .blueGrey[800],
-                                                  ),
-                                                  title: Padding(
-                                                    padding: const EdgeInsets
-                                                        .only(top: 8.0),
-                                                    child: Text(
-                                                        key[index]),
-                                                  ),
-                                                  subtitle: Padding(
-                                                    padding: const EdgeInsets
-                                                        .only(
-                                                        bottom: 13.0),
-                                                    child: Text(
-                                                        val[index]),
-                                                  ),
-                                                  trailing: Transform
-                                                      .translate(
-                                                      offset: Offset(
-                                                          -20, 0),
-                                                      child: IconButton(
-                                                          splashRadius: 20.0,
-                                                          iconSize: 20.0,
-                                                          icon: Icon(
-                                                              Icons
-                                                                  .edit),
-                                                          onPressed: () {
-                                                            setState(() {
-                                                              showModalBottomSheet<
-                                                                  void>(
-                                                                context: context,
-                                                                builder: (
-                                                                    BuildContext context) {
-                                                                  return Container(
-                                                                    height: 700.0,
-                                                                    child: Form(
-                                                                      key: _formkey,
-                                                                      child: Column(
-                                                                          children: [
-                                                                            SizedBox(
-                                                                              height: 20.0,
-                                                                            ),
-                                                                            Text(
-                                                                              'Update Home',
-                                                                              style: TextStyle(
-                                                                                fontSize: 20.0,
-                                                                              ),
-                                                                            ),
-                                                                            SizedBox(
-                                                                              height: 20.0,
-                                                                            ),
-                                                                            Padding(
-                                                                              padding:
-                                                                              EdgeInsets
-                                                                                  .fromLTRB(
-                                                                                  20.0,
-                                                                                  0,
-                                                                                  20.0,
-                                                                                  0.0),
-                                                                              child: TextFormField(
-                                                                                initialValue: val[index],
-                                                                                decoration:
-                                                                                textinput
-                                                                                    .copyWith(
-                                                                                  hintText: 'Home',
-                                                                                  hintStyle: TextStyle(
-                                                                                      color:
-                                                                                      Colors
-                                                                                          .black),
-                                                                                ),
-                                                                                validator: (
-                                                                                    value) =>
-                                                                                value.length == 0 ? "Please enter a Valid Destination"
-                                                                                    : null,
-                                                                                onChanged: (
-                                                                                    value) {
-                                                                                  setState(() {
-                                                                                    val[index] = value;
-                                                                                  });
-                                                                                },
-                                                                              ),
-                                                                            ),
-                                                                            SizedBox(
-                                                                              height: 10.0,
-                                                                            ),
-                                                                            FlatButton(
-                                                                                color: Colors
-                                                                                    .pinkAccent,
-                                                                                child: Text(
-                                                                                    'Update'),
-                                                                                onPressed: () async {
-                                                                                  if (_formkey
-                                                                                      .currentState
-                                                                                      .validate()) {
-                                                                                    Navigator.pop(context);
-                                                                                    await DatabaseService(uid: user.uid).UpdateFavourites(key , val);
-                                                                                  }
-                                                                                }),
-                                                                          ]),
-                                                                    ),
-                                                                  );
-                                                                },
-                                                              );
-                                                            });
-                                                          })),
+                                          },
+                                          child: Container(
+                                            height: 60,
+                                            width: 220,
+                                            child: Card(
+                                              child: ListTile(
+                                                leading: Icon(
+                                                  Icons.home,
+                                                  size: 25,
+                                                  color: Colors.blueGrey[800],
                                                 ),
+                                                title: Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 8.0),
+                                                  child: Text(key[index]),
+                                                ),
+                                                subtitle: Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          bottom: 13.0),
+                                                  child: Text(val[index]),
+                                                ),
+                                                trailing: Transform.translate(
+                                                    offset: Offset(-20, 0),
+                                                    child: IconButton(
+                                                        splashRadius: 20.0,
+                                                        iconSize: 20.0,
+                                                        icon: Icon(Icons.edit),
+                                                        onPressed: () {
+                                                          setState(() {
+                                                            showModalBottomSheet<
+                                                                void>(
+                                                              context: context,
+                                                              builder:
+                                                                  (BuildContext
+                                                                      context) {
+                                                                return Container(
+                                                                  height: 700.0,
+                                                                  child: Form(
+                                                                    key:
+                                                                        _formkey,
+                                                                    child: Column(
+                                                                        children: [
+                                                                          SizedBox(
+                                                                            height:
+                                                                                20.0,
+                                                                          ),
+                                                                          Text(
+                                                                            'Update Home',
+                                                                            style:
+                                                                                TextStyle(
+                                                                              fontSize: 20.0,
+                                                                            ),
+                                                                          ),
+                                                                          SizedBox(
+                                                                            height:
+                                                                                20.0,
+                                                                          ),
+                                                                          Padding(
+                                                                            padding: EdgeInsets.fromLTRB(
+                                                                                20.0,
+                                                                                0,
+                                                                                20.0,
+                                                                                0.0),
+                                                                            child:
+                                                                                TextFormField(
+                                                                              initialValue: val[index],
+                                                                              decoration: textinput.copyWith(
+                                                                                hintText: 'Home',
+                                                                                hintStyle: TextStyle(color: Colors.black),
+                                                                              ),
+                                                                              validator: (value) => value.length == 0 ? "Please enter a Valid Destination" : null,
+                                                                              onChanged: (value) {
+                                                                                setState(() {
+                                                                                  val[index] = value;
+                                                                                });
+                                                                              },
+                                                                            ),
+                                                                          ),
+                                                                          SizedBox(
+                                                                            height:
+                                                                                10.0,
+                                                                          ),
+                                                                          FlatButton(
+                                                                              color: Colors.pinkAccent,
+                                                                              child: Text('Update'),
+                                                                              onPressed: () async {
+                                                                                if (_formkey.currentState.validate()) {
+                                                                                  Navigator.pop(context);
+                                                                                  await DatabaseService(uid: user.uid).UpdateFavourites(key, val);
+                                                                                }
+                                                                              }),
+                                                                        ]),
+                                                                  ),
+                                                                );
+                                                              },
+                                                            );
+                                                          });
+                                                        })),
                                               ),
                                             ),
-                                          );
-
+                                          ),
+                                        );
                                       } else if (index == 1) {
                                         return GestureDetector(
                                           onTap: () {
@@ -421,82 +409,71 @@ class _HomeState extends State<Home> {
                                                 leading: Icon(
                                                   Icons.work,
                                                   size: 25,
-                                                  color: Colors
-                                                      .blueGrey[800],
+                                                  color: Colors.blueGrey[800],
                                                 ),
                                                 title: Padding(
-                                                  padding: const EdgeInsets
-                                                      .only(top: 8.0),
-                                                  child: Text(
-                                                      key[index]),
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 8.0),
+                                                  child: Text(key[index]),
                                                 ),
                                                 subtitle: Padding(
-                                                  padding: const EdgeInsets
-                                                      .only(
-                                                      bottom: 13.0),
-                                                  child: Text(
-                                                      val[index]),
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          bottom: 13.0),
+                                                  child: Text(val[index]),
                                                 ),
-                                                trailing: Transform
-                                                    .translate(
-                                                    offset: Offset(
-                                                        -20, 0),
+                                                trailing: Transform.translate(
+                                                    offset: Offset(-20, 0),
                                                     child: IconButton(
                                                         splashRadius: 20.0,
                                                         iconSize: 20.0,
-                                                        icon: Icon(
-                                                            Icons
-                                                                .edit),
+                                                        icon: Icon(Icons.edit),
                                                         onPressed: () {
                                                           setState(() {
                                                             showModalBottomSheet<
                                                                 void>(
                                                               context: context,
-                                                              builder: (
-                                                                  BuildContext context) {
+                                                              builder:
+                                                                  (BuildContext
+                                                                      context) {
                                                                 return Container(
                                                                   height: 700.0,
                                                                   child: Form(
-                                                                    key: _formkey,
+                                                                    key:
+                                                                        _formkey,
                                                                     child: Column(
                                                                         children: [
                                                                           SizedBox(
-                                                                            height: 20.0,
+                                                                            height:
+                                                                                20.0,
                                                                           ),
                                                                           Text(
                                                                             'Update Work',
-                                                                            style: TextStyle(
+                                                                            style:
+                                                                                TextStyle(
                                                                               fontSize: 20.0,
                                                                             ),
                                                                           ),
                                                                           SizedBox(
-                                                                            height: 20.0,
+                                                                            height:
+                                                                                20.0,
                                                                           ),
                                                                           Padding(
-                                                                            padding:
-                                                                            EdgeInsets
-                                                                                .fromLTRB(
+                                                                            padding: EdgeInsets.fromLTRB(
                                                                                 20.0,
                                                                                 0,
                                                                                 20.0,
                                                                                 0.0),
-                                                                            child: TextFormField(
+                                                                            child:
+                                                                                TextFormField(
                                                                               initialValue: val[index],
-                                                                              decoration:
-                                                                              textinput
-                                                                                  .copyWith(
+                                                                              decoration: textinput.copyWith(
                                                                                 hintText: 'Work',
-                                                                                hintStyle: TextStyle(
-                                                                                    color:
-                                                                                    Colors
-                                                                                        .black),
+                                                                                hintStyle: TextStyle(color: Colors.black),
                                                                               ),
-                                                                              validator: (
-                                                                                  value) =>
-                                                                              value.length == 0 ? "Please enter a Valid Destination"
-                                                                                  : null,
-                                                                              onChanged: (
-                                                                                  value) {
+                                                                              validator: (value) => value.length == 0 ? "Please enter a Valid Destination" : null,
+                                                                              onChanged: (value) {
                                                                                 setState(() {
                                                                                   val[index] = value;
                                                                                 });
@@ -504,19 +481,16 @@ class _HomeState extends State<Home> {
                                                                             ),
                                                                           ),
                                                                           SizedBox(
-                                                                            height: 10.0,
+                                                                            height:
+                                                                                10.0,
                                                                           ),
                                                                           FlatButton(
-                                                                              color: Colors
-                                                                                  .pinkAccent,
-                                                                              child: Text(
-                                                                                  'Update'),
+                                                                              color: Colors.pinkAccent,
+                                                                              child: Text('Update'),
                                                                               onPressed: () async {
-                                                                                if (_formkey
-                                                                                    .currentState
-                                                                                    .validate()) {
+                                                                                if (_formkey.currentState.validate()) {
                                                                                   Navigator.pop(context);
-                                                                                  await DatabaseService(uid: user.uid).UpdateFavourites(key , val);
+                                                                                  await DatabaseService(uid: user.uid).UpdateFavourites(key, val);
                                                                                 }
                                                                               }),
                                                                         ]),
@@ -530,9 +504,7 @@ class _HomeState extends State<Home> {
                                             ),
                                           ),
                                         );
-                                      }
-
-                                      else if (index == 2) {
+                                      } else if (index == 2) {
                                         return GestureDetector(
                                           onTap: () {
                                             setState(() {
@@ -548,81 +520,71 @@ class _HomeState extends State<Home> {
                                                 leading: Icon(
                                                   Icons.school,
                                                   size: 25,
-                                                  color: Colors
-                                                      .blueGrey[800],
+                                                  color: Colors.blueGrey[800],
                                                 ),
                                                 title: Padding(
-                                                  padding: const EdgeInsets
-                                                      .only(top: 8.0),
-                                                  child: Text(
-                                                      key[index]),
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 8.0),
+                                                  child: Text(key[index]),
                                                 ),
                                                 subtitle: Padding(
-                                                  padding: const EdgeInsets
-                                                      .only(
-                                                      bottom: 13.0),
-                                                  child: Text(
-                                                      val[index]),
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          bottom: 13.0),
+                                                  child: Text(val[index]),
                                                 ),
-                                                trailing: Transform
-                                                    .translate(
-                                                    offset: Offset(
-                                                        -20, 0),
+                                                trailing: Transform.translate(
+                                                    offset: Offset(-20, 0),
                                                     child: IconButton(
                                                         splashRadius: 20.0,
                                                         iconSize: 20.0,
-                                                        icon: Icon(
-                                                            Icons.edit),
+                                                        icon: Icon(Icons.edit),
                                                         onPressed: () {
                                                           setState(() {
                                                             showModalBottomSheet<
                                                                 void>(
                                                               context: context,
-                                                              builder: (
-                                                                  BuildContext context) {
+                                                              builder:
+                                                                  (BuildContext
+                                                                      context) {
                                                                 return Container(
                                                                   height: 700.0,
                                                                   child: Form(
-                                                                    key: _formkey,
+                                                                    key:
+                                                                        _formkey,
                                                                     child: Column(
                                                                         children: [
                                                                           SizedBox(
-                                                                            height: 20.0,
+                                                                            height:
+                                                                                20.0,
                                                                           ),
                                                                           Text(
                                                                             'Update School',
-                                                                            style: TextStyle(
+                                                                            style:
+                                                                                TextStyle(
                                                                               fontSize: 20.0,
                                                                             ),
                                                                           ),
                                                                           SizedBox(
-                                                                            height: 20.0,
+                                                                            height:
+                                                                                20.0,
                                                                           ),
                                                                           Padding(
-                                                                            padding:
-                                                                            EdgeInsets
-                                                                                .fromLTRB(
+                                                                            padding: EdgeInsets.fromLTRB(
                                                                                 20.0,
                                                                                 0,
                                                                                 20.0,
                                                                                 0.0),
-                                                                            child: TextFormField(
+                                                                            child:
+                                                                                TextFormField(
                                                                               initialValue: val[index],
-                                                                              decoration:
-                                                                              textinput
-                                                                                  .copyWith(
+                                                                              decoration: textinput.copyWith(
                                                                                 hintText: 'School',
-                                                                                hintStyle: TextStyle(
-                                                                                    color:
-                                                                                    Colors
-                                                                                        .black),
+                                                                                hintStyle: TextStyle(color: Colors.black),
                                                                               ),
-                                                                              validator: (
-                                                                                  value) =>
-                                                                              value.length == 0 ? "Please enter a Valid Destination"
-                                                                                  : null,
-                                                                              onChanged: (
-                                                                                  value) {
+                                                                              validator: (value) => value.length == 0 ? "Please enter a Valid Destination" : null,
+                                                                              onChanged: (value) {
                                                                                 setState(() {
                                                                                   val[index] = value;
                                                                                 });
@@ -630,19 +592,16 @@ class _HomeState extends State<Home> {
                                                                             ),
                                                                           ),
                                                                           SizedBox(
-                                                                            height: 10.0,
+                                                                            height:
+                                                                                10.0,
                                                                           ),
                                                                           FlatButton(
-                                                                              color: Colors
-                                                                                  .pinkAccent,
-                                                                              child: Text(
-                                                                                  'Update School'),
+                                                                              color: Colors.pinkAccent,
+                                                                              child: Text('Update School'),
                                                                               onPressed: () async {
-                                                                                if (_formkey
-                                                                                    .currentState
-                                                                                    .validate()) {
+                                                                                if (_formkey.currentState.validate()) {
                                                                                   Navigator.pop(context);
-                                                                                  await DatabaseService(uid: user.uid).UpdateFavourites(key , val);
+                                                                                  await DatabaseService(uid: user.uid).UpdateFavourites(key, val);
                                                                                 }
                                                                               }),
                                                                         ]),
@@ -656,9 +615,7 @@ class _HomeState extends State<Home> {
                                             ),
                                           ),
                                         );
-                                      }
-
-                                      else if (index == key.length - 1) {
+                                      } else if (index == key.length - 1) {
                                         return GestureDetector(
                                           onTap: () {
                                             setState(() {
@@ -676,44 +633,49 @@ class _HomeState extends State<Home> {
                                                     leading: Icon(
                                                       Icons.location_on,
                                                       size: 25,
-                                                      color: Colors
-                                                          .blueGrey[800],
+                                                      color:
+                                                          Colors.blueGrey[800],
                                                     ),
                                                     title: Padding(
-                                                      padding: const EdgeInsets
-                                                          .only(top: 8.0),
-                                                      child: Text(
-                                                          key[index]),
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              top: 8.0),
+                                                      child: Text(key[index]),
                                                     ),
                                                     subtitle: Padding(
-                                                      padding: const EdgeInsets
-                                                          .only(
-                                                          bottom: 13.0),
-                                                      child: Text(
-                                                          val[index]),
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              bottom: 13.0),
+                                                      child: Text(val[index]),
                                                     ),
-                                                    trailing: Transform
-                                                        .translate(
-                                                        offset: Offset(
-                                                            -20, 0),
-                                                        child: IconButton(
-                                                            splashRadius: 20.0,
-                                                            iconSize: 20.0,
-                                                            icon: Icon(
-                                                                Icons.edit),
-                                                            onPressed: () {
-                                                              setState(() {
-                                                                showModalBottomSheet<
-                                                                    void>(
-                                                                  context: context,
-                                                                  builder: (
-                                                                      BuildContext context) {
-                                                                    return Container(
-                                                                      height: 700.0,
-                                                                      child: Form(
-                                                                        key: _formkey,
-                                                                        child: Column(
-                                                                            children: [
+                                                    trailing:
+                                                        Transform.translate(
+                                                            offset:
+                                                                Offset(-20, 0),
+                                                            child: IconButton(
+                                                                splashRadius:
+                                                                    20.0,
+                                                                iconSize: 20.0,
+                                                                icon: Icon(
+                                                                    Icons.edit),
+                                                                onPressed: () {
+                                                                  setState(() {
+                                                                    showModalBottomSheet<
+                                                                        void>(
+                                                                      context:
+                                                                          context,
+                                                                      builder:
+                                                                          (BuildContext
+                                                                              context) {
+                                                                        return Container(
+                                                                          height:
+                                                                              700.0,
+                                                                          child:
+                                                                              Form(
+                                                                            key:
+                                                                                _formkey,
+                                                                            child:
+                                                                                Column(children: [
                                                                               SizedBox(
                                                                                 height: 20.0,
                                                                               ),
@@ -727,30 +689,15 @@ class _HomeState extends State<Home> {
                                                                                 height: 20.0,
                                                                               ),
                                                                               Padding(
-                                                                                padding:
-                                                                                EdgeInsets
-                                                                                    .fromLTRB(
-                                                                                    20.0,
-                                                                                    0,
-                                                                                    20.0,
-                                                                                    0.0),
+                                                                                padding: EdgeInsets.fromLTRB(20.0, 0, 20.0, 0.0),
                                                                                 child: TextFormField(
                                                                                   initialValue: key[index],
-                                                                                  decoration:
-                                                                                  textinput
-                                                                                      .copyWith(
+                                                                                  decoration: textinput.copyWith(
                                                                                     hintText: 'Location',
-                                                                                    hintStyle: TextStyle(
-                                                                                        color:
-                                                                                        Colors
-                                                                                            .black),
+                                                                                    hintStyle: TextStyle(color: Colors.black),
                                                                                   ),
-                                                                                  validator: (
-                                                                                      value) =>
-                                                                                  value.length == 0 ? "Please enter a Valid Location"
-                                                                                      : null,
-                                                                                  onChanged: (
-                                                                                      value) {
+                                                                                  validator: (value) => value.length == 0 ? "Please enter a Valid Location" : null,
+                                                                                  onChanged: (value) {
                                                                                     setState(() {
                                                                                       key[index] = value;
                                                                                     });
@@ -758,28 +705,15 @@ class _HomeState extends State<Home> {
                                                                                 ),
                                                                               ),
                                                                               Padding(
-                                                                                padding:
-                                                                                EdgeInsets
-                                                                                    .fromLTRB(
-                                                                                    20.0,
-                                                                                    0,
-                                                                                    20.0,
-                                                                                    0.0),
+                                                                                padding: EdgeInsets.fromLTRB(20.0, 0, 20.0, 0.0),
                                                                                 child: TextFormField(
                                                                                   initialValue: val[index],
-                                                                                  decoration:
-                                                                                  textinput
-                                                                                      .copyWith(
+                                                                                  decoration: textinput.copyWith(
                                                                                     hintText: 'Destination',
-                                                                                    hintStyle: TextStyle(
-                                                                                        color:
-                                                                                        Colors
-                                                                                            .black),
+                                                                                    hintStyle: TextStyle(color: Colors.black),
                                                                                   ),
-                                                                                  validator: (value) =>
-                                                                                  value.length == 0 ? "Please enter a Valid Destination" : null,
-                                                                                  onChanged: (
-                                                                                      value) {
+                                                                                  validator: (value) => value.length == 0 ? "Please enter a Valid Destination" : null,
+                                                                                  onChanged: (value) {
                                                                                     setState(() {
                                                                                       val[index] = value;
                                                                                     });
@@ -790,150 +724,156 @@ class _HomeState extends State<Home> {
                                                                                 height: 10.0,
                                                                               ),
                                                                               FlatButton(
-                                                                                  color: Colors
-                                                                                      .pinkAccent,
-                                                                                  child: Text(
-                                                                                      'Update Location/Destination'),
+                                                                                  color: Colors.pinkAccent,
+                                                                                  child: Text('Update Location/Destination'),
                                                                                   onPressed: () async {
-                                                                                    if (_formkey
-                                                                                        .currentState
-                                                                                        .validate()) {
+                                                                                    if (_formkey.currentState.validate()) {
                                                                                       Navigator.pop(context);
-                                                                                      await DatabaseService(uid: user.uid).UpdateFavourites(key , val);
+                                                                                      await DatabaseService(uid: user.uid).UpdateFavourites(key, val);
                                                                                     }
                                                                                   }),
                                                                             ]),
-                                                                      ),
+                                                                          ),
+                                                                        );
+                                                                      },
                                                                     );
-                                                                  },
-                                                                );
-                                                              });
-                                                            })),
+                                                                  });
+                                                                })),
                                                   ),
                                                 ),
                                               ),
-                                              IconButton(icon: Icon(Icons.add_circle), onPressed: () {
-                                                setState(() {
-                                                  setState(() {
-                                                    showModalBottomSheet<
-                                                        void>(
-                                                      context: context,
-                                                      builder: (
-                                                          BuildContext context) {
-                                                        var list1 = new List();
-                                                        var list2 = new List();
-                                                        list1.add(key);
-                                                        list2.add(val);
-                                                        print(list1);
-                                                        print(list2);
-                                                        return Container(
-                                                          height: 700.0,
-                                                          child: Form(
-                                                            key: _formkey,
-                                                            child: Column(
-                                                                children: [
-                                                                  SizedBox(
-                                                                    height: 20.0,
-                                                                  ),
-                                                                  Text(
-                                                                    'Create New Location',
-                                                                    style: TextStyle(
-                                                                      fontSize: 20.0,
-                                                                    ),
-                                                                  ),
-                                                                  SizedBox(
-                                                                    height: 20.0,
-                                                                  ),
-                                                                  Padding(
-                                                                    padding:
-                                                                    EdgeInsets
-                                                                        .fromLTRB(
-                                                                        20.0,
-                                                                        0,
-                                                                        20.0,
-                                                                        0.0),
-                                                                    child: TextFormField(
-                                                                      decoration:
-                                                                      textinput
-                                                                          .copyWith(
-                                                                        hintText: 'New Value',
-                                                                        hintStyle: TextStyle(
-                                                                            color:
-                                                                            Colors
-                                                                                .black),
+                                              IconButton(
+                                                  icon: Icon(Icons.add_circle),
+                                                  onPressed: () {
+                                                    setState(() {
+                                                      setState(() {
+                                                        showModalBottomSheet<
+                                                            void>(
+                                                          context: context,
+                                                          builder: (BuildContext
+                                                              context) {
+                                                            var list1 =
+                                                                new List();
+                                                            var list2 =
+                                                                new List();
+                                                            list1.add(key);
+                                                            list2.add(val);
+                                                            print(list1);
+                                                            print(list2);
+                                                            return Container(
+                                                              height: 700.0,
+                                                              child: Form(
+                                                                key: _formkey,
+                                                                child: Column(
+                                                                    children: [
+                                                                      SizedBox(
+                                                                        height:
+                                                                            20.0,
                                                                       ),
-                                                                      validator: (value) => value.length == 0 ? "Please enter a Valid Location" : null,
-                                                                      onChanged: (value) {
-                                                                        setState(() {
-                                                                          value = newlocation;
-                                                                          print(newlocation);
-                                                                        });
-                                                                      },
-                                                                    ),
-                                                                  ),
-                                                                  Padding(
-                                                                    padding:
-                                                                    EdgeInsets
-                                                                        .fromLTRB(
-                                                                        20.0,
-                                                                        0,
-                                                                        20.0,
-                                                                        0.0),
-                                                                    child: TextFormField(
-                                                                      decoration:
-                                                                      textinput
-                                                                          .copyWith(
-                                                                        hintText: 'New Value',
-                                                                        hintStyle: TextStyle(
-                                                                            color:
-                                                                            Colors
-                                                                                .black),
+                                                                      Text(
+                                                                        'Create New Location',
+                                                                        style:
+                                                                            TextStyle(
+                                                                          fontSize:
+                                                                              20.0,
+                                                                        ),
                                                                       ),
-                                                                      validator: (
-                                                                          value) =>
-                                                                      value.length == 0 ? "Please enter a Valid Destination" : null,
-                                                                      onChanged: (value) {
-                                                                        setState(() {
-                                                                          value= newdestionation;
-                                                                          print(newdestionation);
-                                                                        });
-                                                                      },
-                                                                    ),
-                                                                  ),
-                                                                  SizedBox(
-                                                                    height: 10.0,
-                                                                  ),
-                                                                  FlatButton(
-                                                                      color: Colors
-                                                                          .pinkAccent,
-                                                                      child: Text(
-                                                                          'Create New Location'),
-                                                                      onPressed: () async {
-                                                                        list1.add(newlocation);
-                                                                        list2.add(newdestionation);
-                                                                        if (_formkey
-                                                                            .currentState
-                                                                            .validate()) {
-                                                                          Navigator.pop(context);
-                                                                          await DatabaseService(uid: user.uid).UpdateFavourites(list1.toList() , list2.toList());
-                                                                        }
-                                                                      }),
-                                                                  SizedBox(height: 30.0,),
-                                                                  Text('Does Not Work Due To Unresolved Value Issues'),
-                                                                ]),
-                                                          ),
+                                                                      SizedBox(
+                                                                        height:
+                                                                            20.0,
+                                                                      ),
+                                                                      Padding(
+                                                                        padding: EdgeInsets.fromLTRB(
+                                                                            20.0,
+                                                                            0,
+                                                                            20.0,
+                                                                            0.0),
+                                                                        child:
+                                                                            TextFormField(
+                                                                          decoration:
+                                                                              textinput.copyWith(
+                                                                            hintText:
+                                                                                'New Value',
+                                                                            hintStyle:
+                                                                                TextStyle(color: Colors.black),
+                                                                          ),
+                                                                          validator: (value) => value.length == 0
+                                                                              ? "Please enter a Valid Location"
+                                                                              : null,
+                                                                          onChanged:
+                                                                              (value) {
+                                                                            setState(() {
+                                                                              value = newlocation;
+                                                                              print(newlocation);
+                                                                            });
+                                                                          },
+                                                                        ),
+                                                                      ),
+                                                                      Padding(
+                                                                        padding: EdgeInsets.fromLTRB(
+                                                                            20.0,
+                                                                            0,
+                                                                            20.0,
+                                                                            0.0),
+                                                                        child:
+                                                                            TextFormField(
+                                                                          decoration:
+                                                                              textinput.copyWith(
+                                                                            hintText:
+                                                                                'New Value',
+                                                                            hintStyle:
+                                                                                TextStyle(color: Colors.black),
+                                                                          ),
+                                                                          validator: (value) => value.length == 0
+                                                                              ? "Please enter a Valid Destination"
+                                                                              : null,
+                                                                          onChanged:
+                                                                              (value) {
+                                                                            setState(() {
+                                                                              value = newdestionation;
+                                                                              print(newdestionation);
+                                                                            });
+                                                                          },
+                                                                        ),
+                                                                      ),
+                                                                      SizedBox(
+                                                                        height:
+                                                                            10.0,
+                                                                      ),
+                                                                      FlatButton(
+                                                                          color: Colors
+                                                                              .pinkAccent,
+                                                                          child: Text(
+                                                                              'Create New Location'),
+                                                                          onPressed:
+                                                                              () async {
+                                                                            list1.add(newlocation);
+                                                                            list2.add(newdestionation);
+                                                                            if (_formkey.currentState.validate()) {
+                                                                              Navigator.pop(context);
+                                                                              await DatabaseService(uid: user.uid).UpdateFavourites(list1.toList(), list2.toList());
+                                                                            }
+                                                                          }),
+                                                                      SizedBox(
+                                                                        height:
+                                                                            30.0,
+                                                                      ),
+                                                                      Text(
+                                                                          'Does Not Work Due To Unresolved Value Issues'),
+                                                                    ]),
+                                                              ),
+                                                            );
+                                                          },
                                                         );
-                                                      },
-                                                    );
-                                                  });
-                                                });
-                                              })
+                                                      });
+                                                    });
+                                                  })
                                             ],
                                           ),
                                         );
                                       } else if (index > 2) {
                                         return GestureDetector(
-                                          onTap: (){
+                                          onTap: () {
                                             setState(() {
                                               destination = val[index];
                                               _controller1.text = val[index];
@@ -949,7 +889,8 @@ class _HomeState extends State<Home> {
                                                     leading: Icon(
                                                       Icons.location_on,
                                                       size: 25,
-                                                      color: Colors.blueGrey[800],
+                                                      color:
+                                                          Colors.blueGrey[800],
                                                     ),
                                                     title: Padding(
                                                       padding:
@@ -963,26 +904,34 @@ class _HomeState extends State<Home> {
                                                               bottom: 13.0),
                                                       child: Text(val[index]),
                                                     ),
-                                                    trailing: Transform.translate(
-                                                        offset: Offset(-20, -3),
-                                                        child: IconButton(
-                                                            splashRadius: 20.0,
-                                                            iconSize: 20.0,
-                                                            icon:
-                                                                Icon(Icons.edit),
-                                                            onPressed: () {
-                                                              setState(() {
-                                                                showModalBottomSheet<
-                                                                    void>(
-                                                                  context: context,
-                                                                  builder: (
-                                                                      BuildContext context) {
-                                                                    return Container(
-                                                                      height: 700.0,
-                                                                      child: Form(
-                                                                        key: _formkey,
-                                                                        child: Column(
-                                                                            children: [
+                                                    trailing:
+                                                        Transform.translate(
+                                                            offset:
+                                                                Offset(-20, -3),
+                                                            child: IconButton(
+                                                                splashRadius:
+                                                                    20.0,
+                                                                iconSize: 20.0,
+                                                                icon: Icon(
+                                                                    Icons.edit),
+                                                                onPressed: () {
+                                                                  setState(() {
+                                                                    showModalBottomSheet<
+                                                                        void>(
+                                                                      context:
+                                                                          context,
+                                                                      builder:
+                                                                          (BuildContext
+                                                                              context) {
+                                                                        return Container(
+                                                                          height:
+                                                                              700.0,
+                                                                          child:
+                                                                              Form(
+                                                                            key:
+                                                                                _formkey,
+                                                                            child:
+                                                                                Column(children: [
                                                                               SizedBox(
                                                                                 height: 20.0,
                                                                               ),
@@ -996,30 +945,15 @@ class _HomeState extends State<Home> {
                                                                                 height: 20.0,
                                                                               ),
                                                                               Padding(
-                                                                                padding:
-                                                                                EdgeInsets
-                                                                                    .fromLTRB(
-                                                                                    20.0,
-                                                                                    0,
-                                                                                    20.0,
-                                                                                    0.0),
+                                                                                padding: EdgeInsets.fromLTRB(20.0, 0, 20.0, 0.0),
                                                                                 child: TextFormField(
                                                                                   initialValue: key[index],
-                                                                                  decoration:
-                                                                                  textinput
-                                                                                      .copyWith(
+                                                                                  decoration: textinput.copyWith(
                                                                                     hintText: 'Location',
-                                                                                    hintStyle: TextStyle(
-                                                                                        color:
-                                                                                        Colors
-                                                                                            .black),
+                                                                                    hintStyle: TextStyle(color: Colors.black),
                                                                                   ),
-                                                                                  validator: (
-                                                                                      value) =>
-                                                                                  value.length == 0 ? "Please enter a Valid Location"
-                                                                                      : null,
-                                                                                  onChanged: (
-                                                                                      value) {
+                                                                                  validator: (value) => value.length == 0 ? "Please enter a Valid Location" : null,
+                                                                                  onChanged: (value) {
                                                                                     setState(() {
                                                                                       key[index] = value;
                                                                                     });
@@ -1027,30 +961,15 @@ class _HomeState extends State<Home> {
                                                                                 ),
                                                                               ),
                                                                               Padding(
-                                                                                padding:
-                                                                                EdgeInsets
-                                                                                    .fromLTRB(
-                                                                                    20.0,
-                                                                                    0,
-                                                                                    20.0,
-                                                                                    0.0),
+                                                                                padding: EdgeInsets.fromLTRB(20.0, 0, 20.0, 0.0),
                                                                                 child: TextFormField(
                                                                                   initialValue: val[index],
-                                                                                  decoration:
-                                                                                  textinput
-                                                                                      .copyWith(
+                                                                                  decoration: textinput.copyWith(
                                                                                     hintText: 'Destination',
-                                                                                    hintStyle: TextStyle(
-                                                                                        color:
-                                                                                        Colors
-                                                                                            .black),
+                                                                                    hintStyle: TextStyle(color: Colors.black),
                                                                                   ),
-                                                                                  validator: (
-                                                                                      value) =>
-                                                                                  value.length == 0 ? "Please enter a Valid Destination"
-                                                                                      : null,
-                                                                                  onChanged: (
-                                                                                      value) {
+                                                                                  validator: (value) => value.length == 0 ? "Please enter a Valid Destination" : null,
+                                                                                  onChanged: (value) {
                                                                                     setState(() {
                                                                                       val[index] = value;
                                                                                     });
@@ -1061,25 +980,21 @@ class _HomeState extends State<Home> {
                                                                                 height: 10.0,
                                                                               ),
                                                                               FlatButton(
-                                                                                  color: Colors
-                                                                                      .pinkAccent,
-                                                                                  child: Text(
-                                                                                      'Update Location/Destination'),
+                                                                                  color: Colors.pinkAccent,
+                                                                                  child: Text('Update Location/Destination'),
                                                                                   onPressed: () async {
-                                                                                    if (_formkey
-                                                                                        .currentState
-                                                                                        .validate()) {
+                                                                                    if (_formkey.currentState.validate()) {
                                                                                       Navigator.pop(context);
-                                                                                      await DatabaseService(uid: user.uid).UpdateFavourites(key , val);
+                                                                                      await DatabaseService(uid: user.uid).UpdateFavourites(key, val);
                                                                                     }
                                                                                   }),
                                                                             ]),
-                                                                      ),
+                                                                          ),
+                                                                        );
+                                                                      },
                                                                     );
-                                                                  },
-                                                                );
-                                                              });
-                                                            })),
+                                                                  });
+                                                                })),
                                                   ),
                                                 ),
                                               ),
