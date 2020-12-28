@@ -62,6 +62,9 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
+  String newlocation;
+  String newdestionation;
+
 
   String location;
   String destination;
@@ -608,7 +611,7 @@ class _HomeState extends State<Home> {
                                                                               decoration:
                                                                               textinput
                                                                                   .copyWith(
-                                                                                hintText: 'Work',
+                                                                                hintText: 'School',
                                                                                 hintStyle: TextStyle(
                                                                                     color:
                                                                                     Colors
@@ -732,11 +735,11 @@ class _HomeState extends State<Home> {
                                                                                     20.0,
                                                                                     0.0),
                                                                                 child: TextFormField(
-                                                                                  initialValue: val[index],
+                                                                                  initialValue: key[index],
                                                                                   decoration:
                                                                                   textinput
                                                                                       .copyWith(
-                                                                                    hintText: 'Work',
+                                                                                    hintText: 'Location',
                                                                                     hintStyle: TextStyle(
                                                                                         color:
                                                                                         Colors
@@ -744,7 +747,7 @@ class _HomeState extends State<Home> {
                                                                                   ),
                                                                                   validator: (
                                                                                       value) =>
-                                                                                  value.length == 0 ? "Please enter a Valid Destination"
+                                                                                  value.length == 0 ? "Please enter a Valid Location"
                                                                                       : null,
                                                                                   onChanged: (
                                                                                       value) {
@@ -767,15 +770,14 @@ class _HomeState extends State<Home> {
                                                                                   decoration:
                                                                                   textinput
                                                                                       .copyWith(
-                                                                                    hintText: 'Work',
+                                                                                    hintText: 'Destination',
                                                                                     hintStyle: TextStyle(
                                                                                         color:
                                                                                         Colors
                                                                                             .black),
                                                                                   ),
                                                                                   validator: (value) =>
-                                                                                  value.length == 0 ? "Please enter a Valid Destination"
-                                                                                      : null,
+                                                                                  value.length == 0 ? "Please enter a Valid Destination" : null,
                                                                                   onChanged: (
                                                                                       value) {
                                                                                     setState(() {
@@ -818,6 +820,12 @@ class _HomeState extends State<Home> {
                                                       context: context,
                                                       builder: (
                                                           BuildContext context) {
+                                                        var list1 = new List();
+                                                        var list2 = new List();
+                                                        list1.add(key);
+                                                        list2.add(val);
+                                                        print(list1);
+                                                        print(list2);
                                                         return Container(
                                                           height: 700.0,
                                                           child: Form(
@@ -854,14 +862,11 @@ class _HomeState extends State<Home> {
                                                                             Colors
                                                                                 .black),
                                                                       ),
-                                                                      validator: (
-                                                                          value) =>
-                                                                      value.length == 0 ? "Please enter a Valid Destination"
-                                                                          : null,
-                                                                      onChanged: (
-                                                                          value) {
+                                                                      validator: (value) => value.length == 0 ? "Please enter a Valid Location" : null,
+                                                                      onChanged: (value) {
                                                                         setState(() {
-                                                                          key[index] = value;
+                                                                          value = newlocation;
+                                                                          print(newlocation);
                                                                         });
                                                                       },
                                                                     ),
@@ -886,12 +891,11 @@ class _HomeState extends State<Home> {
                                                                       ),
                                                                       validator: (
                                                                           value) =>
-                                                                      value.length == 0 ? "Please enter a Valid Destination"
-                                                                          : null,
-                                                                      onChanged: (
-                                                                          value) {
+                                                                      value.length == 0 ? "Please enter a Valid Destination" : null,
+                                                                      onChanged: (value) {
                                                                         setState(() {
-                                                                          val[index] = value;
+                                                                          value= newdestionation;
+                                                                          print(newdestionation);
                                                                         });
                                                                       },
                                                                     ),
@@ -905,13 +909,17 @@ class _HomeState extends State<Home> {
                                                                       child: Text(
                                                                           'Create New Location'),
                                                                       onPressed: () async {
+                                                                        list1.add(newlocation);
+                                                                        list2.add(newdestionation);
                                                                         if (_formkey
                                                                             .currentState
                                                                             .validate()) {
                                                                           Navigator.pop(context);
-                                                                          await DatabaseService(uid: user.uid).UpdateFavourites(key , val);
+                                                                          await DatabaseService(uid: user.uid).UpdateFavourites(list1.toList() , list2.toList());
                                                                         }
                                                                       }),
+                                                                  SizedBox(height: 30.0,),
+                                                                  Text('Does Not Work Due To Unresolved Value Issues'),
                                                                 ]),
                                                           ),
                                                         );
@@ -996,11 +1004,11 @@ class _HomeState extends State<Home> {
                                                                                     20.0,
                                                                                     0.0),
                                                                                 child: TextFormField(
-                                                                                  initialValue: val[index],
+                                                                                  initialValue: key[index],
                                                                                   decoration:
                                                                                   textinput
                                                                                       .copyWith(
-                                                                                    hintText: 'Work',
+                                                                                    hintText: 'Location',
                                                                                     hintStyle: TextStyle(
                                                                                         color:
                                                                                         Colors
@@ -1008,7 +1016,7 @@ class _HomeState extends State<Home> {
                                                                                   ),
                                                                                   validator: (
                                                                                       value) =>
-                                                                                  value.length == 0 ? "Please enter a Valid Destination"
+                                                                                  value.length == 0 ? "Please enter a Valid Location"
                                                                                       : null,
                                                                                   onChanged: (
                                                                                       value) {
@@ -1031,7 +1039,7 @@ class _HomeState extends State<Home> {
                                                                                   decoration:
                                                                                   textinput
                                                                                       .copyWith(
-                                                                                    hintText: 'Work',
+                                                                                    hintText: 'Destination',
                                                                                     hintStyle: TextStyle(
                                                                                         color:
                                                                                         Colors
