@@ -68,7 +68,6 @@ class _NewsState extends State<Profile> {
   final _formkey = GlobalKey<FormState>();
 
   //variables for user details
-  String _errortext = '';
   String _currentname;
   String _phonenumber;
   int _age;

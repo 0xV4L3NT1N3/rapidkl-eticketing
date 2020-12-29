@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rapidkl/Services/User.dart';
 import 'package:rapidkl/Services/database.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class News extends StatefulWidget {
@@ -64,9 +63,6 @@ class _NewsState extends State<News> with SingleTickerProviderStateMixin {
   }
 
   Widget build(BuildContext context) {
-    Tween<Offset> _offset = Tween(begin: Offset(1, 0), end: Offset(0, 0));
-    final GlobalKey<AnimatedListState> _listKey =
-        GlobalKey<AnimatedListState>();
 
     return Scaffold(
       body: Column(children: [

@@ -137,7 +137,7 @@ class _HomeState extends State<Home> {
                                     controller: _controller,
                                   ),
                                   suggestionsCallback: (pattern) async {
-                                    return await Stations.getSuggestions(
+                                    return  Stations.getSuggestions(
                                         pattern);
                                   },
                                   itemBuilder: (context, suggestion) {
@@ -171,7 +171,7 @@ class _HomeState extends State<Home> {
                                     controller: _controller1,
                                   ),
                                   suggestionsCallback: (pattern) async {
-                                    return await Stations.getSuggestions(
+                                    return Stations.getSuggestions(
                                         pattern);
                                   },
                                   transitionBuilder:

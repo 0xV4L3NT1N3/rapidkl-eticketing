@@ -1,6 +1,4 @@
-import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:rapidkl/Pages/Home.dart';
 import 'package:rapidkl/Services/User.dart';
 
 class DatabaseService {
