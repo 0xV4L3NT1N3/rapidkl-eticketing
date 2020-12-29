@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rapidkl/Pages/QR%20Ticket.dart';
-import 'package:rapidkl/Services/Price counter.dart';
 import 'package:rapidkl/Pages/Payment Page.dart';
 
 class Confirmation extends StatefulWidget {
@@ -11,11 +9,16 @@ class Confirmation extends StatefulWidget {
   int count = 0;
   bool checkBoxValue;
 
-  Confirmation({this.location, this.destination, this.price, this.count , this.checkBoxValue});
+  Confirmation(
+      {this.location,
+      this.destination,
+      this.price,
+      this.count,
+      this.checkBoxValue});
 
   @override
   _ConfirmationState createState() =>
-      _ConfirmationState(location, destination, price, count , checkBoxValue);
+      _ConfirmationState(location, destination, price, count, checkBoxValue);
 }
 
 class _ConfirmationState extends State<Confirmation> {
@@ -26,16 +29,16 @@ class _ConfirmationState extends State<Confirmation> {
   bool checkBoxValue;
   String trip;
 
-  _ConfirmationState(this.location, this.destination, this.price, this.count , this.checkBoxValue);
+  _ConfirmationState(this.location, this.destination, this.price, this.count,
+      this.checkBoxValue);
 
   @override
   Widget build(BuildContext context) {
-    if (checkBoxValue == true){
+    if (checkBoxValue == true) {
       trip = 'Round Trip';
-    }
-    else {
+    } else {
       trip = 'One Way';
-    };
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -146,7 +149,7 @@ class _ConfirmationState extends State<Confirmation> {
                                 ),
                               ),
                               Text(
-                                '${count}',
+                                '$count',
                                 style: TextStyle(
                                     fontSize: 22,
                                     color: Colors.blueGrey[800],
@@ -164,7 +167,8 @@ class _ConfirmationState extends State<Confirmation> {
                                   color: Colors.grey[600],
                                 ),
                               ),
-                              Text(trip,
+                              Text(
+                                trip,
                                 style: TextStyle(
                                     fontSize: 22,
                                     color: Colors.blueGrey[800],
@@ -226,15 +230,14 @@ class _ConfirmationState extends State<Confirmation> {
                       style: TextStyle(color: Colors.white, fontSize: 16),
                     ),
                     onPressed: () {
-                      Navigator.of(context)
-                          .push(MaterialPageRoute(
+                      Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => Payment(
-                            location: location,
-                            destination: destination,
-                            price: price,
-                            count: count,
-                            checkBoxValue: checkBoxValue,
-                          )));
+                                location: location,
+                                destination: destination,
+                                price: price,
+                                count: count,
+                                checkBoxValue: checkBoxValue,
+                              )));
                     },
                   ),
                 ),

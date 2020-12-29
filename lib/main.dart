@@ -9,11 +9,11 @@ import 'package:rapidkl/Pages/register.dart';
 import 'package:rapidkl/Pages/Confirmation Page.dart';
 import 'package:rapidkl/Pages/Payment Page.dart';
 import 'package:rapidkl/Pages/QR Ticket.dart';
+import 'package:rapidkl/Pages/ResetPassword.dart';
 
 void main() {
   ErrorWidget.builder = (FlutterErrorDetails details) => Container();
   runApp(MyApp());
-
 }
 
 class MyApp extends StatelessWidget {
@@ -35,6 +35,7 @@ class MyApp extends StatelessWidget {
           '/payment': (context) => Payment(),
           '/qrticket': (context) => QRTicket(),
           '/myapp': (context) => MyApp(),
+          '/resetpassword': (context) => ResetPassword(),
         },
       ),
     );

@@ -64,7 +64,6 @@ class _NewsState extends State<News> with SingleTickerProviderStateMixin {
   }
 
   Widget build(BuildContext context) {
-    final user = Provider.of<User>(context);
     Tween<Offset> _offset = Tween(begin: Offset(1, 0), end: Offset(0, 0));
     final GlobalKey<AnimatedListState> _listKey =
         GlobalKey<AnimatedListState>();

@@ -20,7 +20,6 @@ class _MyAppState extends State<MyApp> {
   @override
   int currentIndex = 0;
   PageController _pageController = PageController();
-  final TextEditingController _typeAheadController = TextEditingController();
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,7 +83,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       backgroundColor: Colors.grey[50],
       body: GestureDetector(
-        onTap: (){
+        onTap: () {
           FocusScope.of(context).requestFocus(new FocusNode());
         },
         child: Container(
@@ -118,7 +117,8 @@ class _HomeState extends State<Home> {
                           Column(
                             children: [
                               TypeAheadField(
-                                  textFieldConfiguration: TextFieldConfiguration(
+                                  textFieldConfiguration:
+                                      TextFieldConfiguration(
                                     decoration: InputDecoration(
                                       prefixIcon: Icon(
                                         Icons.assistant_photo,
@@ -137,7 +137,8 @@ class _HomeState extends State<Home> {
                                     controller: _controller,
                                   ),
                                   suggestionsCallback: (pattern) async {
-                                    return await Stations.getSuggestions(pattern);
+                                    return await Stations.getSuggestions(
+                                        pattern);
                                   },
                                   itemBuilder: (context, suggestion) {
                                     return ListTile(
@@ -147,11 +148,11 @@ class _HomeState extends State<Home> {
                                   onSuggestionSelected: (suggestion) {
                                     location = suggestion;
                                     _controller.text = suggestion;
-                                  }
-                                  ),
+                                  }),
                               Divider(),
                               TypeAheadField(
-                                  textFieldConfiguration: TextFieldConfiguration(
+                                  textFieldConfiguration:
+                                      TextFieldConfiguration(
                                     decoration: InputDecoration(
                                       prefixIcon: Icon(
                                         Icons.location_on_rounded,
@@ -170,7 +171,8 @@ class _HomeState extends State<Home> {
                                     controller: _controller1,
                                   ),
                                   suggestionsCallback: (pattern) async {
-                                    return await Stations.getSuggestions(pattern);
+                                    return await Stations.getSuggestions(
+                                        pattern);
                                   },
                                   transitionBuilder:
                                       (context, suggestionsBox, controller) {
@@ -300,7 +302,6 @@ class _HomeState extends State<Home> {
                     stream: DatabaseService(uid: user.uid).userData,
                     // ignore: missing_return
                     builder: (context, snapshot) {
-                      UserData userData = snapshot.data;
                       if (snapshot.hasData) {
                         return StreamBuilder<Favfunc>(
                             stream: DatabaseService(uid: user.uid).favourites,
@@ -319,8 +320,6 @@ class _HomeState extends State<Home> {
                                       itemCount: key.length,
                                       // ignore: missing_return
                                       itemBuilder: (context, index) {
-
-
                                         //Home Card
                                         if (index == 0) {
                                           return GestureDetector(
@@ -357,45 +356,40 @@ class _HomeState extends State<Home> {
                                                       child: IconButton(
                                                           splashRadius: 20.0,
                                                           iconSize: 20.0,
-                                                          icon: Icon(Icons.edit),
+                                                          icon:
+                                                              Icon(Icons.edit),
                                                           onPressed: () {
                                                             setState(() {
                                                               showModalBottomSheet<
                                                                   void>(
-                                                                context: context,
+                                                                context:
+                                                                    context,
                                                                 builder:
                                                                     (BuildContext
                                                                         context) {
                                                                   return Container(
-                                                                    height: 700.0,
+                                                                    height:
+                                                                        700.0,
                                                                     child: Form(
                                                                       key:
                                                                           _formkey,
                                                                       child: Column(
                                                                           children: [
                                                                             SizedBox(
-                                                                              height:
-                                                                                  20.0,
+                                                                              height: 20.0,
                                                                             ),
                                                                             Text(
                                                                               'Update Home',
-                                                                              style:
-                                                                                  TextStyle(
+                                                                              style: TextStyle(
                                                                                 fontSize: 20.0,
                                                                               ),
                                                                             ),
                                                                             SizedBox(
-                                                                              height:
-                                                                                  20.0,
+                                                                              height: 20.0,
                                                                             ),
                                                                             Padding(
-                                                                              padding: EdgeInsets.fromLTRB(
-                                                                                  20.0,
-                                                                                  0,
-                                                                                  20.0,
-                                                                                  0.0),
-                                                                              child:
-                                                                                  TextFormField(
+                                                                              padding: EdgeInsets.fromLTRB(20.0, 0, 20.0, 0.0),
+                                                                              child: TextFormField(
                                                                                 initialValue: val[index],
                                                                                 decoration: textinput.copyWith(
                                                                                   hintText: 'Home',
@@ -410,8 +404,7 @@ class _HomeState extends State<Home> {
                                                                               ),
                                                                             ),
                                                                             SizedBox(
-                                                                              height:
-                                                                                  10.0,
+                                                                              height: 10.0,
                                                                             ),
                                                                             FlatButton(
                                                                                 color: Colors.pinkAccent,
@@ -471,45 +464,40 @@ class _HomeState extends State<Home> {
                                                       child: IconButton(
                                                           splashRadius: 20.0,
                                                           iconSize: 20.0,
-                                                          icon: Icon(Icons.edit),
+                                                          icon:
+                                                              Icon(Icons.edit),
                                                           onPressed: () {
                                                             setState(() {
                                                               showModalBottomSheet<
                                                                   void>(
-                                                                context: context,
+                                                                context:
+                                                                    context,
                                                                 builder:
                                                                     (BuildContext
                                                                         context) {
                                                                   return Container(
-                                                                    height: 700.0,
+                                                                    height:
+                                                                        700.0,
                                                                     child: Form(
                                                                       key:
                                                                           _formkey,
                                                                       child: Column(
                                                                           children: [
                                                                             SizedBox(
-                                                                              height:
-                                                                                  20.0,
+                                                                              height: 20.0,
                                                                             ),
                                                                             Text(
                                                                               'Update Work',
-                                                                              style:
-                                                                                  TextStyle(
+                                                                              style: TextStyle(
                                                                                 fontSize: 20.0,
                                                                               ),
                                                                             ),
                                                                             SizedBox(
-                                                                              height:
-                                                                                  20.0,
+                                                                              height: 20.0,
                                                                             ),
                                                                             Padding(
-                                                                              padding: EdgeInsets.fromLTRB(
-                                                                                  20.0,
-                                                                                  0,
-                                                                                  20.0,
-                                                                                  0.0),
-                                                                              child:
-                                                                                  TextFormField(
+                                                                              padding: EdgeInsets.fromLTRB(20.0, 0, 20.0, 0.0),
+                                                                              child: TextFormField(
                                                                                 initialValue: val[index],
                                                                                 decoration: textinput.copyWith(
                                                                                   hintText: 'Work',
@@ -524,8 +512,7 @@ class _HomeState extends State<Home> {
                                                                               ),
                                                                             ),
                                                                             SizedBox(
-                                                                              height:
-                                                                                  10.0,
+                                                                              height: 10.0,
                                                                             ),
                                                                             FlatButton(
                                                                                 color: Colors.pinkAccent,
@@ -585,45 +572,40 @@ class _HomeState extends State<Home> {
                                                       child: IconButton(
                                                           splashRadius: 20.0,
                                                           iconSize: 20.0,
-                                                          icon: Icon(Icons.edit),
+                                                          icon:
+                                                              Icon(Icons.edit),
                                                           onPressed: () {
                                                             setState(() {
                                                               showModalBottomSheet<
                                                                   void>(
-                                                                context: context,
+                                                                context:
+                                                                    context,
                                                                 builder:
                                                                     (BuildContext
                                                                         context) {
                                                                   return Container(
-                                                                    height: 700.0,
+                                                                    height:
+                                                                        700.0,
                                                                     child: Form(
                                                                       key:
                                                                           _formkey,
                                                                       child: Column(
                                                                           children: [
                                                                             SizedBox(
-                                                                              height:
-                                                                                  20.0,
+                                                                              height: 20.0,
                                                                             ),
                                                                             Text(
                                                                               'Update School',
-                                                                              style:
-                                                                                  TextStyle(
+                                                                              style: TextStyle(
                                                                                 fontSize: 20.0,
                                                                               ),
                                                                             ),
                                                                             SizedBox(
-                                                                              height:
-                                                                                  20.0,
+                                                                              height: 20.0,
                                                                             ),
                                                                             Padding(
-                                                                              padding: EdgeInsets.fromLTRB(
-                                                                                  20.0,
-                                                                                  0,
-                                                                                  20.0,
-                                                                                  0.0),
-                                                                              child:
-                                                                                  TextFormField(
+                                                                              padding: EdgeInsets.fromLTRB(20.0, 0, 20.0, 0.0),
+                                                                              child: TextFormField(
                                                                                 initialValue: val[index],
                                                                                 decoration: textinput.copyWith(
                                                                                   hintText: 'School',
@@ -638,8 +620,7 @@ class _HomeState extends State<Home> {
                                                                               ),
                                                                             ),
                                                                             SizedBox(
-                                                                              height:
-                                                                                  10.0,
+                                                                              height: 10.0,
                                                                             ),
                                                                             FlatButton(
                                                                                 color: Colors.pinkAccent,
@@ -682,33 +663,38 @@ class _HomeState extends State<Home> {
                                                       leading: Icon(
                                                         Icons.location_on,
                                                         size: 25,
-                                                        color:
-                                                            Colors.blueGrey[800],
+                                                        color: Colors
+                                                            .blueGrey[800],
                                                       ),
                                                       title: Padding(
                                                         padding:
-                                                            const EdgeInsets.only(
-                                                                top: 8.0),
+                                                            const EdgeInsets
+                                                                .only(top: 8.0),
                                                         child: Text(key[index]),
                                                       ),
                                                       subtitle: Padding(
                                                         padding:
-                                                            const EdgeInsets.only(
+                                                            const EdgeInsets
+                                                                    .only(
                                                                 bottom: 13.0),
                                                         child: Text(val[index]),
                                                       ),
                                                       trailing:
                                                           Transform.translate(
-                                                              offset:
-                                                                  Offset(-20, 0),
+                                                              offset: Offset(
+                                                                  -20, 0),
                                                               child: IconButton(
                                                                   splashRadius:
                                                                       20.0,
-                                                                  iconSize: 20.0,
+                                                                  iconSize:
+                                                                      20.0,
                                                                   icon: Icon(
-                                                                      Icons.edit),
-                                                                  onPressed: () {
-                                                                    setState(() {
+                                                                      Icons
+                                                                          .edit),
+                                                                  onPressed:
+                                                                      () {
+                                                                    setState(
+                                                                        () {
                                                                       showModalBottomSheet<
                                                                           void>(
                                                                         context:
@@ -721,10 +707,8 @@ class _HomeState extends State<Home> {
                                                                                 700.0,
                                                                             child:
                                                                                 Form(
-                                                                              key:
-                                                                                  _formkey,
-                                                                              child:
-                                                                                  Column(children: [
+                                                                              key: _formkey,
+                                                                              child: Column(children: [
                                                                                 SizedBox(
                                                                                   height: 20.0,
                                                                                 ),
@@ -792,15 +776,17 @@ class _HomeState extends State<Home> {
                                                   ),
                                                 ),
                                                 IconButton(
-                                                    icon: Icon(Icons.add_circle),
+                                                    icon:
+                                                        Icon(Icons.add_circle),
                                                     onPressed: () {
                                                       setState(() {
                                                         setState(() {
                                                           showModalBottomSheet<
                                                               void>(
                                                             context: context,
-                                                            builder: (BuildContext
-                                                                context) {
+                                                            builder:
+                                                                (BuildContext
+                                                                    context) {
                                                               var list1 =
                                                                   new List();
                                                               var list2 =
@@ -841,10 +827,8 @@ class _HomeState extends State<Home> {
                                                                               TextFormField(
                                                                             decoration:
                                                                                 textinput.copyWith(
-                                                                              hintText:
-                                                                                  'New Value',
-                                                                              hintStyle:
-                                                                                  TextStyle(color: Colors.black),
+                                                                              hintText: 'New Value',
+                                                                              hintStyle: TextStyle(color: Colors.black),
                                                                             ),
                                                                             validator: (value) => value.length == 0
                                                                                 ? "Please enter a valid location"
@@ -868,10 +852,8 @@ class _HomeState extends State<Home> {
                                                                               TextFormField(
                                                                             decoration:
                                                                                 textinput.copyWith(
-                                                                              hintText:
-                                                                                  'New Value',
-                                                                              hintStyle:
-                                                                                  TextStyle(color: Colors.black),
+                                                                              hintText: 'New Value',
+                                                                              hintStyle: TextStyle(color: Colors.black),
                                                                             ),
                                                                             validator: (value) => value.length == 0
                                                                                 ? "Please enter a valid destination"
@@ -890,12 +872,10 @@ class _HomeState extends State<Home> {
                                                                               10.0,
                                                                         ),
                                                                         FlatButton(
-                                                                            color: Colors
-                                                                                .pinkAccent,
-                                                                            child: Text(
-                                                                                'Create New Location'),
-                                                                            onPressed:
-                                                                                () async {
+                                                                            color:
+                                                                                Colors.pinkAccent,
+                                                                            child: Text('Create New Location'),
+                                                                            onPressed: () async {
                                                                               list1.add(newlocation);
                                                                               list2.add(newdestionation);
                                                                               if (_formkey.currentState.validate()) {
@@ -941,33 +921,38 @@ class _HomeState extends State<Home> {
                                                       leading: Icon(
                                                         Icons.location_on,
                                                         size: 25,
-                                                        color:
-                                                            Colors.blueGrey[800],
+                                                        color: Colors
+                                                            .blueGrey[800],
                                                       ),
                                                       title: Padding(
                                                         padding:
-                                                            const EdgeInsets.only(
-                                                                top: 5.0),
+                                                            const EdgeInsets
+                                                                .only(top: 5.0),
                                                         child: Text(key[index]),
                                                       ),
                                                       subtitle: Padding(
                                                         padding:
-                                                            const EdgeInsets.only(
+                                                            const EdgeInsets
+                                                                    .only(
                                                                 bottom: 13.0),
                                                         child: Text(val[index]),
                                                       ),
                                                       trailing:
                                                           Transform.translate(
-                                                              offset:
-                                                                  Offset(-20, -3),
+                                                              offset: Offset(
+                                                                  -20, -3),
                                                               child: IconButton(
                                                                   splashRadius:
                                                                       20.0,
-                                                                  iconSize: 20.0,
+                                                                  iconSize:
+                                                                      20.0,
                                                                   icon: Icon(
-                                                                      Icons.edit),
-                                                                  onPressed: () {
-                                                                    setState(() {
+                                                                      Icons
+                                                                          .edit),
+                                                                  onPressed:
+                                                                      () {
+                                                                    setState(
+                                                                        () {
                                                                       showModalBottomSheet<
                                                                           void>(
                                                                         context:
@@ -980,10 +965,8 @@ class _HomeState extends State<Home> {
                                                                                 700.0,
                                                                             child:
                                                                                 Form(
-                                                                              key:
-                                                                                  _formkey,
-                                                                              child:
-                                                                                  Column(children: [
+                                                                              key: _formkey,
+                                                                              child: Column(children: [
                                                                                 SizedBox(
                                                                                   height: 20.0,
                                                                                 ),
@@ -1056,9 +1039,7 @@ class _HomeState extends State<Home> {
                                         }
                                       }),
                                 );
-                              }
-
-                              else {
+                              } else {
                                 return Container(
                                   width: 0,
                                   height: 0,
