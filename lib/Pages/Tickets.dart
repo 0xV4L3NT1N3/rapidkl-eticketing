@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'dart:math';
+
 
 class Tickets extends StatefulWidget {
   @override
@@ -6,10 +9,29 @@ class Tickets extends StatefulWidget {
 }
 
 class _TicketsState extends State<Tickets> {
+
+
+  //details
   final List<String> tickets = ["RPD005", "RPD055", "RPD235", "RPD199"];
+  final List<String> location = ["Maluri", "Cochrane", "Sri Raya", "Pasar Seni"];
+  final List<String> destination  = ["Semantan", "Kajang", "Maluri", "Merdeka"];
+
+
+
 
   @override
   Widget build(BuildContext context) {
+
+
+    //datetime
+    final DateTime now = DateTime.now().add(Duration(days: 1));
+    final DateFormat formatter = DateFormat('dd/MM/yyyy');
+    final String formatteddate = formatter.format(now);
+
+    //random number
+    Random random = new Random();
+
+
     return Scaffold(
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,6 +72,9 @@ class _TicketsState extends State<Tickets> {
             child: ListView.builder(
                 itemCount: tickets.length,
                 itemBuilder: (context, index) {
+
+                  int randomNumber = random.nextInt(9) + 1;
+
                   return Padding(
                     padding: const EdgeInsets.only(left: 10.0, right: 10.0),
                     child: Card(
@@ -84,7 +109,7 @@ class _TicketsState extends State<Tickets> {
                                         Container(
                                           width: 120,
                                           child: Text(
-                                            'Location',
+                                            location[index],
                                             overflow: TextOverflow.ellipsis,
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
@@ -111,7 +136,7 @@ class _TicketsState extends State<Tickets> {
                                         Container(
                                           width: 120,
                                           child: Text(
-                                            'Destination',
+                                            destination[index],
                                             overflow: TextOverflow.ellipsis,
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
@@ -149,7 +174,7 @@ class _TicketsState extends State<Tickets> {
                                           ),
                                         ),
                                         Text(
-                                          '28/12/2020',
+                                          formatteddate,
                                           style: TextStyle(
                                               fontSize: 18,
                                               color: Colors.red,
@@ -168,7 +193,7 @@ class _TicketsState extends State<Tickets> {
                                           ),
                                         ),
                                         Text(
-                                          '4',
+                                          randomNumber.toString(),
                                           style: TextStyle(
                                               fontSize: 30,
                                               color: Colors.blueGrey[800],

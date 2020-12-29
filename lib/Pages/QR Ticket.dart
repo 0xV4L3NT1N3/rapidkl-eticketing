@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rapidkl/Pages/Home.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:intl/intl.dart';
 
 class QRTicket extends StatefulWidget {
 
@@ -34,6 +35,11 @@ class _QRTicketState extends State<QRTicket> {
 
   @override
   Widget build(BuildContext context) {
+
+    final DateTime now = DateTime.now().add(Duration(days: 1));
+    final DateFormat formatter = DateFormat('dd/MM/yyyy');
+    final String formatteddate = formatter.format(now);
+
 
     if (checkBoxValue == true){
       trip = 'Round Trip';
@@ -153,7 +159,7 @@ class _QRTicketState extends State<QRTicket> {
                             ),
                           ),
                           Text(
-                            '28/12/2020',
+                            formatteddate,
                             style: TextStyle(
                                 fontSize: 22,
                                 color: Colors.red,
