@@ -137,8 +137,7 @@ class _HomeState extends State<Home> {
                                     controller: _controller,
                                   ),
                                   suggestionsCallback: (pattern) async {
-                                    return  Stations.getSuggestions(
-                                        pattern);
+                                    return Stations.getSuggestions(pattern);
                                   },
                                   itemBuilder: (context, suggestion) {
                                     return ListTile(
@@ -171,8 +170,7 @@ class _HomeState extends State<Home> {
                                     controller: _controller1,
                                   ),
                                   suggestionsCallback: (pattern) async {
-                                    return Stations.getSuggestions(
-                                        pattern);
+                                    return Stations.getSuggestions(pattern);
                                   },
                                   transitionBuilder:
                                       (context, suggestionsBox, controller) {
@@ -272,9 +270,13 @@ class _HomeState extends State<Home> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 10.0),
-                                child: Icon(
-                                  Icons.info_outline_rounded,
-                                  color: Colors.grey,
+                                child: Tooltip(
+                                  message:
+                                      'Round trip tickets are valid to/fro',
+                                  child: Icon(
+                                    Icons.info_outline_rounded,
+                                    color: Colors.grey,
+                                  ),
                                 ),
                               )
                             ],
@@ -369,29 +371,26 @@ class _HomeState extends State<Home> {
                                                                         context) {
                                                                   return Container(
                                                                     height:
-                                                                        700.0,
+                                                                        250.0,
                                                                     child: Form(
                                                                       key:
                                                                           _formkey,
                                                                       child: Column(
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.spaceEvenly,
                                                                           children: [
-                                                                            SizedBox(
-                                                                              height: 20.0,
-                                                                            ),
                                                                             Text(
                                                                               'Update Home',
                                                                               style: TextStyle(
+                                                                                color: Colors.blueGrey[800],
                                                                                 fontSize: 20.0,
                                                                               ),
-                                                                            ),
-                                                                            SizedBox(
-                                                                              height: 20.0,
                                                                             ),
                                                                             Padding(
                                                                               padding: EdgeInsets.fromLTRB(20.0, 0, 20.0, 0.0),
                                                                               child: TextFormField(
                                                                                 initialValue: val[index],
-                                                                                decoration: textinput.copyWith(
+                                                                                decoration: const InputDecoration(
                                                                                   hintText: 'Home',
                                                                                   hintStyle: TextStyle(color: Colors.black),
                                                                                 ),
@@ -406,15 +405,20 @@ class _HomeState extends State<Home> {
                                                                             SizedBox(
                                                                               height: 10.0,
                                                                             ),
-                                                                            FlatButton(
-                                                                                color: Colors.pinkAccent,
-                                                                                child: Text('Update'),
-                                                                                onPressed: () async {
-                                                                                  if (_formkey.currentState.validate()) {
-                                                                                    Navigator.pop(context);
-                                                                                    await DatabaseService(uid: user.uid).UpdateFavourites(key, val);
-                                                                                  }
-                                                                                }),
+                                                                            ButtonTheme(
+                                                                              height: 40,
+                                                                              minWidth: 220,
+                                                                              child: RaisedButton(
+                                                                                  color: Colors.blueGrey[800],
+                                                                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
+                                                                                  child: Text('Update', style: TextStyle(color: Colors.white, fontSize: 16)),
+                                                                                  onPressed: () async {
+                                                                                    if (_formkey.currentState.validate()) {
+                                                                                      Navigator.pop(context);
+                                                                                      await DatabaseService(uid: user.uid).UpdateFavourites(key, val);
+                                                                                    }
+                                                                                  }),
+                                                                            ),
                                                                           ]),
                                                                     ),
                                                                   );
@@ -477,29 +481,26 @@ class _HomeState extends State<Home> {
                                                                         context) {
                                                                   return Container(
                                                                     height:
-                                                                        700.0,
+                                                                        250.0,
                                                                     child: Form(
                                                                       key:
                                                                           _formkey,
                                                                       child: Column(
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.spaceEvenly,
                                                                           children: [
-                                                                            SizedBox(
-                                                                              height: 20.0,
-                                                                            ),
                                                                             Text(
                                                                               'Update Work',
                                                                               style: TextStyle(
+                                                                                color: Colors.blueGrey[800],
                                                                                 fontSize: 20.0,
                                                                               ),
-                                                                            ),
-                                                                            SizedBox(
-                                                                              height: 20.0,
                                                                             ),
                                                                             Padding(
                                                                               padding: EdgeInsets.fromLTRB(20.0, 0, 20.0, 0.0),
                                                                               child: TextFormField(
                                                                                 initialValue: val[index],
-                                                                                decoration: textinput.copyWith(
+                                                                                decoration: const InputDecoration(
                                                                                   hintText: 'Work',
                                                                                   hintStyle: TextStyle(color: Colors.black),
                                                                                 ),
@@ -511,18 +512,20 @@ class _HomeState extends State<Home> {
                                                                                 },
                                                                               ),
                                                                             ),
-                                                                            SizedBox(
-                                                                              height: 10.0,
+                                                                            ButtonTheme(
+                                                                              height: 40,
+                                                                              minWidth: 220,
+                                                                              child: RaisedButton(
+                                                                                  color: Colors.blueGrey[800],
+                                                                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
+                                                                                  child: Text('Update', style: TextStyle(color: Colors.white, fontSize: 16)),
+                                                                                  onPressed: () async {
+                                                                                    if (_formkey.currentState.validate()) {
+                                                                                      Navigator.pop(context);
+                                                                                      await DatabaseService(uid: user.uid).UpdateFavourites(key, val);
+                                                                                    }
+                                                                                  }),
                                                                             ),
-                                                                            FlatButton(
-                                                                                color: Colors.pinkAccent,
-                                                                                child: Text('Update'),
-                                                                                onPressed: () async {
-                                                                                  if (_formkey.currentState.validate()) {
-                                                                                    Navigator.pop(context);
-                                                                                    await DatabaseService(uid: user.uid).UpdateFavourites(key, val);
-                                                                                  }
-                                                                                }),
                                                                           ]),
                                                                     ),
                                                                   );
@@ -585,29 +588,26 @@ class _HomeState extends State<Home> {
                                                                         context) {
                                                                   return Container(
                                                                     height:
-                                                                        700.0,
+                                                                        250.0,
                                                                     child: Form(
                                                                       key:
                                                                           _formkey,
                                                                       child: Column(
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.spaceEvenly,
                                                                           children: [
-                                                                            SizedBox(
-                                                                              height: 20.0,
-                                                                            ),
                                                                             Text(
                                                                               'Update School',
                                                                               style: TextStyle(
+                                                                                color: Colors.blueGrey[800],
                                                                                 fontSize: 20.0,
                                                                               ),
-                                                                            ),
-                                                                            SizedBox(
-                                                                              height: 20.0,
                                                                             ),
                                                                             Padding(
                                                                               padding: EdgeInsets.fromLTRB(20.0, 0, 20.0, 0.0),
                                                                               child: TextFormField(
                                                                                 initialValue: val[index],
-                                                                                decoration: textinput.copyWith(
+                                                                                decoration: const InputDecoration(
                                                                                   hintText: 'School',
                                                                                   hintStyle: TextStyle(color: Colors.black),
                                                                                 ),
@@ -619,18 +619,20 @@ class _HomeState extends State<Home> {
                                                                                 },
                                                                               ),
                                                                             ),
-                                                                            SizedBox(
-                                                                              height: 10.0,
+                                                                            ButtonTheme(
+                                                                              height: 40,
+                                                                              minWidth: 220,
+                                                                              child: RaisedButton(
+                                                                                  color: Colors.blueGrey[800],
+                                                                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
+                                                                                  child: Text('Update', style: TextStyle(color: Colors.white, fontSize: 16)),
+                                                                                  onPressed: () async {
+                                                                                    if (_formkey.currentState.validate()) {
+                                                                                      Navigator.pop(context);
+                                                                                      await DatabaseService(uid: user.uid).UpdateFavourites(key, val);
+                                                                                    }
+                                                                                  }),
                                                                             ),
-                                                                            FlatButton(
-                                                                                color: Colors.pinkAccent,
-                                                                                child: Text('Update School'),
-                                                                                onPressed: () async {
-                                                                                  if (_formkey.currentState.validate()) {
-                                                                                    Navigator.pop(context);
-                                                                                    await DatabaseService(uid: user.uid).UpdateFavourites(key, val);
-                                                                                  }
-                                                                                }),
                                                                           ]),
                                                                     ),
                                                                   );

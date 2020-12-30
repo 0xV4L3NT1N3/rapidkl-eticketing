@@ -275,76 +275,91 @@ class _NewsState extends State<Profile> {
                                             builder: (BuildContext context) {
                                               return Form(
                                                 key: _formkey,
-                                                child: Column(children: [
-                                                  SizedBox(
-                                                    height: 20.0,
-                                                  ),
-                                                  Text(
-                                                    'Update Name',
-                                                    style: TextStyle(
-                                                      fontSize: 20.0,
-                                                    ),
-                                                  ),
-                                                  SizedBox(
-                                                    height: 20.0,
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsets.fromLTRB(
-                                                            20.0, 0, 20.0, 0.0),
-                                                    child: TextFormField(
-                                                      initialValue:
-                                                          userData.name,
-                                                      decoration:
-                                                          textinput.copyWith(
-                                                        hintText: 'Name',
-                                                        hintStyle: TextStyle(
-                                                            color:
-                                                                Colors.black),
+                                                child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceEvenly,
+                                                    children: [
+                                                      Text(
+                                                        'Update Name',
+                                                        style: TextStyle(
+                                                            fontSize: 20.0,
+                                                            color: Colors
+                                                                .blueGrey[800]),
                                                       ),
-                                                      validator: (val) => val
-                                                                  .length ==
-                                                              0
-                                                          ? "Please enter a name"
-                                                          : null,
-                                                      onChanged: (val) {
-                                                        setState(() {
-                                                          _currentname = val;
-                                                        });
-                                                      },
-                                                    ),
-                                                  ),
-                                                  SizedBox(
-                                                    height: 10.0,
-                                                  ),
-                                                  FlatButton(
-                                                      color: Colors.pinkAccent,
-                                                      child: Text('Update'),
-                                                      onPressed: () async {
-                                                        if (_formkey
-                                                            .currentState
-                                                            .validate()) {
-                                                          Navigator.pop(
-                                                              context);
-                                                          await DatabaseService(
-                                                                  uid: user.uid)
-                                                              .UpdateUserData(
-                                                                  _currentname ??
-                                                                      userData
-                                                                          .name,
-                                                                  _phonenumber ??
-                                                                      userData
-                                                                          .phonenumber,
-                                                                  _age ??
-                                                                      userData
-                                                                          .age);
-                                                          setState(() {
-                                                            Navigator.pop(
-                                                                context);
-                                                          });
-                                                        }
-                                                      }),
-                                                ]),
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsets.fromLTRB(
+                                                                20.0,
+                                                                0,
+                                                                20.0,
+                                                                0.0),
+                                                        child: TextFormField(
+                                                          initialValue:
+                                                              userData.name,
+                                                          decoration:
+                                                              const InputDecoration(
+                                                            hintText: 'Name',
+                                                            hintStyle: TextStyle(
+                                                                color: Colors
+                                                                    .black),
+                                                          ),
+                                                          validator: (val) => val
+                                                                      .length ==
+                                                                  0
+                                                              ? "Please enter a name"
+                                                              : null,
+                                                          onChanged: (val) {
+                                                            setState(() {
+                                                              _currentname =
+                                                                  val;
+                                                            });
+                                                          },
+                                                        ),
+                                                      ),
+                                                      ButtonTheme(
+                                                        height: 40,
+                                                        minWidth: 220,
+                                                        child: RaisedButton(
+                                                            color: Colors
+                                                                .blueGrey[800],
+                                                            shape: RoundedRectangleBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            18.0)),
+                                                            child: Text(
+                                                                'Update',
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .white,
+                                                                    fontSize:
+                                                                        16)),
+                                                            onPressed:
+                                                                () async {
+                                                              if (_formkey
+                                                                  .currentState
+                                                                  .validate()) {
+                                                                Navigator.pop(
+                                                                    context);
+                                                                await DatabaseService(uid: user.uid).UpdateUserData(
+                                                                    _currentname ??
+                                                                        userData
+                                                                            .name,
+                                                                    _phonenumber ??
+                                                                        userData
+                                                                            .phonenumber,
+                                                                    _age ??
+                                                                        userData
+                                                                            .age);
+                                                                setState(() {
+                                                                  Navigator.pop(
+                                                                      context);
+                                                                });
+                                                              }
+                                                            }),
+                                                      ),
+                                                    ]),
                                               );
                                             },
                                           );
@@ -376,83 +391,100 @@ class _NewsState extends State<Profile> {
                                             builder: (BuildContext context) {
                                               return Form(
                                                 key: _formkey,
-                                                child: Column(children: [
-                                                  SizedBox(
-                                                    height: 20.0,
-                                                  ),
-                                                  Text(
-                                                    'Update Age',
-                                                    style: TextStyle(
-                                                      fontSize: 20.0,
-                                                    ),
-                                                  ),
-                                                  SizedBox(
-                                                    height: 20.0,
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsets.fromLTRB(
-                                                            20.0, 0, 20.0, 0.0),
-                                                    child: TextFormField(
-                                                      inputFormatters: [
-                                                        FilteringTextInputFormatter
-                                                            .digitsOnly
-                                                      ],
-                                                      keyboardType:
-                                                          TextInputType.number,
-                                                      initialValue: userData.age
-                                                          .toString(),
-                                                      decoration:
-                                                          textinput.copyWith(
-                                                        hintText: 'Age',
-                                                        hintStyle: TextStyle(
-                                                            color:
-                                                                Colors.black),
+                                                child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceEvenly,
+                                                    children: [
+                                                      Text(
+                                                        'Update Age',
+                                                        style: TextStyle(
+                                                            fontSize: 20.0,
+                                                            color: Colors
+                                                                .blueGrey[800]),
                                                       ),
-                                                      validator: (val) => val
-                                                                      .length ==
-                                                                  0 ||
-                                                              val.length > 3
-                                                          ? 'Please enter an age between  0 - 130'
-                                                          : null,
-                                                      onChanged: (val) {
-                                                        setState(() {
-                                                          _age = int.parse(val);
-                                                        });
-                                                      },
-                                                    ),
-                                                  ),
-                                                  SizedBox(
-                                                    height: 10.0,
-                                                  ),
-                                                  FlatButton(
-                                                      color: Colors.pinkAccent,
-                                                      child: Text('Update'),
-                                                      onPressed: () async {
-                                                        if (_formkey
-                                                            .currentState
-                                                            .validate()) {
-                                                          Navigator.pop(
-                                                              context);
-                                                          await DatabaseService(
-                                                                  uid: user.uid)
-                                                              .UpdateUserData(
-                                                                  _currentname ??
-                                                                      userData
-                                                                          .name,
-                                                                  _phonenumber ??
-                                                                      userData
-                                                                          .phonenumber,
-                                                                  _age ??
-                                                                      userData
-                                                                          .age);
-                                                          setState(() {
-                                                            Navigator.pop(
-                                                                context);
-                                                          });
-                                                        }
-                                                      }),
-                                                ]),
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsets.fromLTRB(
+                                                                20.0,
+                                                                0,
+                                                                20.0,
+                                                                0.0),
+                                                        child: TextFormField(
+                                                          inputFormatters: [
+                                                            FilteringTextInputFormatter
+                                                                .digitsOnly
+                                                          ],
+                                                          keyboardType:
+                                                              TextInputType
+                                                                  .number,
+                                                          initialValue: userData
+                                                              .age
+                                                              .toString(),
+                                                          decoration:
+                                                              const InputDecoration(
+                                                            hintText: 'Age',
+                                                            hintStyle: TextStyle(
+                                                                color: Colors
+                                                                    .black),
+                                                          ),
+                                                          validator: (val) => val
+                                                                          .length ==
+                                                                      0 ||
+                                                                  val.length > 3
+                                                              ? 'Please enter an age between  0 - 130'
+                                                              : null,
+                                                          onChanged: (val) {
+                                                            setState(() {
+                                                              _age = int.parse(
+                                                                  val);
+                                                            });
+                                                          },
+                                                        ),
+                                                      ),
+                                                      ButtonTheme(
+                                                        height: 40,
+                                                        minWidth: 220,
+                                                        child: RaisedButton(
+                                                            color: Colors
+                                                                .blueGrey[800],
+                                                            shape: RoundedRectangleBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            18.0)),
+                                                            child: Text(
+                                                                'Update',
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .white,
+                                                                    fontSize:
+                                                                        16)),
+                                                            onPressed:
+                                                                () async {
+                                                              if (_formkey
+                                                                  .currentState
+                                                                  .validate()) {
+                                                                Navigator.pop(
+                                                                    context);
+                                                                await DatabaseService(uid: user.uid).UpdateUserData(
+                                                                    _currentname ??
+                                                                        userData
+                                                                            .name,
+                                                                    _phonenumber ??
+                                                                        userData
+                                                                            .phonenumber,
+                                                                    _age ??
+                                                                        userData
+                                                                            .age);
+                                                                setState(() {
+                                                                  Navigator.pop(
+                                                                      context);
+                                                                });
+                                                              }
+                                                            }),
+                                                      ),
+                                                    ]),
                                               );
                                             },
                                           );
@@ -484,89 +516,99 @@ class _NewsState extends State<Profile> {
                                               builder: (BuildContext context) {
                                                 return Form(
                                                   key: _formkey,
-                                                  child: Column(children: [
-                                                    SizedBox(
-                                                      height: 20.0,
-                                                    ),
-                                                    Text(
-                                                      'Update Phone Number',
-                                                      style: TextStyle(
-                                                        fontSize: 20.0,
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      height: 20.0,
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsets.fromLTRB(
-                                                              20.0,
-                                                              0,
-                                                              20.0,
-                                                              0.0),
-                                                      child: TextFormField(
-                                                        inputFormatters: [
-                                                          FilteringTextInputFormatter
-                                                              .digitsOnly
-                                                        ],
-                                                        keyboardType:
-                                                            TextInputType
-                                                                .number,
-                                                        initialValue: userData
-                                                            .phonenumber
-                                                            .toString(),
-                                                        decoration:
-                                                            textinput.copyWith(
-                                                          hintText: 'Phone No.',
-                                                          hintStyle: TextStyle(
-                                                              color:
-                                                                  Colors.black),
+                                                  child: Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceEvenly,
+                                                      children: [
+                                                        Text(
+                                                          'Update Phone Number',
+                                                          style: TextStyle(
+                                                            fontSize: 20.0,
+                                                            color: Colors
+                                                                .blueGrey[800],
+                                                          ),
                                                         ),
-                                                        validator: (val) => val
-                                                                    .length >
-                                                                11
-                                                            ? 'Please enter a valid phone number'
-                                                            : null,
-                                                        onChanged: (val) {
-                                                          setState(() {
-                                                            _phonenumber = val;
-                                                          });
-                                                        },
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      height: 10.0,
-                                                    ),
-                                                    FlatButton(
-                                                        color:
-                                                            Colors.pinkAccent,
-                                                        child: Text('Update'),
-                                                        onPressed: () async {
-                                                          if (_formkey
-                                                              .currentState
-                                                              .validate()) {
-                                                            Navigator.pop(
-                                                                context);
-                                                            await DatabaseService(
-                                                                    uid: user
-                                                                        .uid)
-                                                                .UpdateUserData(
-                                                                    _currentname ??
-                                                                        userData
-                                                                            .name,
-                                                                    _phonenumber ??
-                                                                        userData
-                                                                            .phonenumber,
-                                                                    _age ??
-                                                                        userData
-                                                                            .age);
-                                                            setState(() {
-                                                              Navigator.pop(
-                                                                  context);
-                                                            });
-                                                          }
-                                                        }),
-                                                  ]),
+                                                        Padding(
+                                                          padding: EdgeInsets
+                                                              .fromLTRB(20.0, 0,
+                                                                  20.0, 0.0),
+                                                          child: TextFormField(
+                                                            inputFormatters: [
+                                                              FilteringTextInputFormatter
+                                                                  .digitsOnly
+                                                            ],
+                                                            keyboardType:
+                                                                TextInputType
+                                                                    .number,
+                                                            initialValue:
+                                                                userData
+                                                                    .phonenumber
+                                                                    .toString(),
+                                                            decoration:
+                                                                const InputDecoration(
+                                                              hintText:
+                                                                  'Phone No.',
+                                                              hintStyle: TextStyle(
+                                                                  color: Colors
+                                                                      .black),
+                                                            ),
+                                                            validator: (val) =>
+                                                                val.length > 11
+                                                                    ? 'Please enter a valid phone number'
+                                                                    : null,
+                                                            onChanged: (val) {
+                                                              setState(() {
+                                                                _phonenumber =
+                                                                    val;
+                                                              });
+                                                            },
+                                                          ),
+                                                        ),
+                                                        ButtonTheme(
+                                                          height: 40,
+                                                          minWidth: 220,
+                                                          child: RaisedButton(
+                                                              color: Colors
+                                                                      .blueGrey[
+                                                                  800],
+                                                              shape: RoundedRectangleBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              18.0)),
+                                                              child: Text(
+                                                                  'Update',
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                          .white,
+                                                                      fontSize:
+                                                                          16)),
+                                                              onPressed:
+                                                                  () async {
+                                                                if (_formkey
+                                                                    .currentState
+                                                                    .validate()) {
+                                                                  Navigator.pop(
+                                                                      context);
+                                                                  await DatabaseService(uid: user.uid).UpdateUserData(
+                                                                      _currentname ??
+                                                                          userData
+                                                                              .name,
+                                                                      _phonenumber ??
+                                                                          userData
+                                                                              .phonenumber,
+                                                                      _age ??
+                                                                          userData
+                                                                              .age);
+                                                                  setState(() {
+                                                                    Navigator.pop(
+                                                                        context);
+                                                                  });
+                                                                }
+                                                              }),
+                                                        ),
+                                                      ]),
                                                 );
                                               },
                                             );

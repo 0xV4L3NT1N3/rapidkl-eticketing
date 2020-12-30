@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:rapidkl/Services/Loading.dart';
-import 'package:rapidkl/Services/textdecoration.dart';
 import 'package:rapidkl/Services/services.dart';
 
 class ResetPassword extends StatefulWidget {

@@ -2,27 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'dart:math';
 
-
 class Tickets extends StatefulWidget {
   @override
   _TicketsState createState() => _TicketsState();
 }
 
 class _TicketsState extends State<Tickets> {
-
-
   //details
   final List<String> tickets = ["RPD005", "RPD055", "RPD235", "RPD199"];
-  final List<String> location = ["Maluri", "Cochrane", "Sri Raya", "Pasar Seni"];
-  final List<String> destination  = ["Semantan", "Kajang", "Maluri", "Merdeka"];
-
-
-
+  final List<String> location = [
+    "Maluri",
+    "Cochrane",
+    "Sri Raya",
+    "Pasar Seni"
+  ];
+  final List<String> destination = ["Semantan", "Kajang", "Maluri", "Merdeka"];
 
   @override
   Widget build(BuildContext context) {
-
-
     //datetime
     final DateTime now = DateTime.now().add(Duration(days: 1));
     final DateFormat formatter = DateFormat('dd/MM/yyyy');
@@ -30,7 +27,6 @@ class _TicketsState extends State<Tickets> {
 
     //random number
     Random random = new Random();
-
 
     return Scaffold(
       body: Column(
@@ -55,9 +51,12 @@ class _TicketsState extends State<Tickets> {
               decoration: InputDecoration(
                 hintStyle: TextStyle(fontSize: 14),
                 hintText: 'Search by station name eg. Maluri',
-                suffixIcon: Icon(
-                  Icons.search,
-                  color: Colors.black.withOpacity(0.9),
+                suffixIcon: Tooltip(
+                  message: 'Search functionality has not been implemented',
+                  child: Icon(
+                    Icons.search,
+                    color: Colors.black.withOpacity(0.9),
+                  ),
                 ),
                 border: InputBorder.none,
                 filled: true,
@@ -72,7 +71,6 @@ class _TicketsState extends State<Tickets> {
             child: ListView.builder(
                 itemCount: tickets.length,
                 itemBuilder: (context, index) {
-
                   int randomNumber = random.nextInt(9) + 1;
 
                   return Padding(
