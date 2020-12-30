@@ -7,7 +7,6 @@ import 'package:rapidkl/Pages/Tickets.dart';
 import 'package:rapidkl/Services/database.dart';
 import 'package:rapidkl/Services/User.dart';
 import 'package:provider/provider.dart';
-import 'package:rapidkl/Services/textdecoration.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:rapidkl/Services/suggestions.dart';
 

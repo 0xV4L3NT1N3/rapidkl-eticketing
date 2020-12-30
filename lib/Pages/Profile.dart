@@ -4,11 +4,12 @@ import 'package:rapidkl/Services/User.dart';
 import 'package:rapidkl/Services/services.dart';
 import 'package:rapidkl/Services/database.dart';
 import 'package:provider/provider.dart';
-import 'package:rapidkl/Services/textdecoration.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:flutter/cupertino.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -45,12 +46,13 @@ class _NewsState extends State<Profile> {
 
 //pick image from camera
   _imgFromCamera() async {
-    File image = await ImagePicker.pickImage(
-        source: ImageSource.camera, imageQuality: 50);
+      File image = await ImagePicker.pickImage(
+          source: ImageSource.camera, imageQuality: 50);
+      setState(() {
+        _image = image;
+      });
 
-    setState(() {
-      _image = image;
-    });
+
   }
 
   //pick image from gallery
