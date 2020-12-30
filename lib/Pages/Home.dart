@@ -541,129 +541,23 @@ class _HomeState extends State<Home> {
 
                                         //School Card
                                         else if (index == 2) {
-                                          return GestureDetector(
-                                            onTap: () {
-                                              setState(() {
-                                                destination = val[index];
-                                                _controller1.text = val[index];
-                                              });
-                                            },
-                                            child: Container(
-                                              height: 60,
-                                              width: 220,
-                                              child: Card(
-                                                child: ListTile(
-                                                  leading: Icon(
-                                                    Icons.school,
-                                                    size: 25,
-                                                    color: Colors.blueGrey[800],
-                                                  ),
-                                                  title: Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            top: 8.0),
-                                                    child: Text(key[index]),
-                                                  ),
-                                                  subtitle: Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            bottom: 13.0),
-                                                    child: Text(val[index]),
-                                                  ),
-                                                  trailing: Transform.translate(
-                                                      offset: Offset(-20, 0),
-                                                      child: IconButton(
-                                                          splashRadius: 20.0,
-                                                          iconSize: 20.0,
-                                                          icon:
-                                                              Icon(Icons.edit),
-                                                          onPressed: () {
-                                                            setState(() {
-                                                              showModalBottomSheet<
-                                                                  void>(
-                                                                context:
-                                                                    context,
-                                                                builder:
-                                                                    (BuildContext
-                                                                        context) {
-                                                                  return Container(
-                                                                    height:
-                                                                        250.0,
-                                                                    child: Form(
-                                                                      key:
-                                                                          _formkey,
-                                                                      child: Column(
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.spaceEvenly,
-                                                                          children: [
-                                                                            Text(
-                                                                              'Update School',
-                                                                              style: TextStyle(
-                                                                                color: Colors.blueGrey[800],
-                                                                                fontSize: 20.0,
-                                                                              ),
-                                                                            ),
-                                                                            Padding(
-                                                                              padding: EdgeInsets.fromLTRB(20.0, 0, 20.0, 0.0),
-                                                                              child: TextFormField(
-                                                                                initialValue: val[index],
-                                                                                decoration: const InputDecoration(
-                                                                                  hintText: 'School',
-                                                                                  hintStyle: TextStyle(color: Colors.black),
-                                                                                ),
-                                                                                validator: (value) => value.length == 0 ? "Please enter a valid destination" : null,
-                                                                                onChanged: (value) {
-                                                                                  setState(() {
-                                                                                    val[index] = value;
-                                                                                  });
-                                                                                },
-                                                                              ),
-                                                                            ),
-                                                                            ButtonTheme(
-                                                                              height: 40,
-                                                                              minWidth: 220,
-                                                                              child: RaisedButton(
-                                                                                  color: Colors.blueGrey[800],
-                                                                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
-                                                                                  child: Text('Update', style: TextStyle(color: Colors.white, fontSize: 16)),
-                                                                                  onPressed: () async {
-                                                                                    if (_formkey.currentState.validate()) {
-                                                                                      Navigator.pop(context);
-                                                                                      await DatabaseService(uid: user.uid).UpdateFavourites(key, val);
-                                                                                    }
-                                                                                  }),
-                                                                            ),
-                                                                          ]),
-                                                                    ),
-                                                                  );
-                                                                },
-                                                              );
-                                                            });
-                                                          })),
-                                                ),
-                                              ),
-                                            ),
-                                          );
-                                        }
-
-                                        //End Card
-                                        else if (index == key.length - 1) {
-                                          return GestureDetector(
-                                            onTap: () {
-                                              setState(() {
-                                                destination = val[index];
-                                                _controller1.text = val[index];
-                                              });
-                                            },
-                                            child: Row(
-                                              children: [
-                                                Container(
+                                          return Row(
+                                            children: [
+                                              GestureDetector(
+                                                onTap: () {
+                                                  setState(() {
+                                                    destination = val[index];
+                                                    _controller1.text =
+                                                        val[index];
+                                                  });
+                                                },
+                                                child: Container(
                                                   height: 60,
                                                   width: 220,
                                                   child: Card(
                                                     child: ListTile(
                                                       leading: Icon(
-                                                        Icons.location_on,
+                                                        Icons.school,
                                                         size: 25,
                                                         color: Colors
                                                             .blueGrey[800],
@@ -706,45 +600,24 @@ class _HomeState extends State<Home> {
                                                                                 context) {
                                                                           return Container(
                                                                             height:
-                                                                                700.0,
+                                                                                250.0,
                                                                             child:
                                                                                 Form(
                                                                               key: _formkey,
-                                                                              child: Column(children: [
-                                                                                SizedBox(
-                                                                                  height: 20.0,
-                                                                                ),
+                                                                              child: Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
                                                                                 Text(
-                                                                                  'Update Location/Destination',
+                                                                                  'Update School',
                                                                                   style: TextStyle(
+                                                                                    color: Colors.blueGrey[800],
                                                                                     fontSize: 20.0,
-                                                                                  ),
-                                                                                ),
-                                                                                SizedBox(
-                                                                                  height: 20.0,
-                                                                                ),
-                                                                                Padding(
-                                                                                  padding: EdgeInsets.fromLTRB(20.0, 0, 20.0, 0.0),
-                                                                                  child: TextFormField(
-                                                                                    initialValue: key[index],
-                                                                                    decoration: textinput.copyWith(
-                                                                                      hintText: 'Location',
-                                                                                      hintStyle: TextStyle(color: Colors.black),
-                                                                                    ),
-                                                                                    validator: (value) => value.length == 0 ? "Please enter a valid location" : null,
-                                                                                    onChanged: (value) {
-                                                                                      setState(() {
-                                                                                        key[index] = value;
-                                                                                      });
-                                                                                    },
                                                                                   ),
                                                                                 ),
                                                                                 Padding(
                                                                                   padding: EdgeInsets.fromLTRB(20.0, 0, 20.0, 0.0),
                                                                                   child: TextFormField(
                                                                                     initialValue: val[index],
-                                                                                    decoration: textinput.copyWith(
-                                                                                      hintText: 'Destination',
+                                                                                    decoration: const InputDecoration(
+                                                                                      hintText: 'School',
                                                                                       hintStyle: TextStyle(color: Colors.black),
                                                                                     ),
                                                                                     validator: (value) => value.length == 0 ? "Please enter a valid destination" : null,
@@ -755,18 +628,20 @@ class _HomeState extends State<Home> {
                                                                                     },
                                                                                   ),
                                                                                 ),
-                                                                                SizedBox(
-                                                                                  height: 10.0,
+                                                                                ButtonTheme(
+                                                                                  height: 40,
+                                                                                  minWidth: 220,
+                                                                                  child: RaisedButton(
+                                                                                      color: Colors.blueGrey[800],
+                                                                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
+                                                                                      child: Text('Update', style: TextStyle(color: Colors.white, fontSize: 16)),
+                                                                                      onPressed: () async {
+                                                                                        if (_formkey.currentState.validate()) {
+                                                                                          Navigator.pop(context);
+                                                                                          await DatabaseService(uid: user.uid).UpdateFavourites(key, val);
+                                                                                        }
+                                                                                      }),
                                                                                 ),
-                                                                                FlatButton(
-                                                                                    color: Colors.pinkAccent,
-                                                                                    child: Text('Update Location/Destination'),
-                                                                                    onPressed: () async {
-                                                                                      if (_formkey.currentState.validate()) {
-                                                                                        Navigator.pop(context);
-                                                                                        await DatabaseService(uid: user.uid).UpdateFavourites(key, val);
-                                                                                      }
-                                                                                    }),
                                                                               ]),
                                                                             ),
                                                                           );
@@ -777,268 +652,20 @@ class _HomeState extends State<Home> {
                                                     ),
                                                   ),
                                                 ),
-                                                IconButton(
-                                                    icon:
-                                                        Icon(Icons.add_circle),
-                                                    onPressed: () {
-                                                      setState(() {
-                                                        setState(() {
-                                                          showModalBottomSheet<
-                                                              void>(
-                                                            context: context,
-                                                            builder:
-                                                                (BuildContext
-                                                                    context) {
-                                                              var list1 =
-                                                                  new List();
-                                                              var list2 =
-                                                                  new List();
-                                                              list1.add(key);
-                                                              list2.add(val);
-                                                              print(list1);
-                                                              print(list2);
-                                                              return Container(
-                                                                height: 700.0,
-                                                                child: Form(
-                                                                  key: _formkey,
-                                                                  child: Column(
-                                                                      children: [
-                                                                        SizedBox(
-                                                                          height:
-                                                                              20.0,
-                                                                        ),
-                                                                        Text(
-                                                                          'Create New Location',
-                                                                          style:
-                                                                              TextStyle(
-                                                                            fontSize:
-                                                                                20.0,
-                                                                          ),
-                                                                        ),
-                                                                        SizedBox(
-                                                                          height:
-                                                                              20.0,
-                                                                        ),
-                                                                        Padding(
-                                                                          padding: EdgeInsets.fromLTRB(
-                                                                              20.0,
-                                                                              0,
-                                                                              20.0,
-                                                                              0.0),
-                                                                          child:
-                                                                              TextFormField(
-                                                                            decoration:
-                                                                                textinput.copyWith(
-                                                                              hintText: 'New Value',
-                                                                              hintStyle: TextStyle(color: Colors.black),
-                                                                            ),
-                                                                            validator: (value) => value.length == 0
-                                                                                ? "Please enter a valid location"
-                                                                                : null,
-                                                                            onChanged:
-                                                                                (value) {
-                                                                              setState(() {
-                                                                                value = newlocation;
-                                                                                print(newlocation);
-                                                                              });
-                                                                            },
-                                                                          ),
-                                                                        ),
-                                                                        Padding(
-                                                                          padding: EdgeInsets.fromLTRB(
-                                                                              20.0,
-                                                                              0,
-                                                                              20.0,
-                                                                              0.0),
-                                                                          child:
-                                                                              TextFormField(
-                                                                            decoration:
-                                                                                textinput.copyWith(
-                                                                              hintText: 'New Value',
-                                                                              hintStyle: TextStyle(color: Colors.black),
-                                                                            ),
-                                                                            validator: (value) => value.length == 0
-                                                                                ? "Please enter a valid destination"
-                                                                                : null,
-                                                                            onChanged:
-                                                                                (value) {
-                                                                              setState(() {
-                                                                                value = newdestionation;
-                                                                                print(newdestionation);
-                                                                              });
-                                                                            },
-                                                                          ),
-                                                                        ),
-                                                                        SizedBox(
-                                                                          height:
-                                                                              10.0,
-                                                                        ),
-                                                                        FlatButton(
-                                                                            color:
-                                                                                Colors.pinkAccent,
-                                                                            child: Text('Create New Location'),
-                                                                            onPressed: () async {
-                                                                              list1.add(newlocation);
-                                                                              list2.add(newdestionation);
-                                                                              if (_formkey.currentState.validate()) {
-                                                                                Navigator.pop(context);
-                                                                                await DatabaseService(uid: user.uid).UpdateFavourites(list1.toList(), list2.toList());
-                                                                              }
-                                                                            }),
-                                                                        SizedBox(
-                                                                          height:
-                                                                              30.0,
-                                                                        ),
-                                                                        Text(
-                                                                            'Does Not Work Due To Unresolved Value Issues'),
-                                                                      ]),
-                                                                ),
-                                                              );
-                                                            },
-                                                          );
-                                                        });
-                                                      });
-                                                    })
-                                              ],
-                                            ),
-                                          );
-                                        }
-
-                                        //Misc Card
-                                        else if (index > 2) {
-                                          return GestureDetector(
-                                            onTap: () {
-                                              setState(() {
-                                                destination = val[index];
-                                                _controller1.text = val[index];
-                                              });
-                                            },
-                                            child: Row(
-                                              children: [
-                                                Container(
-                                                  height: 60,
-                                                  width: 220,
-                                                  child: Card(
-                                                    child: ListTile(
-                                                      leading: Icon(
-                                                        Icons.location_on,
-                                                        size: 25,
-                                                        color: Colors
-                                                            .blueGrey[800],
-                                                      ),
-                                                      title: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(top: 5.0),
-                                                        child: Text(key[index]),
-                                                      ),
-                                                      subtitle: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .only(
-                                                                bottom: 13.0),
-                                                        child: Text(val[index]),
-                                                      ),
-                                                      trailing:
-                                                          Transform.translate(
-                                                              offset: Offset(
-                                                                  -20, -3),
-                                                              child: IconButton(
-                                                                  splashRadius:
-                                                                      20.0,
-                                                                  iconSize:
-                                                                      20.0,
-                                                                  icon: Icon(
-                                                                      Icons
-                                                                          .edit),
-                                                                  onPressed:
-                                                                      () {
-                                                                    setState(
-                                                                        () {
-                                                                      showModalBottomSheet<
-                                                                          void>(
-                                                                        context:
-                                                                            context,
-                                                                        builder:
-                                                                            (BuildContext
-                                                                                context) {
-                                                                          return Container(
-                                                                            height:
-                                                                                700.0,
-                                                                            child:
-                                                                                Form(
-                                                                              key: _formkey,
-                                                                              child: Column(children: [
-                                                                                SizedBox(
-                                                                                  height: 20.0,
-                                                                                ),
-                                                                                Text(
-                                                                                  'Update Location/Destination',
-                                                                                  style: TextStyle(
-                                                                                    fontSize: 20.0,
-                                                                                  ),
-                                                                                ),
-                                                                                SizedBox(
-                                                                                  height: 20.0,
-                                                                                ),
-                                                                                Padding(
-                                                                                  padding: EdgeInsets.fromLTRB(20.0, 0, 20.0, 0.0),
-                                                                                  child: TextFormField(
-                                                                                    initialValue: key[index],
-                                                                                    decoration: textinput.copyWith(
-                                                                                      hintText: 'Location',
-                                                                                      hintStyle: TextStyle(color: Colors.black),
-                                                                                    ),
-                                                                                    validator: (value) => value.length == 0 ? "Please enter a valid location" : null,
-                                                                                    onChanged: (value) {
-                                                                                      setState(() {
-                                                                                        key[index] = value;
-                                                                                      });
-                                                                                    },
-                                                                                  ),
-                                                                                ),
-                                                                                Padding(
-                                                                                  padding: EdgeInsets.fromLTRB(20.0, 0, 20.0, 0.0),
-                                                                                  child: TextFormField(
-                                                                                    initialValue: val[index],
-                                                                                    decoration: textinput.copyWith(
-                                                                                      hintText: 'Destination',
-                                                                                      hintStyle: TextStyle(color: Colors.black),
-                                                                                    ),
-                                                                                    validator: (value) => value.length == 0 ? "Please enter a valid destination" : null,
-                                                                                    onChanged: (value) {
-                                                                                      setState(() {
-                                                                                        val[index] = value;
-                                                                                      });
-                                                                                    },
-                                                                                  ),
-                                                                                ),
-                                                                                SizedBox(
-                                                                                  height: 10.0,
-                                                                                ),
-                                                                                FlatButton(
-                                                                                    color: Colors.pinkAccent,
-                                                                                    child: Text('Update Location/Destination'),
-                                                                                    onPressed: () async {
-                                                                                      if (_formkey.currentState.validate()) {
-                                                                                        Navigator.pop(context);
-                                                                                        await DatabaseService(uid: user.uid).UpdateFavourites(key, val);
-                                                                                      }
-                                                                                    }),
-                                                                              ]),
-                                                                            ),
-                                                                          );
-                                                                        },
-                                                                      );
-                                                                    });
-                                                                  })),
-                                                    ),
-                                                  ),
+                                              ),
+                                              Tooltip(
+                                                message: 'Non-functional',
+                                                child: IconButton(
+                                                  icon: Icon(Icons.add_circle,
+                                                      color:
+                                                          Colors.blueGrey[800]),
+                                                  onPressed: () {},
                                                 ),
-                                              ],
-                                            ),
+                                              )
+                                            ],
                                           );
                                         }
+                                        //End Card
                                       }),
                                 );
                               } else {

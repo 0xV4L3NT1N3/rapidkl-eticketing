@@ -4,7 +4,7 @@ class PriceChecker {
     if (place == 'Merdeka') {
       price = 1.20;
     } else {
-      price = 0;
+      price = 1.00;
     }
     return price;
   }

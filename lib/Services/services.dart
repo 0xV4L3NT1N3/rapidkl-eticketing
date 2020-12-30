@@ -58,8 +58,7 @@ class AuthService {
       await DatabaseService(uid: user.uid).UpdateProfilePic(
           'https://www.nailseatowncouncil.gov.uk/wp-content/uploads/blank-profile-picture-973460_1280.jpg');
       await DatabaseService(uid: user.uid).UpdateFavourites(
-          ['Home', 'Work', 'School', 'Misc', 'Misc'],
-          ['Home', 'Work', 'School', 'Misc', 'Misc']);
+          ['Home', 'Work', 'School'], ['Home', 'Work', 'School']);
       return _userfrFirebaseUser(user);
     } catch (e) {
       print(e.toString());
