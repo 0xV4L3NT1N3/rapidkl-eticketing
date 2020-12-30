@@ -289,7 +289,8 @@ class _HomeState extends State<Home> {
 
                 // Favourites text
                 Padding(
-                  padding: const EdgeInsets.only(top: 20.0, left: 15.0),
+                  padding:
+                      const EdgeInsets.only(top: 20.0, left: 15.0, bottom: 10),
                   child: Text(
                     'Favourites',
                     style: TextStyle(
@@ -552,7 +553,7 @@ class _HomeState extends State<Home> {
                                                   });
                                                 },
                                                 child: Container(
-                                                  height: 60,
+                                                  height: 70,
                                                   width: 220,
                                                   child: Card(
                                                     child: ListTile(
