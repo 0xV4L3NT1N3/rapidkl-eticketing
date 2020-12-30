@@ -114,6 +114,8 @@ class _NewsState extends State<News> with SingleTickerProviderStateMixin {
           ],
         ),
 
+
+
         // News cards
         StreamBuilder<NewsFunc>(
           stream: UserNews(docname: 'newstuff').newsstuff,
@@ -128,13 +130,86 @@ class _NewsState extends State<News> with SingleTickerProviderStateMixin {
                 child: ListView.builder(
                     shrinkWrap: true,
                     itemCount: arr.length,
+                    // ignore: missing_return
                     itemBuilder: (context, index) {
-                      return GestureDetector(
+                      if(index == 0){
+                        return Column(
+                          children: [
+                            Card(
+                              margin:
+                              EdgeInsets.only(left: 10, right: 10, bottom: 5),
+                              elevation: 2,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0),
+                              ),
+                              child: Column(
+                                children: [
+                                  SizedBox(height: 10.0,),
+                                  Text(
+                                    'Train Times',
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.blueGrey[800]),
+                                  ),
+                                  Divider(
+                                    thickness: 2.0,
+                                  ),
+                                  Text('Next Train In :'),
+                                  SizedBox(height: 20.0,),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Column(
+                                        children: [
+                                          Padding(
+                                            padding : EdgeInsets.only(left: 3.0) ,
+                                              child: Text('Kajang',style: TextStyle(fontWeight: FontWeight.bold),)),
+                                          SizedBox(height: 10.0,),
+                                          Text('3 mins'),
+                                          SizedBox(height: 10.0,),
+                                          Text('6 mins'),
+                                          SizedBox(height: 10.0,),
+                                          Text('9 mins'),
+                                        ],
+                                      ),
+                                      SizedBox(width: 100.0, height: 40.0,
+                                        child: Padding(
+                                            padding: EdgeInsets.only(left: 19.0),
+                                            child: Icon(Icons.access_time_outlined)),),
+                                      Padding(
+                                        padding: EdgeInsets.only(),
+                                        child: Column(
+                                          children: [
+                                            Padding(
+                                                padding : EdgeInsets.only(left: 8.0) ,
+                                                child: Text('Sungai Buloh',style: TextStyle(fontWeight: FontWeight.bold),)),
+                                            SizedBox(height: 10.0,),
+                                            Text('3 mins'),
+                                            SizedBox(height: 10.0,),
+                                            Text('6 mins'),
+                                            SizedBox(height: 10.0,),
+                                            Text('9 mins'),
+                                          ],
+                                        ),
+                                      ),
+
+                                    ],
+                                  ),
+                                  SizedBox(height: 10.0,),
+                                ],
+                              ),
+                            ),
+                        SizedBox(
+                          height: 10.0,
+                        ),
+                        GestureDetector(
                         child: Container(
-                          height: 120,
+                        height: 120,
+                          width: double.maxFinite,
                           child: Card(
                             margin:
-                                EdgeInsets.only(left: 10, right: 10, bottom: 5),
+                            EdgeInsets.only(left: 10, right: 10, bottom: 5),
                             elevation: 2,
                             // Prevents picture from overriding card borders
                             clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -159,7 +234,7 @@ class _NewsState extends State<News> with SingleTickerProviderStateMixin {
                                   top: 15,
                                   child: Column(
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         arr[index],
@@ -178,7 +253,7 @@ class _NewsState extends State<News> with SingleTickerProviderStateMixin {
                                             left: 110.0, top: 25),
                                         child: Text('2 hours ago',
                                             style:
-                                                TextStyle(color: Colors.grey)),
+                                            TextStyle(color: Colors.grey)),
                                       ),
                                     ],
                                   ),
@@ -187,7 +262,71 @@ class _NewsState extends State<News> with SingleTickerProviderStateMixin {
                             ),
                           ),
                         ),
-                      );
+                      ),
+                          ],
+                        );
+                      }
+                      else{
+                        return GestureDetector(
+                          child: Container(
+                            height: 120,
+                            child: Card(
+                              margin:
+                              EdgeInsets.only(left: 10, right: 10, bottom: 5),
+                              elevation: 2,
+                              // Prevents picture from overriding card borders
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              borderOnForeground: true,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0),
+                              ),
+                              child: Stack(
+                                children: <Widget>[
+                                  Container(
+                                    height: 120,
+                                    width: 120,
+                                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(15))),
+                                    child: Image.network(arr2[index],
+                                        fit: BoxFit.fill),
+                                  ),
+                                  Positioned(
+                                    left: 130,
+                                    top: 15,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          arr[index],
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.blueGrey[800],
+                                              fontSize: 22),
+                                        ),
+                                        Text(arr3[index],
+                                            style: TextStyle(
+                                                color: Colors.grey,
+                                                fontSize: 15)),
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 110.0, top: 25),
+                                          child: Text('2 hours ago',
+                                              style:
+                                              TextStyle(color: Colors.grey)),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      }
                     }),
               );
             } else {
