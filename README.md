@@ -1,4 +1,4 @@
-# Rapidklmobileapp
+# RapidKL E-Ticketing 
 Digital ticketing to eliminate the use of physical tokens. A Flutter application to simulate the use of tokens for Malaysia's Mass Rapid Transit ( MRT ) system and truly go cashless and contactless. 
 
 ## Features 
@@ -11,10 +11,26 @@ Digital ticketing to eliminate the use of physical tokens. A Flutter application
 
 ## Screenshots
 
+<p float="left">
+
+<img src="https://user-images.githubusercontent.com/33112835/103404663-6ad9d780-4b8f-11eb-8dd6-5f19970f8cd5.png" width="237" height="403"/>
+
+<img src="https://user-images.githubusercontent.com/33112835/103404697-8cd35a00-4b8f-11eb-9caf-2b83fd75455f.png" width="237" height="403"/>
+
+<img src="https://user-images.githubusercontent.com/33112835/103404714-98bf1c00-4b8f-11eb-9294-e276f70aa3a3.png" width="237" height="403"/>
+
+<img src="https://user-images.githubusercontent.com/33112835/103404744-b096a000-4b8f-11eb-95d3-9cfb30aee0bf.png" width="237" height="403"/>
+
+<img src="https://user-images.githubusercontent.com/33112835/103404769-c4420680-4b8f-11eb-8e13-301b5c8c21c6.png" width="237" height="403"/>
+
+<img src="https://user-images.githubusercontent.com/33112835/103404793-d2902280-4b8f-11eb-961e-dc02ace99387.png" width="237" height="403"/>
+
+</p>
+
 ## Getting Started
 1. Setup [Flutter](https://flutter.dev/docs/get-started/install)
 2. Git clone this project  
-`$ git clone https://github.com/mdanics/fluttergram.git`
+`$ git clone https://github.com/V4L3NT1N3/rapidklmobileapp.git`
 3. Run it on an emulator/device from Android Studio , VS Code or your preferred editor
 
 This project uses [Firebase](https://firebase.google.com/) , which should be accesible anywhere with an Internet connection. No setup is required.
