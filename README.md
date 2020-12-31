@@ -13,6 +13,14 @@ Digital ticketing to eliminate the use of physical tokens. A Flutter application
 
 <p float="left">
 
+<img src="https://user-images.githubusercontent.com/33112835/103415978-78a75100-4bbf-11eb-84d1-f15cfca408d4.gif" width="237" height="403"/>
+
+<img src="https://user-images.githubusercontent.com/33112835/103415990-80ff8c00-4bbf-11eb-8258-5170fbb8d793.gif" width="237" height="403"/>
+
+</p>
+
+<p float="left">
+
 <img src="https://user-images.githubusercontent.com/33112835/103404663-6ad9d780-4b8f-11eb-8dd6-5f19970f8cd5.png" width="237" height="403"/>
 
 <img src="https://user-images.githubusercontent.com/33112835/103404697-8cd35a00-4b8f-11eb-9caf-2b83fd75455f.png" width="237" height="403"/>
