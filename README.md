@@ -41,6 +41,8 @@ Digital ticketing to eliminate the use of physical tokens. A Flutter application
 `$ git clone https://github.com/V4L3NT1N3/rapidklmobileapp.git`
 3. Run it on an emulator/device from Android Studio , VS Code or your preferred editor
 
+Alternatively , you may [download](https://github.com/V4L3NT1N3/rapidklmobileapp/releases/download/v1.0-alpha/rapidkl.apk) the APK release here.
+
 This project uses [Firebase](https://firebase.google.com/) , which should be accesible anywhere with an Internet connection. No setup is required.
 
 ## Future Improvements 
