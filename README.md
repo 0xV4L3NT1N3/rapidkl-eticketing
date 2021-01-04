@@ -1,5 +1,5 @@
 # RapidKL E-Ticketing 
-Digital ticketing to eliminate the use of physical cards and tokens. A Flutter application to simulate the use of tokens for Malaysia's Mass Rapid Transit ( MRT ) system and truly go cashless and contactless. 
+Digital ticketing to eliminate the use of physical cards and tokens. A Flutter application to simulate the use of tickets for Malaysia's Mass Rapid Transit ( MRT ) system and truly go cashless and contactless. 
 
 ## Features 
 * Book tickets 
